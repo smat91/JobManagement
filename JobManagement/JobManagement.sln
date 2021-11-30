@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3AF69BF0-F864-4134-9008-2985064A4778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3AF69BF0-F864-4134-9008-2985064A4778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designs", "Designs", "{DC6B8E22-443E-479B-BC32-60FD3AE10A3D}"
+	ProjectSection(SolutionItems) = preProject
+		Designs\DataLayers.drawio = Designs\DataLayers.drawio
+		Designs\UML_BusinessLayer.drawio = Designs\UML_BusinessLayer.drawio
+		Designs\UML_DataAccessLayer.drawio = Designs\UML_DataAccessLayer.drawio
+		Designs\UML_PresentationLayer.drawio = Designs\UML_PresentationLayer.drawio
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
