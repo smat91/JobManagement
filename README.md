@@ -1,6 +1,6 @@
 # Semesterprojekt: JobManager
 ### Autor des Projekts: Thomas Kehl
-<b>Abgabedatum: bis zum 19.09.2021 / 23:00 Uhr</b>
+<b>Abgabedatum: bis zum 2. März 2021, 23:55</b>
 
 ____________________________________________________________________________________________________________
 
