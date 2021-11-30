@@ -15,9 +15,11 @@ Das im Unterricht erworbene Wissen bzgl. Datenbankentwicklung und Softwareentwic
 soll im Rahmen dieser Projektarbeit weiter vertieft werden.
 Es soll für die Muster AG eine Datenbankapplikation entwickelt werden, in der folgende Daten
 verwaltet werden können:
+
 - Kunden und Adressen
 - Artikel und Artikelgruppen
 - Aufträge und Auftragspositionen
+
 Grundlagen werden bzw. wurden in den Modulen «Datenbanken» und «Programming
 Advanced I» erarbeitet.
 Die weitere Theorie für die Umsetzung der in diesem Dokument genannten Anforderungen,
