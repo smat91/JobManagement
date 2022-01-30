@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="DataTransferObjects\" />
-    <Folder Include="Context\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
