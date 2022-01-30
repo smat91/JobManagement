@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03_DataAccessLayer", "DataAccessLayer\03_DataAccessLayer.csproj", "{3AF69BF0-F864-4134-9008-2985064A4778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3AF69BF0-F864-4134-9008-2985064A4778}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02_BusinessLayer", "BusinessLayer\02_BusinessLayer.csproj", "{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01_PresentationLayer", "PresentationLayer\01_PresentationLayer.csproj", "{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designs", "Designs", "{DC6B8E22-443E-479B-BC32-60FD3AE10A3D}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designs", "Designs", "{DC6B
 		Designs\UML_DataAccessLayer.drawio = Designs\UML_DataAccessLayer.drawio
 		Designs\UML_PresentationLayer.drawio = Designs\UML_PresentationLayer.drawio
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{98678F32-C3CB-4175-91AD-9B50CF04F690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E49AF0EB-89C8-4BA0-BBB2-9F7EFC36FE7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCEEB3E6-AB34-4F3B-9CFC-BDE0E3FE63E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98678F32-C3CB-4175-91AD-9B50CF04F690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98678F32-C3CB-4175-91AD-9B50CF04F690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98678F32-C3CB-4175-91AD-9B50CF04F690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98678F32-C3CB-4175-91AD-9B50CF04F690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
