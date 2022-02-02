@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
-    public class CustomerDto
+    public class Customer
     {
         public int Id { get; set; }
         [Required]
@@ -20,6 +20,6 @@ namespace DataAccessLayer.Models
         public string Password { get; set; }
         public string Website { get; set; }
         [Required]
-        public virtual AddressDto Address { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

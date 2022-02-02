@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
-    public class ItemDto
+    public class Item
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public virtual ItemGroupDto Group { get; set; }
+        public virtual ItemGroup Group { get; set; }
         [Required]
         [Column(TypeName = "decimal(7,2)")]
         public decimal Price { get; set; }

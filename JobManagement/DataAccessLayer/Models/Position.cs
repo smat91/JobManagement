@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
-    public class PositionDto
+    public class Position
     {
         public int Id { get; set; }
         [Required]
-        public virtual ItemDto Item { get; set; }
+        public virtual Item Item { get; set; }
         [Required]
         public int Amount { get; set; }
     }

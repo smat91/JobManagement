@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
-    public class AddressDto
+    public class Address
     {
         public int Id { get; set; }
         [Required]

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
-    public class ItemGroupDto
+    public class ItemGroup
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public virtual ItemGroupDto ParentItemGroup { get; set; }
+        public virtual ItemGroup ParentItemGroup { get; set; }
     }
 }
