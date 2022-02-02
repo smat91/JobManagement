@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.DataTransferObjects
 {
-    public class OrderDto
+    public class OrderDto : Order
     {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public CustomerDto Customer { get; set; }
-        public ICollection<PositionDto> Positions { get; set; }
+
     }
 }
