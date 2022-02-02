@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.DynamicProxy.Generators.Emitters;
 using DataAccessLayer.Models;
+using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
@@ -15,21 +17,23 @@ namespace DataAccessLayer.Context
 {
     public class JobManagementContext : DbContext
     {
-        public DbSet<AddressDto> Addresses { get; set; }
-        public DbSet<CustomerDto> Customers { get; set; }
-        public DbSet<ItemDto> Items { get; set; }
-        public DbSet<ItemGroupDto> ItemGroups { get; set; }
-        public DbSet<OrderDto> Orders { get; set; }
-        public DbSet<PositionDto> Positions { get; set; }
+        private static string ConnectionString { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemGroup> ItemGroups { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<ItemGroupHirarchy> ItemGroupHirarchy { get; set; }
+
+        public JobManagementContext(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("JobManagement"));
+            optionsBuilder.UseSqlServer(ConnectionString);
 
             optionsBuilder.UseLazyLoadingProxies();
 
@@ -38,7 +42,7 @@ namespace DataAccessLayer.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ;
+            modelBuilder.Entity<ItemGroupHirarchy>().HasNoKey(); ;
         }
     }
 }
