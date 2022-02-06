@@ -8,28 +8,27 @@ using DataAccessLayer.DataTransferObjects;
 
 namespace DataAccessLayer.Repositories
 {
-    public class ItemRepository
+    public class PositionRepository
     {
         private static string ConnectionString { get; set; }
 
-        public ItemRepository(string connectionString)
+        public PositionRepository(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
-        public ItemDto GetItemById(int id)
+        public PositionDto GetPositionById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                var item = context.Items.Find(id);
+                var position = context.Positions.Find(id);
 
-                if (item != null)
-                    return new ItemDto()
+                if (position != null)
+                    return new PositionDto()
                     {
-                        Id = item.Id,
-                        Name = item.Name,
-                        Group = item.Group,
-                        Price = item.Price
+                        Id = position.Id,
+                        Item = position.Item,
+                        Amount = position.Amount
                     };
                 else
                 {
@@ -38,29 +37,29 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItem(ItemDto itemDto)
+        public void AddNewPosition(PositionDto positionDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Add(itemDto);
+                context.Positions.Add(positionDto);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteItemByDto(ItemDto itemDto)
+        public void DeletePositionByDto(PositionDto positionDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Remove(itemDto);
+                context.Positions.Remove(positionDto);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateItemByDto(ItemDto itemDto)
+        public void UpdatePositionByDto(PositionDto positionDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Update(itemDto);
+                context.Positions.Update(positionDto);
                 context.SaveChanges();
             }
         }
