@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public ItemDto GetItemById(int id)
+        public ItemDto GetItemGroupById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
