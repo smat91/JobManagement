@@ -38,7 +38,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public  Dictionary<string, int> GetItemsWithLevel()
+        public Dictionary<string, int> GetItemsWithLevel()
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
