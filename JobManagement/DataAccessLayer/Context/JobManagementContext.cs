@@ -24,7 +24,9 @@ namespace DataAccessLayer.Context
         public DbSet<ItemGroup> ItemGroups { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Position> Positions { get; set; }
+
         public DbSet<ItemGroupHirarchy> ItemGroupHirarchy { get; set; }
+        public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
 
         public JobManagementContext(string connectionString)
         {
@@ -33,16 +35,39 @@ namespace DataAccessLayer.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder
+                .UseSqlServer(ConnectionString);
 
-            optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder
+                .UseLazyLoadingProxies();
 
-            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+            optionsBuilder
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItemGroupHirarchy>().HasNoKey(); ;
+            // temporal data tables
+            modelBuilder
+                .Entity<Address>()
+                .ToTable("Addresses", b => b.IsTemporal());
+            modelBuilder
+                .Entity<Customer>()
+                .ToTable("Customers", b => b.IsTemporal());
+            modelBuilder
+                .Entity<Order>()
+                .ToTable("Orders", b => b.IsTemporal());
+            modelBuilder
+                .Entity<Item>()
+                .ToTable("Items", b => b.IsTemporal());
+
+            // query types
+            modelBuilder
+                .Entity<ItemGroupHirarchy>()
+                .HasNoKey(); ;
+            modelBuilder
+                .Entity<InvoiceRequest>()
+                .HasNoKey(); ;
         }
     }
 }

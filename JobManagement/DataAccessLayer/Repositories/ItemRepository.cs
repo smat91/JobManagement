@@ -29,7 +29,8 @@ namespace DataAccessLayer.Repositories
                         Id = item.Id,
                         Name = item.Name,
                         Group = item.Group,
-                        Price = item.Price
+                        Price = item.Price,
+                        Vat = item.Vat
                     };
                 else
                 {

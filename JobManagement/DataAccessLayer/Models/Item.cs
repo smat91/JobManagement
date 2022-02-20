@@ -18,5 +18,8 @@ namespace DataAccessLayer.Models
         [Required]
         [Column(TypeName = "decimal(7,2)")]
         public decimal Price { get; set; }
+        [Required]
+        [Column(TypeName = "decimal(7,2)")]
+        public decimal Vat { get; set; }
     }
 }
