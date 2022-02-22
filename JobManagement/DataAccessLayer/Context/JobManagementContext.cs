@@ -25,8 +25,9 @@ namespace DataAccessLayer.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<Position> Positions { get; set; }
 
-        public DbSet<ItemGroupHirarchy> ItemGroupHirarchy { get; set; }
+        public DbSet<ItemGroupHierarchyRequest> ItemGroupHierarchyRequest { get; set; }
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
+        public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
 
         public JobManagementContext(string connectionString)
         {
@@ -63,10 +64,13 @@ namespace DataAccessLayer.Context
 
             // query types
             modelBuilder
-                .Entity<ItemGroupHirarchy>()
+                .Entity<ItemGroupHierarchyRequest>()
                 .HasNoKey(); ;
             modelBuilder
                 .Entity<InvoiceRequest>()
+                .HasNoKey(); ;
+            modelBuilder
+                .Entity<OrderNumbersRequest>()
                 .HasNoKey(); ;
         }
     }
