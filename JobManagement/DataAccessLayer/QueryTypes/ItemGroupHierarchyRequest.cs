@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.QueryTypes
 {
-    public class ItemGroupHirarchy
+    public class ItemGroupHierarchyRequest
     {
         public string Name { get; set; }
         public int ProductLevel { get; set; }
