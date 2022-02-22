@@ -42,8 +42,9 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                return context.ItemGroupHirarchy.FromSqlRaw(
-                        @"WITH [CTE_Products] (
+                return context.ItemGroupHierarchyRequest.FromSqlRaw(
+                        @"
+                        WITH [CTE_Products] (
 	                        [Id], [Name], [ParentItemGroupId], [ProductLevel] )
                         AS (
 	                        SELECT	[Id],
@@ -64,7 +65,8 @@ namespace DataAccessLayer.Repositories
                         SELECT	[Name] ,
 		                        [ProductLevel]
                         FROM [CTE_Products]
-                        ORDER BY [ProductLevel], [Name];"
+                        ORDER BY [ProductLevel], [Name];
+                        "
                     )
                     .ToDictionary(res => res.Name, res => res.ProductLevel);
             }
