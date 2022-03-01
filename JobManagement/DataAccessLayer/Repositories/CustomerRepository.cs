@@ -27,16 +27,16 @@ namespace DataAccessLayer.Repositories
         }
 
         public Dictionary<Property, String> SearchTerm { get; set; }
-        private static string ConnectionString { get; set; }
+        private static string connectionString_;
 
         public CustomerRepository(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString_ = connectionString;
         }
 
         public ICustomer GetCustomerById(int id)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 var customer = context.Customers.Find(id);
                 return customer;
@@ -45,7 +45,7 @@ namespace DataAccessLayer.Repositories
 
         public List<ICustomer> GetCustomersBySearchTerm(Dictionary<Property, String> searchTerm)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 List<ICustomer> customerList = new List<ICustomer>();
 
@@ -61,7 +61,7 @@ namespace DataAccessLayer.Repositories
 
         public List<ICustomer> GetAllCustomers()
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 List<ICustomer> customerList = new List<ICustomer>();
                     
@@ -74,7 +74,7 @@ namespace DataAccessLayer.Repositories
 
         public void AddNewCustomer(ICustomer customer)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Customers.Add((Customer)customer);
                 context.SaveChanges();
@@ -83,7 +83,7 @@ namespace DataAccessLayer.Repositories
 
         public void DeleteCustomerByDto(ICustomer customer)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Customers.Remove((Customer)customer);
                 context.SaveChanges();
@@ -92,7 +92,7 @@ namespace DataAccessLayer.Repositories
 
         public void UpdateCustomerByDto(ICustomer customer)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Customers.Update((Customer)customer);
                 context.SaveChanges();
@@ -101,7 +101,7 @@ namespace DataAccessLayer.Repositories
 
         public void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 var customerTemp = context.Customers.Find(customer);
                 var addressTemp = context.Addresses.Find(address);
@@ -113,7 +113,7 @@ namespace DataAccessLayer.Repositories
                     customerTemp.Address = addressTemp;
                 else
                 {
-                    AddressRepository addressRepository = new AddressRepository(ConnectionString);
+                    AddressRepository addressRepository = new AddressRepository(connectionString_);
                     addressRepository.AddNewAddress(address);
                     addressTemp = context.Addresses.Find(address);
                 }

@@ -12,16 +12,16 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemRepository
     {
-        private static string ConnectionString { get; set; }
+        private static string connectionString_;
 
         public ItemRepository(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString_ = connectionString;
         }
 
         public IItem GetItemById(int id)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 var item = context.Items.Find(id);
                 return item;
@@ -30,7 +30,7 @@ namespace DataAccessLayer.Repositories
 
         public void AddNewItem(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Items.Add((Item)item);
                 context.SaveChanges();
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Repositories
 
         public void DeleteItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Items.Remove((Item)item);
                 context.SaveChanges();
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
 
         public void UpdateItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Items.Update((Item)item);
                 context.SaveChanges();

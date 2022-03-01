@@ -12,16 +12,16 @@ namespace DataAccessLayer.Repositories
 {
     public class AddressRepository
     {
-        private static string ConnectionString { get; set; }
+        private static string connectionString_;
 
         public AddressRepository(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString_ = connectionString;
         }
 
         public IAddress GetAddressById(int id)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 var address = context.Addresses.Find(id);
                 return address;
@@ -30,7 +30,7 @@ namespace DataAccessLayer.Repositories
 
         public void AddNewAddress(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Addresses.Add((Address)addressDto);
                 context.SaveChanges();
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Repositories
 
         public void DeleteAddressByDto(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Addresses.Remove((Address)addressDto);
                 context.SaveChanges();
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
 
         public void UpdateAddressByDto(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Addresses.Update((Address)addressDto);
                 context.SaveChanges();

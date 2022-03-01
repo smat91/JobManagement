@@ -17,7 +17,7 @@ namespace DataAccessLayer.Context
 {
     public class JobManagementContext : DbContext
     {
-        private static string ConnectionString { get; set; }
+        private static string connectionString_;
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -28,12 +28,12 @@ namespace DataAccessLayer.Context
 
         public JobManagementContext(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString_ = connectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.UseSqlServer(connectionString_);
 
             optionsBuilder.UseLazyLoadingProxies();
 
