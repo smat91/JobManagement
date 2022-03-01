@@ -72,6 +72,17 @@
                      Style="{StaticResource ModernTextbox}"
                 ></TextBox>
 
+            <TextBox Width="250"
+                    Height="40"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Center"
+                     Margin="5"
+                     Grid.Column="1"
+                     Style="{StaticResource ModernTextbox}"
+                ></TextBox>
+            
+            
+
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"/>
