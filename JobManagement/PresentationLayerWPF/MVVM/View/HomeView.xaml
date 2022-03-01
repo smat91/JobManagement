@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock Text="Home"
+        <TextBlock Text="Dashboard"
                    Foreground="White"
                    FontSize="20"
                    HorizontalAlignment="Left"
-                   Margin="0,0,0,20"/>
+                   Margin="10,0,0,20"/>
 
         <StackPanel Orientation="Horizontal">
             <Border Width="400"
@@ -19,6 +19,21 @@
                 
             </Border>
         </StackPanel>
+        <Grid>
+            <DataGrid x:Name="DataGridJahresvergleich"
+                      HorizontalAlignment="Stretch"
+                      Margin="0,0,0,0"
+                      VerticalAlignment="Top"
+                      Height="200"
+                      Width="800"
+                      >
+                
+            </DataGrid>
+
+            <DataGrid.Resources>
+                
+            </DataGrid.Resources>
+        </Grid>
 
     </StackPanel>
 </UserControl>
