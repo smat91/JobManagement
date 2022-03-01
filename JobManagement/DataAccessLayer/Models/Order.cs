@@ -16,6 +16,6 @@ namespace DataAccessLayer.Models
         [Required]
         public ICustomer Customer { get; set; }
         [Required]
-        public ICollection<Position> Positions { get; set; }
+        public ICollection<IPosition> Positions { get; set; }
     }
 }

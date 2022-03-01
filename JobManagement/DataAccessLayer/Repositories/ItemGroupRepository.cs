@@ -25,18 +25,7 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var itemGroup = context.ItemGroups.Find(id);
-
-                if (itemGroup != null)
-                    return new ItemGroup()
-                    {
-                        Id = itemGroup.Id,
-                        Name = itemGroup.Name,
-                        ParentItemGroup = itemGroup.ParentItemGroup
-                    };
-                else
-                {
-                    return null;
-                }
+                return itemGroup;
             }
         }
 
@@ -72,29 +61,29 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItemGroup(ItemGroupDto itemGroupDto)
+        public void AddNewItemGroup(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.ItemGroups.Add(itemGroupDto);
+                context.ItemGroups.Add((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteItemGroupByDto(ItemGroupDto itemGroupDto)
+        public void DeleteItemGroupByDto(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.ItemGroups.Remove(itemGroupDto);
+                context.ItemGroups.Remove((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateItemGroupByDto(ItemGroupDto itemGroupDto)
+        public void UpdateItemGroupByDto(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.ItemGroups.Update(itemGroupDto);
+                context.ItemGroups.Update((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
         }

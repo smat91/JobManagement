@@ -99,30 +99,30 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void SetAddressByCustomerDtoAndAddressDto(CustomerDto customerDto, AddressDto addressDto)
+        public void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                var customer = context.Customers.Find(customerDto);
-                var address = context.Addresses.Find(addressDto);
+                var customerTemp = context.Customers.Find(customer);
+                var addressTemp = context.Addresses.Find(address);
 
-                if (customer == null)
+                if (customerTemp == null)
                     return;
 
-                if (address != null)
-                    customer.Address = address;
+                if (addressTemp != null)
+                    customerTemp.Address = addressTemp;
                 else
                 {
                     AddressRepository addressRepository = new AddressRepository(ConnectionString);
-                    addressRepository.AddNewAddress(addressDto);
-                    address = context.Addresses.Find(addressDto);
+                    addressRepository.AddNewAddress(address);
+                    addressTemp = context.Addresses.Find(address);
                 }
 
-                customer.Address = address;
+                customerTemp.Address = addressTemp;
             }
         }
 
-        private bool EvaluateSerachTerm(Dictionary<Property, String> searchTerm, Customer customer)
+        private bool EvaluateSerachTerm(Dictionary<Property, String> searchTerm, ICustomer customer)
         {
             bool result = true;
 

@@ -17,5 +17,6 @@ namespace DataAccessLayer.DataTransferObjects
         public string EMail { get; set; }
         public string Password { get; set; }
         public string Website { get; set; }
+        public IAddress Address { get; set; }
     }
 }

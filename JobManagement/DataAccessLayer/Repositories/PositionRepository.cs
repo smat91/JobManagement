@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,49 +19,38 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public PositionDto GetPositionById(int id)
+        public IPosition GetPositionById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var position = context.Positions.Find(id);
-
-                if (position != null)
-                    return new PositionDto()
-                    {
-                        Id = position.Id,
-                        Item = position.Item,
-                        Amount = position.Amount
-                    };
-                else
-                {
-                    return null;
-                }
+                return position;
             }
         }
 
-        public void AddNewPosition(PositionDto positionDto)
+        public void AddNewPosition(IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Positions.Add(positionDto);
+                context.Positions.Add((Position)position);
                 context.SaveChanges();
             }
         }
 
-        public void DeletePositionByDto(PositionDto positionDto)
+        public void DeletePositionByDto(IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Positions.Remove(positionDto);
+                context.Positions.Remove((Position)position);
                 context.SaveChanges();
             }
         }
 
-        public void UpdatePositionByDto(PositionDto positionDto)
+        public void UpdatePositionByDto(IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Positions.Update(positionDto);
+                context.Positions.Update((Position)position);
                 context.SaveChanges();
             }
         }

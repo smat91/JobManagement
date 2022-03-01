@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces
 {
-    internal interface IPosition
+    public interface IPosition
     {
         public int Id { get; set; }
         public IItem Item { get; set; }
