@@ -27,12 +27,27 @@
                       Height="200"
                       Width="800"
                       >
-                
+
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Kategorie"/>
+                    <DataGridTextColumn Header="YOY"/>
+                    <DataGridTextColumn Header="Q4 2021"/>
+                    <DataGridTextColumn Header="Q3 2021"/>
+                    <DataGridTextColumn Header="Q2 2021"/>
+                    <DataGridTextColumn Header="Q1 2021"/>
+                    <DataGridTextColumn Header="Q4 2020"/>
+                    <DataGridTextColumn Header="Q3 2020"/>
+                    <DataGridTextColumn Header="Q2 2020"/>
+                    <DataGridTextColumn Header="Q1 2020"/>
+                    <DataGridTextColumn Header="Q4 2019"/>
+                    <DataGridTextColumn Header="Q3 2019"/>
+                    <DataGridTextColumn Header="Q2 2019"/>
+                    <DataGridTextColumn Header="Q1 2019"/>
+
+                </DataGrid.Columns>
             </DataGrid>
 
-            <DataGrid.Resources>
-                
-            </DataGrid.Resources>
         </Grid>
 
     </StackPanel>

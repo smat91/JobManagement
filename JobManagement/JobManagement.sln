@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designs", "Designs", "{DC6B
 		Designs\UML_PresentationLayer.drawio = Designs\UML_PresentationLayer.drawio
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer_\PresentationLayer.csproj", "{30F5AB19-0309-4958-A920-64528AC33867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayerWPF", "PresentationLayer_\PresentationLayerWPF.csproj", "{30F5AB19-0309-4958-A920-64528AC33867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
