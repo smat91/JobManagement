@@ -8,13 +8,11 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class ItemConnection
     {
-        private static string connectionString_ = "";
         private readonly ItemRepository itemRepository_;
 
         public ItemConnection(string connectionString)
         {
-            connectionString_ = connectionString;
-            itemRepository_ = new ItemRepository(connectionString_);
+            itemRepository_ = new ItemRepository(connectionString);
         }
 
         public IItem GetItemById(int id)
