@@ -7,16 +7,17 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
     public sealed class DataAccessConnection
     {
         private static readonly object lock_ = new object ();  
-        private static DataAccessConnection instance_ = null;
+        private static DataAccessConnection? instance_ = null;
 
         public IConfiguration Configuration { get; private set; }
 
-        private readonly AddressRepository addressRepository_;
-        private readonly CustomerRepository customerRepository_;
-        private readonly ItemGroupRepository itemGroupRepository_;
-        private readonly OrderRepository orderRepository_;
-        private readonly PositionRepository positionRepository_;
-        
+        //public readonly AddressConnection AddressConnection;
+        //public readonly CustomerConnection CustomerConnection;
+        public readonly ItemConnection ItemConnection;
+        //public readonly ItemGroupConnection ItemGroupConnection;
+        //public readonly OrderConnection OrderConnection;
+        //public readonly PositionConnection PositionConnection;
+
         DataAccessConnection()
         {
             var builder = new ConfigurationBuilder()
@@ -25,11 +26,12 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 
             Configuration = builder.Build();
 
-            addressRepository_ = new AddressRepository(Configuration.GetConnectionString("JobManagement"));
-            customerRepository_ = new CustomerRepository(Configuration.GetConnectionString("JobManagement"));
-            itemGroupRepository_ = new ItemGroupRepository(Configuration.GetConnectionString("JobManagement"));
-            orderRepository_ = new OrderRepository(Configuration.GetConnectionString("JobManagement"));
-            positionRepository_ = new PositionRepository(Configuration.GetConnectionString("JobManagement"));
+            //AddressConnection = new AddressConnection(Configuration.GetConnectionString("JobManagement"));
+            //CustomerConnection = new CustomerConnection(Configuration.GetConnectionString("JobManagement"));
+            //ItemGroupConnection = new ItemGroupConnection(Configuration.GetConnectionString("JobManagement"));
+            ItemConnection = new ItemConnection(Configuration.GetConnectionString("JobManagement"));
+            //OrderConnection = new OrderConnection(Configuration.GetConnectionString("JobManagement"));
+            //PositionConnection = new PositionConnection(Configuration.GetConnectionString("JobManagement"));
         }
 
         public static DataAccessConnection Instance
@@ -38,11 +40,7 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
             {
                 lock (lock_)
                 {
-                    if (instance_ == null)
-                    {
-                        instance_ = new DataAccessConnection();
-                    }
-                    return instance_;
+                    return instance_ ?? new DataAccessConnection();
                 }
             }
         }

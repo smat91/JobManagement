@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using PresentationLayer.MVVM.ViewModel.Models;
 
@@ -7,53 +8,34 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class ItemConnection
     {
-        private static string ConnectionString { get; set; }
+        private static string connectionString_ = "";
         private readonly ItemRepository itemRepository_;
 
         public ItemConnection(string connectionString)
         {
-            ConnectionString = connectionString;
-            itemRepository_ = new ItemRepository(ConnectionString);
+            connectionString_ = connectionString;
+            itemRepository_ = new ItemRepository(connectionString_);
         }
 
-        public Item GetItemById(int id)
+        public IItem GetItemById(int id)
         {
             var item = itemRepository_.GetItemById(id);
-
-            return new Item()
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Group = item.Group,
-                Price = item.Price
-            };
+            return item;
         }
 
-        public void AddNewItem(ItemDto itemDto)
+        public void AddNewItem(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
-            {
-                context.Items.Add(itemDto);
-                context.SaveChanges();
-            }
+            itemRepository_.AddNewItem(item);
         }
 
-        public void DeleteItemByDto(ItemDto itemDto)
+        public void DeleteItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
-            {
-                context.Items.Remove(itemDto);
-                context.SaveChanges();
-            }
+            itemRepository_.DeleteItemByDto(item);
         }
 
-        public void UpdateItemByDto(ItemDto itemDto)
+        public void UpdateItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(ConnectionString))
-            {
-                context.Items.Update(itemDto);
-                context.SaveChanges();
-            }
+            itemRepository_.UpdateItemByDto(item);
         }
     }
 }

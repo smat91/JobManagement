@@ -12,16 +12,16 @@ namespace DataAccessLayer.Repositories
 {
     public class PositionRepository
     {
-        private static string ConnectionString { get; set; }
+        private static string connectionString_;
 
         public PositionRepository(string connectionString)
         {
-            ConnectionString = connectionString;
+            connectionString_ = connectionString;
         }
 
         public IPosition GetPositionById(int id)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 var position = context.Positions.Find(id);
                 return position;
@@ -30,7 +30,7 @@ namespace DataAccessLayer.Repositories
 
         public void AddNewPosition(IPosition position)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Positions.Add((Position)position);
                 context.SaveChanges();
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Repositories
 
         public void DeletePositionByDto(IPosition position)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Positions.Remove((Position)position);
                 context.SaveChanges();
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
 
         public void UpdatePositionByDto(IPosition position)
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext(connectionString_))
             {
                 context.Positions.Update((Position)position);
                 context.SaveChanges();
