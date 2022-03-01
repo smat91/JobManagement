@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MVVM\model\**" />
-    <EmbeddedResource Remove="MVVM\model\**" />
-    <None Remove="MVVM\model\**" />
-    <Page Remove="MVVM\model\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="MVVM\View\CustomerView.xaml">
       <SubType>Designer</SubType>
     </Page>
