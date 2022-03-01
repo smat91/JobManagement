@@ -9,7 +9,7 @@ using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
-    class CustomerRepository
+    public class CustomerRepository
     {
         public enum Property
         {

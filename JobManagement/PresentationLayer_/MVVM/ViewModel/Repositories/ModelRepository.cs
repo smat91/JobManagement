@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 
@@ -16,6 +17,13 @@ namespace PresentationLayer.MVVM.Model
 
         public IConfiguration Configuration { get; private set; }
 
+        private readonly AddressRepository addressRepository_;
+        private readonly CustomerRepository customerRepository_;
+        private readonly ItemGroupRepository itemGroupRepository_;
+        private readonly ItemRepository itemRepository_;
+        private readonly OrderRepository orderRepository_;
+        private readonly PositionRepository positionRepository_;
+        
         ModelRepository()
         {
             var builder = new ConfigurationBuilder()
@@ -23,6 +31,13 @@ namespace PresentationLayer.MVVM.Model
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
+
+            addressRepository_ = new AddressRepository(Configuration.GetConnectionString("JobManagement"));
+            customerRepository_ = new CustomerRepository(Configuration.GetConnectionString("JobManagement"));
+            itemGroupRepository_ = new ItemGroupRepository(Configuration.GetConnectionString("JobManagement"));
+            itemRepository_ = new ItemRepository(Configuration.GetConnectionString("JobManagement"));
+            orderRepository_ = new OrderRepository(Configuration.GetConnectionString("JobManagement"));
+            positionRepository_ = new PositionRepository(Configuration.GetConnectionString("JobManagement"));
         }
 
         public static ModelRepository Instance
@@ -39,5 +54,7 @@ namespace PresentationLayer.MVVM.Model
                 }
             }
         }
+
+
     }
 }
