@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Models;
 
-namespace DataAccessLayer.DataTransferObjects
+namespace DataAccessLayer.Interfaces
 {
-    public class ItemDto : IItem
+    public interface IItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

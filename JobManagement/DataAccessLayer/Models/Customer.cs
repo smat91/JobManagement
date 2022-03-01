@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.Models
 {
-    public class Customer
+    public class Customer : ICustomer
     {
         public int Id { get; set; }
         [Required]
@@ -20,6 +21,6 @@ namespace DataAccessLayer.Models
         public string Password { get; set; }
         public string Website { get; set; }
         [Required]
-        public virtual Address Address { get; set; }
+        public IAddress Address { get; set; }
     }
 }

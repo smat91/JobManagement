@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Interfaces;
-using DataAccessLayer.Models;
 
-namespace DataAccessLayer.DataTransferObjects
+namespace DataAccessLayer.Interfaces
 {
-    public class CustomerDto : ICustomer
+    public interface ICustomer
     {
         public int Id { get; set; }
         public string Firstname { get; set; }

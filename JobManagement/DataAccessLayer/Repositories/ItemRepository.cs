@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,51 +19,38 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public ItemDto GetItemById(int id)
+        public IItem GetItemById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var item = context.Items.Find(id);
-
-                if (item != null)
-                    return new ItemDto()
-                    {
-                        Id = item.Id,
-                        Name = item.Name,
-                        Group = item.Group,
-                        Price = item.Price,
-                        Vat = item.Vat
-                    };
-                else
-                {
-                    return null;
-                }
+                return item;
             }
         }
 
-        public void AddNewItem(ItemDto itemDto)
+        public void AddNewItem(IItem item)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Add(itemDto);
+                context.Items.Add((Item)item);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteItemByDto(ItemDto itemDto)
+        public void DeleteItemByDto(IItem item)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Remove(itemDto);
+                context.Items.Remove((Item)item);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateItemByDto(ItemDto itemDto)
+        public void UpdateItemByDto(IItem item)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Items.Update(itemDto);
+                context.Items.Update((Item)item);
                 context.SaveChanges();
             }
         }

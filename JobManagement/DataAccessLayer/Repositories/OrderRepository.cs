@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,108 +19,97 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public OrderDto GetOrderById(int id)
+        public IOrder GetOrderById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var order = context.Orders.Find(id);
-
-                if (order != null)
-                    return new OrderDto()
-                    {
-                        Id = order.Id,
-                        Date = order.Date,
-                        Customer = order.Customer,
-                        Positions = order.Positions
-                    };
-                else
-                    return null;
+                return order;
             }
         }
 
-        public void AddNewOrder(OrderDto orderDto)
+        public void AddNewOrder(IOrder order)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Orders.Add(orderDto);
+                context.Orders.Add((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteOrderByDto(OrderDto orderDto)
+        public void DeleteOrderByDto(IOrder order)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Orders.Remove(orderDto);
+                context.Orders.Remove((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateOrderByDto(OrderDto orderDto)
+        public void UpdateOrderByDto(IOrder order)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Orders.Update(orderDto);
+                context.Orders.Update((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void AddNewPositionByOrderDtoAndPositionDto(OrderDto orderDto, PositionDto positionDto)
+        public void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                var order = context.Orders.Find(orderDto);
+                var orderTemp = context.Orders.Find(order);
 
-                if (order == null)
+                if (orderTemp == null)
                     return;
 
-                var position = context.Positions.Find(positionDto);
+                var positionTemp = context.Positions.Find(position);
 
-                if (position != null)
+                if (positionTemp != null)
                 {
                     PositionRepository positionRepository = new PositionRepository(ConnectionString);
-                    positionRepository.AddNewPosition(positionDto);
-                    position = context.Positions.Find(positionDto);
+                    positionRepository.AddNewPosition((Position)position);
+                    positionTemp = context.Positions.Find(position);
                 }
 
-                order.Positions.Add(position);
+                orderTemp.Positions.Add(positionTemp);
 
                 context.SaveChanges();
             }
         }
 
-        public void DeletePositionByOrderDtoAndPositionDto(OrderDto orderDto, PositionDto positionDto)
+        public void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                var order = context.Orders.Find(orderDto);
+                var orderTemp = context.Orders.Find(order);
 
-                if (order == null)
+                if (orderTemp == null)
                     return;
 
-                order.Positions.Remove(positionDto);
+                orderTemp.Positions.Remove((Position)position);
 
                 context.SaveChanges();
             }
         }
 
-        public void UpdatePositionByOrderDtoAndPositionDto(OrderDto orderDto, PositionDto positionDto)
+        public void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                var order = context.Orders.Find(orderDto);
+                var orderTemp = context.Orders.Find(order);
 
-                if (order == null)
+                if (orderTemp == null)
                     return;
 
-                var position = order.Positions
-                    .Where(pos => pos.Id == positionDto.Id)
+                var positionTemp = orderTemp.Positions
+                    .Where(pos => pos.Id == position.Id)
                     .FirstOrDefault();
 
-                if (position != null)
+                if (positionTemp != null)
                 {
-                    position.Item = positionDto.Item;
-                    position.Amount = positionDto.Amount;
+                    positionTemp = (Position)position;
                     context.SaveChanges();
                 }
                 else
