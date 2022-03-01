@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
@@ -33,105 +34,67 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public CustomerDto GetCustomerById(int id)
+        public ICustomer GetCustomerById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var customer = context.Customers.Find(id);
-
-                if (customer != null)
-                    return new CustomerDto()
-                    {
-                        Id = customer.Id,
-                        Firstname = customer.Firstname,
-                        Lastname = customer.Lastname,
-                        EMail = customer.EMail,
-                        Password = customer.Password,
-                        Website = customer.Website,
-                        Address = customer.Address
-                    };
-                else
-                {
-                    return null;
-                }
+                return customer;
             }
         }
 
-        public List<CustomerDto> GetCustomersBySearchTerm(Dictionary<Property, String> searchTerm)
+        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<Property, String> searchTerm)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                List<CustomerDto> customerList = new List<CustomerDto>();
+                List<ICustomer> customerList = new List<ICustomer>();
 
                 context.Customers
                     .Where(customer => EvaluateSerachTerm(searchTerm, customer))
                     .ToList()
-                    .ForEach(customer => customerList.Add(
-                            new CustomerDto()
-                            {
-                                Id = customer.Id,
-                                Firstname = customer.Firstname,
-                                Lastname = customer.Lastname,
-                                EMail = customer.EMail,
-                                Password = customer.Password,
-                                Website = customer.Website,
-                                Address = customer.Address
-                            }
-                        )
+                    .ForEach(customer => customerList.Add(customer)
                     );
 
                 return customerList;
             }
         }
 
-        public List<CustomerDto> GetAllCustomers()
+        public List<ICustomer> GetAllCustomers()
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                List<CustomerDto> customerList = new List<CustomerDto>();
+                List<ICustomer> customerList = new List<ICustomer>();
                     
                 context.Customers.ToList()
-                    .ForEach(customer => customerList.Add(
-                            new CustomerDto()
-                            {
-                                Id = customer.Id,
-                                Firstname = customer.Firstname,
-                                Lastname = customer.Lastname,
-                                EMail = customer.EMail,
-                                Password = customer.Password,
-                                Website = customer.Website,
-                                Address = customer.Address
-                            }
-                        )
-                    );
+                    .ForEach(customer => customerList.Add(customer));
 
                 return customerList;
             }
         }
 
-        public void AddNewCustomer(CustomerDto customerDto)
+        public void AddNewCustomer(ICustomer customer)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Customers.Add(customerDto);
+                context.Customers.Add((Customer)customer);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteCustomerByDto(CustomerDto customerDto)
+        public void DeleteCustomerByDto(ICustomer customer)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Customers.Remove(customerDto);
+                context.Customers.Remove((Customer)customer);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateCustomerByDto(CustomerDto customerDto)
+        public void UpdateCustomerByDto(ICustomer customer)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Customers.Update(customerDto);
+                context.Customers.Update((Customer)customer);
                 context.SaveChanges();
             }
         }

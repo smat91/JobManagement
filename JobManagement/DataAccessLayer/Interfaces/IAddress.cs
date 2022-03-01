@@ -1,8 +1,13 @@
-﻿namespace PresentationLayer.MVVM.ViewModel.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccessLayer.Interfaces
 {
-    public class Address
-    {
-        public int Id { get; set; }
+    public interface IAddress
+    { public int Id { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
         public string Zip { get; set; }

@@ -1,6 +1,12 @@
-﻿namespace PresentationLayer.MVVM.ViewModel.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccessLayer.Interfaces
 {
-    public class Customer
+    public interface ICustomer
     {
         public int Id { get; set; }
         public string Firstname { get; set; }
@@ -8,6 +14,6 @@
         public string EMail { get; set; }
         public string Password { get; set; }
         public string Website { get; set; }
-        public virtual Address Address { get; set; }
+        public IAddress Address { get; set; }
     }
 }

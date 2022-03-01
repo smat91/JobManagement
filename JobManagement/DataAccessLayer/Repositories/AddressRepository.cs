@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,52 +19,38 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public AddressDto GetAddressById(int id)
+        public IAddress GetAddressById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var address = context.Addresses.Find(id);
-
-                if (address != null)
-                    return new AddressDto()
-                    {
-                        Id = address.Id,
-                        Street = address.Street,
-                        StreetNumber = address.StreetNumber,
-                        Zip = address.Zip,
-                        Country = address.Country,
-                        City = address.City
-                    };
-                else
-                {
-                    return null;
-                }
+                return address;
             }
         }
 
-        public void AddNewAddress(AddressDto addressDto)
+        public void AddNewAddress(IAddress addressDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Addresses.Add(addressDto);
+                context.Addresses.Add((Address)addressDto);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteAddressByDto(AddressDto addressDto)
+        public void DeleteAddressByDto(IAddress addressDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Addresses.Remove(addressDto);
+                context.Addresses.Remove((Address)addressDto);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateAddressByDto(AddressDto addressDto)
+        public void UpdateAddressByDto(IAddress addressDto)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
-                context.Addresses.Update(addressDto);
+                context.Addresses.Update((Address)addressDto);
                 context.SaveChanges();
             }
         }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
@@ -18,18 +20,18 @@ namespace DataAccessLayer.Repositories
             ConnectionString = connectionString;
         }
 
-        public ItemGroupDto GetItemGroupById(int id)
+        public IItemGroup GetItemGroupById(int id)
         {
             using (var context = new JobManagementContext(ConnectionString))
             {
                 var itemGroup = context.ItemGroups.Find(id);
 
                 if (itemGroup != null)
-                    return new ItemGroupDto()
+                    return new ItemGroup()
                     {
                         Id = itemGroup.Id,
                         Name = itemGroup.Name,
-                        ParentItemGroup = (ItemGroupDto)itemGroup.ParentItemGroup
+                        ParentItemGroup = itemGroup.ParentItemGroup
                     };
                 else
                 {

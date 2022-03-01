@@ -5,12 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace DataAccessLayer.DataTransferObjects
 {
-    public class ItemDto : Item
-    { 
-
+    public class ItemDto : IItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public IItemGroup Group { get; set; }
+        public decimal Price { get; set; }
     }
 }
