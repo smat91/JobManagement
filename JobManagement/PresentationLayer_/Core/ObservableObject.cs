@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace PresentationLayerWPF.Core
+namespace PresentationLayer.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {

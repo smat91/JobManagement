@@ -1,11 +1,6 @@
-﻿using PresentationLayerWPF.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PresentationLayer.Core;
 
-namespace PresentationLayerWPF.MVVM.ViewModel
+namespace PresentationLayer.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
