@@ -16,5 +16,6 @@ namespace DataAccessLayer.DataTransferObjects
         public string Name { get; set; }
         public IItemGroup Group { get; set; }
         public decimal Price { get; set; }
+        public decimal Vat { get; set; }
     }
 }
