@@ -12,21 +12,9 @@ namespace DataAccessLayer.Repositories
 {
     public class CustomerRepository
     {
-        public enum Property
-        {
-            Id,
-            Firstname,
-            Lastname,
-            EMail,
-            Website,
-            Street,
-            StreetNumber,
-            Zip,
-            Country,
-            City,
-        }
 
-        public Dictionary<Property, String> SearchTerm { get; set; }
+
+        public Dictionary<ICustomerProperties.Property, String> SearchTerm { get; set; }
         private static string connectionString_;
 
         public CustomerRepository(string connectionString)
@@ -43,14 +31,14 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<Property, String> searchTerm)
+        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, String> searchTerm)
         {
             using (var context = new JobManagementContext(connectionString_))
             {
                 List<ICustomer> customerList = new List<ICustomer>();
 
                 context.Customers
-                    .Where(customer => EvaluateSerachTerm(searchTerm, customer))
+                    .Where(customer => EvaluateSearchTerm(searchTerm, customer))
                     .ToList()
                     .ForEach(customer => customerList.Add(customer)
                     );
@@ -122,49 +110,49 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private bool EvaluateSerachTerm(Dictionary<Property, String> searchTerm, ICustomer customer)
+        private bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, String> searchTerm, ICustomer customer)
         {
             bool result = true;
 
-            result &= !searchTerm.ContainsKey(Property.Id) || 
-                      searchTerm[Property.Id] == "" || 
-                      customer.Id.ToString().Contains(searchTerm[Property.Id], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Id) || 
+                      searchTerm[ICustomerProperties.Property.Id] == "" || 
+                      customer.Id.ToString().Contains(searchTerm[ICustomerProperties.Property.Id], StringComparison.OrdinalIgnoreCase);
 
-            result &= !searchTerm.ContainsKey(Property.Firstname) ||
-                      searchTerm[Property.Firstname] == "" ||
-                      customer.Firstname.Contains(searchTerm[Property.Firstname], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Firstname) ||
+                      searchTerm[ICustomerProperties.Property.Firstname] == "" ||
+                      customer.Firstname.Contains(searchTerm[ICustomerProperties.Property.Firstname], StringComparison.OrdinalIgnoreCase);
 
-            result &= !searchTerm.ContainsKey(Property.Lastname) ||
-                      searchTerm[Property.Lastname] == "" ||
-                      customer.Firstname.Contains(searchTerm[Property.Lastname], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Lastname) ||
+                      searchTerm[ICustomerProperties.Property.Lastname] == "" ||
+                      customer.Firstname.Contains(searchTerm[ICustomerProperties.Property.Lastname], StringComparison.OrdinalIgnoreCase);
 
-            result &= !searchTerm.ContainsKey(Property.EMail) ||
-                      searchTerm[Property.EMail] == "" || 
-                      customer.EMail.Contains(searchTerm[Property.EMail], StringComparison.Ordinal) ? true : false; 
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.EMail) ||
+                      searchTerm[ICustomerProperties.Property.EMail] == "" || 
+                      customer.EMail.Contains(searchTerm[ICustomerProperties.Property.EMail], StringComparison.Ordinal); 
 
-            result &= !searchTerm.ContainsKey(Property.Website)
-                      || searchTerm[Property.Website] == "" ||
-                      customer.Website.Contains(searchTerm[Property.Website], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Website)
+                      || searchTerm[ICustomerProperties.Property.Website] == "" ||
+                      customer.Website.Contains(searchTerm[ICustomerProperties.Property.Website], StringComparison.OrdinalIgnoreCase);
 
-            result &= !searchTerm.ContainsKey(Property.Id) ||
-                      searchTerm[Property.Street] == "" ||
-                      customer.Address.Street.Contains(searchTerm[Property.Street], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Id) ||
+                      searchTerm[ICustomerProperties.Property.Street] == "" ||
+                      customer.Address.Street.Contains(searchTerm[ICustomerProperties.Property.Street], StringComparison.OrdinalIgnoreCase);
             
-            result &= !searchTerm.ContainsKey(Property.StreetNumber) ||
-                      searchTerm[Property.StreetNumber] == ""||
-                      customer.Address.StreetNumber.Contains(searchTerm[Property.StreetNumber], StringComparison.Ordinal) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.StreetNumber) ||
+                      searchTerm[ICustomerProperties.Property.StreetNumber] == ""||
+                      customer.Address.StreetNumber.Contains(searchTerm[ICustomerProperties.Property.StreetNumber], StringComparison.Ordinal);
 
-            result &= !searchTerm.ContainsKey(Property.Zip) ||
-                      searchTerm[Property.Zip] == "" ||
-                      customer.Address.Zip.Contains(searchTerm[Property.Zip], StringComparison.Ordinal) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Zip) ||
+                      searchTerm[ICustomerProperties.Property.Zip] == "" ||
+                      customer.Address.Zip.Contains(searchTerm[ICustomerProperties.Property.Zip], StringComparison.Ordinal);
 
-            result &= !searchTerm.ContainsKey(Property.Country) ||
-                      searchTerm[Property.Country] == "" ||
-                      customer.Address.Country.Contains(searchTerm[Property.Country], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Country) ||
+                      searchTerm[ICustomerProperties.Property.Country] == "" ||
+                      customer.Address.Country.Contains(searchTerm[ICustomerProperties.Property.Country], StringComparison.OrdinalIgnoreCase);
 
-            result &= !searchTerm.ContainsKey(Property.City) ||
-                      searchTerm[Property.City] == "" ||
-                      customer.Address.City.Contains(searchTerm[Property.City], StringComparison.OrdinalIgnoreCase) ? true : false;
+            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.City) ||
+                      searchTerm[ICustomerProperties.Property.City] == "" ||
+                      customer.Address.City.Contains(searchTerm[ICustomerProperties.Property.City], StringComparison.OrdinalIgnoreCase);
 
             return result;
         }
