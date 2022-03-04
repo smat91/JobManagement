@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Interfaces
 {
     public interface ICustomerProperties
-    { public enum Property
+    { 
+        public enum Property
         {
             Id,
             Firstname,
