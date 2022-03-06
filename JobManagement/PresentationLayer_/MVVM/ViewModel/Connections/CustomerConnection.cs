@@ -2,7 +2,6 @@
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
-using PresentationLayer.MVVM.ViewModel.Models;
 using System;
 using System.Collections.Generic;
 
