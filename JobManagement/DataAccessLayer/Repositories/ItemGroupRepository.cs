@@ -13,25 +13,18 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemGroupRepository
     {
-        private static string connectionString_;
-
-        public ItemGroupRepository(string connectionString)
+        public static IItemGroup GetItemGroupById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public IItemGroup GetItemGroupById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var itemGroup = context.ItemGroups.Find(id);
                 return itemGroup;
             }
         }
 
-        public Dictionary<string, int> GetItemsWithLevel()
+        public static Dictionary<string, int> GetItemsWithLevel()
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 return context.ItemGroupHierarchyRequest.FromSqlRaw(
                         @"
@@ -63,27 +56,27 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItemGroup(IItemGroup itemGroupDto)
+        public static void AddNewItemGroup(IItemGroup itemGroupDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.ItemGroups.Add((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteItemGroupByDto(IItemGroup itemGroupDto)
+        public static void DeleteItemGroupByDto(IItemGroup itemGroupDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.ItemGroups.Remove((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateItemGroupByDto(IItemGroup itemGroupDto)
+        public static void UpdateItemGroupByDto(IItemGroup itemGroupDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.ItemGroups.Update((ItemGroup)itemGroupDto);
                 context.SaveChanges();

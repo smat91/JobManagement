@@ -1,9 +1,11 @@
-﻿namespace PresentationLayer.MVVM.ViewModel.Models
+﻿using DataAccessLayer.Interfaces;
+
+namespace PresentationLayer.MVVM.ViewModel.Models
 {
-    public class ItemGroup : DataAccessLayer.Models.ItemGroup
+    public class ItemGroup : IItemGroup
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ItemGroup ParentItemGroup { get; set; }
+        public DataAccessLayer.Models.ItemGroup ParentItemGroup { get; set; }
     }
 }

@@ -10,21 +10,14 @@ namespace DataAccessLayer.Repositories
 {
     public class StatisticsRepository
     {
-        private static string ConnectionString { get; set; }
-
-        public StatisticsRepository(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
-
-        public List<Dictionary<string, decimal>> GetStatisticData()
+        public static List<Dictionary<string, decimal>> GetStatisticData()
         {
             return null;
         }
 
         private Dictionary<string, decimal> GetNumberOfOrdersByQuarter()
         {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext())
             {
                 return context.OrderNumbersRequest.FromSqlRaw(
                         @"
@@ -103,7 +96,7 @@ namespace DataAccessLayer.Repositories
 
         private Dictionary<string, decimal> GetNumberOfItemsByQuarter()
 		{
-			using (var context = new JobManagementContext(ConnectionString))
+			using (var context = new JobManagementContext())
 			{
 				return context.OrderNumbersRequest.FromSqlRaw(
 					@"

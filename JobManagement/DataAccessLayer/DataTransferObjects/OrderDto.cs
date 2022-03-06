@@ -13,7 +13,7 @@ namespace DataAccessLayer.DataTransferObjects
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public ICustomer Customer { get; set; }
-        public ICollection<IPosition> Positions { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<Position> Positions { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DataAccessLayer.Models
     {
         public int Id { get; set; }
         [Required]
-        public IItem Item { get; set; }
+        public virtual Item Item { get; set; }
         [Required]
         public int Amount { get; set; }
     }

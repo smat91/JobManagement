@@ -14,6 +14,6 @@ namespace DataAccessLayer.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public IItemGroup ParentItemGroup { get; set; }
+        public virtual ItemGroup ParentItemGroup { get; set; }
     }
 }

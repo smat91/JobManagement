@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Interfaces
 {
@@ -14,6 +15,6 @@ namespace DataAccessLayer.Interfaces
         public string EMail { get; set; }
         public string Password { get; set; }
         public string Website { get; set; }
-        public IAddress Address { get; set; }
+        public Address Address { get; set; }
     }
 }

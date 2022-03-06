@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
@@ -13,30 +14,9 @@ namespace DataAccessLayer.Repositories
 {
     public class InvoiceRepository
     {
-        public enum Property
+        public static List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
         {
-            CustomerId,
-            Name,
-            Date,
-            DateOlderThan,
-            DateNewerThan,
-            Street,
-            Country,
-            City
-        }
-
-        public Dictionary<Property, String> FilterTerm { get; set; }
-
-        private static string ConnectionString { get; set; }
-
-        public InvoiceRepository(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
-
-        public List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<Property, String> filterTerm)
-        {
-            using (var context = new JobManagementContext(ConnectionString))
+            using (var context = new JobManagementContext())
             {
                 List <InvoiceRequest> invoices = new List<InvoiceRequest>();
 
@@ -53,7 +33,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private InvoiceRequest OrderToInvoice(JobManagementContext context, Order order)
+        public static InvoiceRequest OrderToInvoice(JobManagementContext context, IOrder order)
         {
             var customer = context.Customers
                 .TemporalAsOf(order.Date)
@@ -84,43 +64,43 @@ namespace DataAccessLayer.Repositories
             };
         }
 
-        private bool EvaluateFilterTerm(Dictionary<Property, String> filterTerm, Order order)
+        public static bool EvaluateFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm, IOrder order)
         {
             bool result = true;
 
-            result &= !filterTerm.ContainsKey(Property.CustomerId) ||
-                      filterTerm[Property.CustomerId] == "" ||
-                      order.Customer.Id.ToString().Contains(filterTerm[Property.CustomerId], StringComparison.OrdinalIgnoreCase);
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.CustomerId) ||
+                      filterTerm[IInvoiceProperties.Property.CustomerId] == "" ||
+                      order.Customer.Id.ToString().Contains(filterTerm[IInvoiceProperties.Property.CustomerId], StringComparison.OrdinalIgnoreCase);
 
-            result &= !filterTerm.ContainsKey(Property.Name) ||
-                      filterTerm[Property.Name] == "" ||
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Name) ||
+                      filterTerm[IInvoiceProperties.Property.Name] == "" ||
                       (order.Customer.Firstname + " " + order.Customer.Lastname)
-                      .Contains(filterTerm[Property.Name], StringComparison.OrdinalIgnoreCase);
+                      .Contains(filterTerm[IInvoiceProperties.Property.Name], StringComparison.OrdinalIgnoreCase);
 
-            result &= !filterTerm.ContainsKey(Property.Date) ||
-                      filterTerm[Property.Date] == "" ||
-                      (order.Date == Convert.ToDateTime(filterTerm[Property.Date]));
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Date) ||
+                      filterTerm[IInvoiceProperties.Property.Date] == "" ||
+                      (order.Date == Convert.ToDateTime(filterTerm[IInvoiceProperties.Property.Date]));
 
-            result &= !filterTerm.ContainsKey(Property.Date) ||
-                      filterTerm[Property.Date] == "" ||
-                      (order.Date < Convert.ToDateTime(filterTerm[Property.DateOlderThan]));
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Date) ||
+                      filterTerm[IInvoiceProperties.Property.Date] == "" ||
+                      (order.Date < Convert.ToDateTime(filterTerm[IInvoiceProperties.Property.DateOlderThan]));
 
-            result &= !filterTerm.ContainsKey(Property.Date) ||
-                      filterTerm[Property.Date] == "" ||
-                      (order.Date > Convert.ToDateTime(filterTerm[Property.DateNewerThan]));
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Date) ||
+                      filterTerm[IInvoiceProperties.Property.Date] == "" ||
+                      (order.Date > Convert.ToDateTime(filterTerm[IInvoiceProperties.Property.DateNewerThan]));
 
-            result &= !filterTerm.ContainsKey(Property.Street) ||
-                      filterTerm[Property.Street] == "" ||
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Street) ||
+                      filterTerm[IInvoiceProperties.Property.Street] == "" ||
                       (order.Customer.Address.Street + " " + order.Customer.Address.StreetNumber)
-                      .Contains(filterTerm[Property.Street], StringComparison.Ordinal);
+                      .Contains(filterTerm[IInvoiceProperties.Property.Street], StringComparison.Ordinal);
 
-            result &= !filterTerm.ContainsKey(Property.Country)
-                      || filterTerm[Property.Country] == "" ||
-                      order.Customer.Address.Country.Contains(filterTerm[Property.Country], StringComparison.OrdinalIgnoreCase);
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.Country)
+                      || filterTerm[IInvoiceProperties.Property.Country] == "" ||
+                      order.Customer.Address.Country.Contains(filterTerm[IInvoiceProperties.Property.Country], StringComparison.OrdinalIgnoreCase);
 
-            result &= !filterTerm.ContainsKey(Property.City) ||
-                      filterTerm[Property.Street] == "" ||
-                      order.Customer.Address.City.Contains(filterTerm[Property.Street], StringComparison.OrdinalIgnoreCase);
+            result &= !filterTerm.ContainsKey(IInvoiceProperties.Property.City) ||
+                      filterTerm[IInvoiceProperties.Property.Street] == "" ||
+                      order.Customer.Address.City.Contains(filterTerm[IInvoiceProperties.Property.Street], StringComparison.OrdinalIgnoreCase);
 
             return result;
         }

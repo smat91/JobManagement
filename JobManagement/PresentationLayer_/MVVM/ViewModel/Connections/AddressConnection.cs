@@ -8,32 +8,25 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class AddressConnection
     {
-        private readonly AddressRepository addressRepository_;
-
-        public AddressConnection(string connectionString)
+        public static IAddress GetAddressById(int id)
         {
-            addressRepository_ = new AddressRepository(connectionString);
-        }
-
-        public IAddress GetAddressById(int id)
-        {
-            var address = addressRepository_.GetAddressById(id);
+            var address = AddressRepository.GetAddressById(id);
             return address;
         }
 
-        public void AddNewAddress(IAddress addressDto)
+        public static void AddNewAddress(IAddress addressDto)
         {
-            addressRepository_.AddNewAddress(addressDto);
+            AddressRepository.AddNewAddress(addressDto);
         }
 
-        public void DeleteAddressByDto(IAddress addressDto)
+        public static void DeleteAddressByDto(IAddress addressDto)
         {
-            addressRepository_.DeleteAddressByDto(addressDto);
+            AddressRepository.DeleteAddressByDto(addressDto);
         }
 
-        public void UpdateAddressByDto(IAddress addressDto)
+        public static void UpdateAddressByDto(IAddress addressDto)
         {
-            addressRepository_.UpdateAddressByDto(addressDto);
+            AddressRepository.UpdateAddressByDto(addressDto);
         }
     }
 }

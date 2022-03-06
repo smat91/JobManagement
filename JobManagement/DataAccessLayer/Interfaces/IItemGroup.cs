@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Interfaces
 {
@@ -10,6 +11,6 @@ namespace DataAccessLayer.Interfaces
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IItemGroup ParentItemGroup { get; set; }
+        public ItemGroup ParentItemGroup { get; set; }
     }
 }

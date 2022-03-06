@@ -12,28 +12,18 @@ namespace DataAccessLayer.Repositories
 {
     public class CustomerRepository
     {
-
-
-        public Dictionary<ICustomerProperties.Property, String> SearchTerm { get; set; }
-        private static string connectionString_;
-
-        public CustomerRepository(string connectionString)
+        public static ICustomer GetCustomerById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public ICustomer GetCustomerById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var customer = context.Customers.Find(id);
                 return customer;
             }
         }
 
-        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, String> searchTerm)
+        public static List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 List<ICustomer> customerList = new List<ICustomer>();
 
@@ -47,9 +37,9 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ICustomer> GetAllCustomers()
+        public static List<ICustomer> GetAllCustomers()
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 List<ICustomer> customerList = new List<ICustomer>();
                     
@@ -60,36 +50,36 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewCustomer(ICustomer customer)
+        public static void AddNewCustomer(ICustomer customer)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Customers.Add((Customer)customer);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteCustomerByDto(ICustomer customer)
+        public static void DeleteCustomerByDto(ICustomer customer)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Customers.Remove((Customer)customer);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateCustomerByDto(ICustomer customer)
+        public static void UpdateCustomerByDto(ICustomer customer)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Customers.Update((Customer)customer);
                 context.SaveChanges();
             }
         }
 
-        public void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
+        public static void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var customerTemp = context.Customers.Find(customer);
                 var addressTemp = context.Addresses.Find(address);
@@ -101,8 +91,7 @@ namespace DataAccessLayer.Repositories
                     customerTemp.Address = addressTemp;
                 else
                 {
-                    AddressRepository addressRepository = new AddressRepository(connectionString_);
-                    addressRepository.AddNewAddress(address);
+                    AddressRepository.AddNewAddress(address);
                     addressTemp = context.Addresses.Find(address);
                 }
 
@@ -110,7 +99,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, String> searchTerm, ICustomer customer)
+        private static bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm, ICustomer customer)
         {
             bool result = true;
 

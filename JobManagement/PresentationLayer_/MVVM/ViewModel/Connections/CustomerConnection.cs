@@ -10,49 +10,42 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class CustomerConnection
     {
-        private readonly CustomerRepository customerRepository_;
-
-        public CustomerConnection(string connectionString)
+        public static ICustomer GetCustomerById(int id)
         {
-            customerRepository_ = new CustomerRepository(connectionString);
-        }
-
-        public ICustomer GetCustomerById(int id)
-        {
-            var customer = customerRepository_.GetCustomerById(id);
+            var customer = CustomerRepository.GetCustomerById(id);
             return customer;
         }
 
-        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
+        public static List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
         {
-            var customersList = customerRepository_.GetCustomersBySearchTerm(searchTerm);
+            var customersList = CustomerRepository.GetCustomersBySearchTerm(searchTerm);
             return customersList;
         }
 
-        public List<ICustomer> GetAllCustomers()
+        public static List<ICustomer> GetAllCustomers()
         {
-            var customersList = customerRepository_.GetAllCustomers();
+            var customersList = CustomerRepository.GetAllCustomers();
             return customersList;
         }
 
-        public void AddNewCustomer(ICustomer customer)
+        public static void AddNewCustomer(ICustomer customer)
         {
-            customerRepository_.AddNewCustomer(customer);
+            CustomerRepository.AddNewCustomer(customer);
         }
 
-        public void DeleteCustomerByDto(ICustomer customer)
+        public static void DeleteCustomerByDto(ICustomer customer)
         {
-            customerRepository_.DeleteCustomerByDto(customer);
+            CustomerRepository.DeleteCustomerByDto(customer);
         }
 
-        public void UpdateCustomerByDto(ICustomer customer)
+        public static void UpdateCustomerByDto(ICustomer customer)
         {
-           customerRepository_.UpdateCustomerByDto(customer);
+            CustomerRepository.UpdateCustomerByDto(customer);
         }
 
-        public void SetAddressByCustomerDtoAndAddressDto (ICustomer customer, IAddress address)
+        public static void SetAddressByCustomerDtoAndAddressDto (ICustomer customer, IAddress address)
         {
-            customerRepository_.SetAddressByCustomerDtoAndAddressDto(customer, address);
+            CustomerRepository.SetAddressByCustomerDtoAndAddressDto(customer, address);
         }
 
     }

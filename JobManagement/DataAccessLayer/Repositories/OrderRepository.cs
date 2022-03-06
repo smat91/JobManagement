@@ -12,52 +12,45 @@ namespace DataAccessLayer.Repositories
 {
     public class OrderRepository
     {
-        private static string connectionString_;
-
-        public OrderRepository(string connectionString)
+        public static IOrder GetOrderById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public IOrder GetOrderById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var order = context.Orders.Find(id);
                 return order;
             }
         }
 
-        public void AddNewOrder(IOrder order)
+        public static void AddNewOrder(IOrder order)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Orders.Add((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteOrderByDto(IOrder order)
+        public static void DeleteOrderByDto(IOrder order)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Orders.Remove((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateOrderByDto(IOrder order)
+        public static void UpdateOrderByDto(IOrder order)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Orders.Update((Order)order);
                 context.SaveChanges();
             }
         }
 
-        public void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var orderTemp = context.Orders.Find(order);
 
@@ -68,8 +61,7 @@ namespace DataAccessLayer.Repositories
 
                 if (positionTemp != null)
                 {
-                    PositionRepository positionRepository = new PositionRepository(connectionString_);
-                    positionRepository.AddNewPosition((Position)position);
+                    PositionRepository.AddNewPosition((Position)position);
                     positionTemp = context.Positions.Find(position);
                 }
 
@@ -79,9 +71,9 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var orderTemp = context.Orders.Find(order);
 
@@ -94,9 +86,9 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var orderTemp = context.Orders.Find(order);
 

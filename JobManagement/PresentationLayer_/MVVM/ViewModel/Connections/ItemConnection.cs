@@ -8,32 +8,25 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class ItemConnection
     {
-        private readonly ItemRepository itemRepository_;
-
-        public ItemConnection(string connectionString)
+        public static IItem GetItemById(int id)
         {
-            itemRepository_ = new ItemRepository(connectionString);
-        }
-
-        public IItem GetItemById(int id)
-        {
-            var item = itemRepository_.GetItemById(id);
+            var item = ItemRepository.GetItemById(id);
             return item;
         }
 
-        public void AddNewItem(IItem item)
+        public static void AddNewItem(IItem item)
         {
-            itemRepository_.AddNewItem(item);
+            ItemRepository.AddNewItem(item);
         }
 
-        public void DeleteItemByDto(IItem item)
+        public static void DeleteItemByDto(IItem item)
         {
-            itemRepository_.DeleteItemByDto(item);
+            ItemRepository.DeleteItemByDto(item);
         }
 
-        public void UpdateItemByDto(IItem item)
+        public static void UpdateItemByDto(IItem item)
         {
-            itemRepository_.UpdateItemByDto(item);
+            ItemRepository.UpdateItemByDto(item);
         }
     }
 }

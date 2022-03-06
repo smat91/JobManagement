@@ -10,38 +10,31 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class ItemGroupConnection
     {
-        private readonly ItemGroupRepository itemGroupRepository_;
-
-        public ItemGroupConnection(string connectionString)
+        public static IItemGroup GetItemGroupById(int id)
         {
-            itemGroupRepository_ = new ItemGroupRepository(connectionString);
-        }
-
-        public IItemGroup GetItemGroupById(int id)
-        {
-            var itemGroup = itemGroupRepository_.GetItemGroupById(id);
+            var itemGroup = ItemGroupRepository.GetItemGroupById(id);
             return itemGroup;
         }
 
-        // @Matthias, stimmt das so?
-        public Dictionary<string, int> GetItemsWithLevel()
+        public static Dictionary<string, int> GetItemsWithLevel()
         {
-            return itemGroupRepository_.GetItemsWithLevel();
+            var itemGroupList = ItemGroupRepository.GetItemsWithLevel();
+            return itemGroupList;
         }
 
-        public void AddNewItemGroup(IItemGroup itemGroupDto)
+        public static void AddNewItemGroup(IItemGroup itemGroupDto)
         {
-            itemGroupRepository_.AddNewItemGroup(itemGroupDto);
+            ItemGroupRepository.AddNewItemGroup(itemGroupDto);
         }
 
-        public void DeleteItemGroupByDto(IItemGroup itemGroupDto)
+        public static void DeleteItemGroupByDto(IItemGroup itemGroupDto)
         {
-            itemGroupRepository_.DeleteItemGroupByDto(itemGroupDto);
+            ItemGroupRepository.DeleteItemGroupByDto(itemGroupDto);
         }
 
-        public void UpdateItemGroupByDto(IItemGroup itemGroupDto)
+        public static void UpdateItemGroupByDto(IItemGroup itemGroupDto)
         {
-            itemGroupRepository_.UpdateItemGroupByDto(itemGroupDto);
+            ItemGroupRepository.UpdateItemGroupByDto(itemGroupDto);
         }
     }
 }

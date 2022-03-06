@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Interfaces
 {
@@ -10,7 +11,7 @@ namespace DataAccessLayer.Interfaces
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public ICustomer Customer { get; set; }
-        public ICollection<IPosition> Positions { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<Position> Positions { get; set; }
     }
 }

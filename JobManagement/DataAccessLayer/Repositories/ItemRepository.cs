@@ -12,43 +12,36 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemRepository
     {
-        private static string connectionString_;
-
-        public ItemRepository(string connectionString)
+        public static IItem GetItemById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public IItem GetItemById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var item = context.Items.Find(id);
                 return item;
             }
         }
 
-        public void AddNewItem(IItem item)
+        public static void AddNewItem(IItem item)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Items.Add((Item)item);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteItemByDto(IItem item)
+        public static void DeleteItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Items.Remove((Item)item);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateItemByDto(IItem item)
+        public static void UpdateItemByDto(IItem item)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Items.Update((Item)item);
                 context.SaveChanges();

@@ -10,32 +10,25 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class PositionConnection
     {
-        private readonly PositionRepository positionRepository_;
-
-        public PositionConnection(string connectionString)
+        public static IPosition GetPositionById(int id)
         {
-            positionRepository_ = new PositionRepository(connectionString);
-        }
-
-        public IPosition GetPositionById(int id)
-        {
-           var position = positionRepository_.GetPositionById(id);
+           var position = PositionRepository.GetPositionById(id);
            return position;
         }
 
-        public void AddNewPosition(IPosition position)
+        public static void AddNewPosition(IPosition position)
         {
-            positionRepository_.AddNewPosition(position);
+            PositionRepository.AddNewPosition(position);
         }
 
-        public void DeletePositionByDto(IPosition position)
+        public static void DeletePositionByDto(IPosition position)
         {
-           positionRepository_.DeletePositionByDto(position);
+            PositionRepository.DeletePositionByDto(position);
         }
 
-        public void UpdatePositionByDto(IPosition position)
+        public static void UpdatePositionByDto(IPosition position)
         {
-           positionRepository_.UpdatePositionByDto(position);
+           PositionRepository.UpdatePositionByDto(position);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace PresentationLayer.MVVM.ViewModel.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IItemGroup Group { get; set; }
+        public DataAccessLayer.Models.ItemGroup Group { get; set; }
         public decimal Price { get; set; }
         public decimal Vat { get; set; }
     }

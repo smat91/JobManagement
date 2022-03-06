@@ -12,43 +12,36 @@ namespace DataAccessLayer.Repositories
 {
     public class AddressRepository
     {
-        private static string connectionString_;
-
-        public AddressRepository(string connectionString)
+        public static IAddress GetAddressById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public IAddress GetAddressById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var address = context.Addresses.Find(id);
                 return address;
             }
         }
 
-        public void AddNewAddress(IAddress addressDto)
+        public static void AddNewAddress(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Addresses.Add((Address)addressDto);
                 context.SaveChanges();
             }
         }
 
-        public void DeleteAddressByDto(IAddress addressDto)
+        public static void DeleteAddressByDto(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Addresses.Remove((Address)addressDto);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateAddressByDto(IAddress addressDto)
+        public static void UpdateAddressByDto(IAddress addressDto)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Addresses.Update((Address)addressDto);
                 context.SaveChanges();

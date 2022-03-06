@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using PresentationLayer.MVVM.ViewModel.Connections;
 
 namespace PresentationLayer
 {

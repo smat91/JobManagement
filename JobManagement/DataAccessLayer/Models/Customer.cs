@@ -21,6 +21,6 @@ namespace DataAccessLayer.Models
         public string Password { get; set; }
         public string Website { get; set; }
         [Required]
-        public IAddress Address { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace DataAccessLayer.Context
 {
     public class JobManagementContext : DbContext
     {
-        private static string connectionString_;
+        private IConfiguration Configuration { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -27,16 +27,20 @@ namespace DataAccessLayer.Context
         public DbSet<ItemGroupHierarchyRequest> ItemGroupHierarchyRequest { get; set; }
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
         public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
-
-        public JobManagementContext(string connectionString)
+        
+        public JobManagementContext()
         {
-            connectionString_ = connectionString;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(connectionString_);
+                .UseSqlServer(Configuration.GetConnectionString("JobManagement"));
 
             optionsBuilder
                 .UseLazyLoadingProxies();

@@ -5,22 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Interfaces;
 using static DataAccessLayer.Repositories.InvoiceRepository;
 
 namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class InvoiceConnection
     {
-        private readonly InvoiceRepository invoiceRepository_;
-
-        public InvoiceConnection(string connectionString)
+        public static List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
         {
-            invoiceRepository_ = new InvoiceRepository(connectionString);
-        }
-
-        public List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<Property, String> filterTerm)
-        {
-            var invoices = invoiceRepository_.GetInvoicesByFilterTerm(filterTerm);
+            var invoices = InvoiceRepository.GetInvoicesByFilterTerm(filterTerm);
             return invoices;
         }
     }

@@ -10,47 +10,40 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class OrderConnection
     {
-        private readonly OrderRepository orderRepository_;
-
-        public OrderConnection(string connectionString)
+        public static IOrder GetOrderById(int id)
         {
-            orderRepository_ = new OrderRepository(connectionString);
-        }
-
-        public IOrder GetOrderById(int id)
-        {
-             var order = orderRepository_.GetOrderById(id);
+             var order = OrderRepository.GetOrderById(id);
              return order;
         }
 
-        public void AddNewOrder(IOrder order)
+        public static void AddNewOrder(IOrder order)
         {
-            orderRepository_.AddNewOrder(order);
+            OrderRepository.AddNewOrder(order);
         }
 
-        public void DeleteOrderByDto(IOrder order)
+        public static void DeleteOrderByDto(IOrder order)
         {
-            orderRepository_.DeleteOrderByDto(order);
+            OrderRepository.DeleteOrderByDto(order);
         }
 
-        public void UpdateOrderByDto(IOrder order)
+        public static void UpdateOrderByDto(IOrder order)
         {
-            orderRepository_.UpdateOrderByDto(order);
+            OrderRepository.UpdateOrderByDto(order);
         }
 
-        public void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            orderRepository_.AddNewPositionByOrderDtoAndPositionDto(order, position);                
+            OrderRepository.AddNewPositionByOrderDtoAndPositionDto(order, position);                
         }
 
-        public void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            orderRepository_.DeletePositionByOrderDtoAndPositionDto(order, position);
+            OrderRepository.DeletePositionByOrderDtoAndPositionDto(order, position);
         }
 
-        public void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public static void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
-            orderRepository_.UpdatePositionByOrderDtoAndPositionDto(order, position);
+            OrderRepository.UpdatePositionByOrderDtoAndPositionDto(order, position);
         }
         
     }

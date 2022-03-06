@@ -13,6 +13,6 @@ namespace DataAccessLayer.DataTransferObjects
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IItemGroup ParentItemGroup { get; set; }
+        public ItemGroup ParentItemGroup { get; set; }
     }
 }

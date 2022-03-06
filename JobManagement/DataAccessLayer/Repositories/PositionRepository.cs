@@ -12,43 +12,36 @@ namespace DataAccessLayer.Repositories
 {
     public class PositionRepository
     {
-        private static string connectionString_;
-
-        public PositionRepository(string connectionString)
+        public static IPosition GetPositionById(int id)
         {
-            connectionString_ = connectionString;
-        }
-
-        public IPosition GetPositionById(int id)
-        {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 var position = context.Positions.Find(id);
                 return position;
             }
         }
 
-        public void AddNewPosition(IPosition position)
+        public static void AddNewPosition(IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Positions.Add((Position)position);
                 context.SaveChanges();
             }
         }
 
-        public void DeletePositionByDto(IPosition position)
+        public static void DeletePositionByDto(IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Positions.Remove((Position)position);
                 context.SaveChanges();
             }
         }
 
-        public void UpdatePositionByDto(IPosition position)
+        public static void UpdatePositionByDto(IPosition position)
         {
-            using (var context = new JobManagementContext(connectionString_))
+            using (var context = new JobManagementContext())
             {
                 context.Positions.Update((Position)position);
                 context.SaveChanges();
