@@ -60,6 +60,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (itemGroupDto.ParentItemGroup != null)
+                {
+                    var parentItemGroup = context.ItemGroups
+                        .Find(itemGroupDto.ParentItemGroup.Id);
+                    if (parentItemGroup != null)
+                        itemGroupDto.ParentItemGroup = parentItemGroup;
+                }
+
                 context.ItemGroups.Add((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }
@@ -78,6 +86,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (itemGroupDto.ParentItemGroup != null)
+                {
+                    var parentItemGroup = context.ItemGroups
+                        .Find(itemGroupDto.ParentItemGroup.Id);
+                    if (parentItemGroup != null)
+                        itemGroupDto.ParentItemGroup = parentItemGroup;
+                }
+
                 context.ItemGroups.Update((ItemGroup)itemGroupDto);
                 context.SaveChanges();
             }

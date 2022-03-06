@@ -25,6 +25,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (position.Item != null)
+                {
+                    var item = context.Items
+                        .Find(position.Item.Id);
+                    if (item != null)
+                        position.Item = item;
+                }
+
                 context.Positions.Add((Position)position);
                 context.SaveChanges();
             }
@@ -43,6 +51,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (position.Item != null)
+                {
+                    var item = context.Items
+                        .Find(position.Item.Id);
+                    if (item != null)
+                        position.Item = item;
+                }
+
                 context.Positions.Update((Position)position);
                 context.SaveChanges();
             }

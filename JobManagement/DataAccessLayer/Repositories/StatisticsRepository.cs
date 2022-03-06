@@ -50,7 +50,7 @@ namespace DataAccessLayer.Repositories
 	                        AS 'TOTAL_QUARTERLY'
 	                        FROM SALES)
 
-                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY, 'SALES' AS 'CATEGORY'
+                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY, 'SALES' AS 'Kategorie'
                         INTO #TEMP
                         FROM SALES_QUARTER
                             ORDER BY ORDER_DATE
@@ -71,10 +71,10 @@ namespace DataAccessLayer.Repositories
 	                        -- remove the last comma
 	                        SET @columns = LEFT(@columns, LEN(@columns) - 1);
 
-	                        SET @sql = 'SELECT CATEGORY, ' + @columns + ' FROM 
+	                        SET @sql = 'SELECT Kategorie, ' + @columns + ' FROM 
 					                        (
 						                        SELECT DISTINCT
-							                        CATEGORY,
+							                        Kategorie,
 							                        TOTAL_QUARTERLY,
 							                        ORDER_DATE
 						                        FROM #TEMP
@@ -129,7 +129,7 @@ namespace DataAccessLayer.Repositories
 	                    AS 'TOTAL_QUARTERLY'
 	                    FROM ITEMS)
 
-                    SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY, 'ITEMS' AS 'CATEGORY'
+                    SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY, 'ITEMS' AS 'Kategorie'
                     INTO #TEMP
                     FROM ITEMS_QUARTER
                         ORDER BY CREATION_DATE
@@ -150,10 +150,10 @@ namespace DataAccessLayer.Repositories
 	                    -- remove the last comma
 	                    SET @columns = LEFT(@columns, LEN(@columns) - 1);
 
-	                    SET @sql = 'SELECT CATEGORY, ' + @columns + ' FROM 
+	                    SET @sql = 'SELECT Kategorie, ' + @columns + ' FROM 
 					                    (
 						                    SELECT DISTINCT
-							                    CATEGORY,
+							                    Kategorie,
 							                    TOTAL_QUARTERLY,
 							                    CREATION_DATE
 						                    FROM #TEMP

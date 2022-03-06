@@ -25,6 +25,28 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (order.Customer != null)
+                {
+                    var customer = context.Customers
+                        .Find(order.Customer.Id);
+                    if (customer != null)
+                        order.Customer = customer;
+                }
+
+                foreach (Position pos in order.Positions)
+                {
+                    if (pos != null)
+                    {
+                        var position = context.Positions
+                            .Find(pos.Id);
+                        if (position != null)
+                        {
+                            order.Positions.Remove(pos);
+                            order.Positions.Add(position);
+                        }
+                    }
+                }
+
                 context.Orders.Add((Order)order);
                 context.SaveChanges();
             }
@@ -43,6 +65,28 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (order.Customer != null)
+                {
+                    var customer = context.Customers
+                        .Find(order.Customer.Id);
+                    if (customer != null)
+                        order.Customer = customer;
+                }
+
+                foreach (Position pos in order.Positions)
+                {
+                    if (pos != null)
+                    {
+                        var position = context.Positions
+                            .Find(pos.Id);
+                        if (position != null)
+                        {
+                            order.Positions.Remove(pos);
+                            order.Positions.Add(position);
+                        }
+                    }
+                }
+
                 context.Orders.Update((Order)order);
                 context.SaveChanges();
             }
@@ -52,17 +96,16 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order);
+                var orderTemp = context.Orders.Find(order.Id);
 
                 if (orderTemp == null)
                     return;
 
-                var positionTemp = context.Positions.Find(position);
+                var positionTemp = context.Positions.Find(position.Id);
 
                 if (positionTemp != null)
                 {
-                    PositionRepository.AddNewPosition((Position)position);
-                    positionTemp = context.Positions.Find(position);
+                    positionTemp = (Position)position;
                 }
 
                 orderTemp.Positions.Add(positionTemp);
@@ -75,7 +118,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order);
+                var orderTemp = context.Orders.Find(order.Id);
 
                 if (orderTemp == null)
                     return;
@@ -90,22 +133,20 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order);
+                var orderTemp = context.Orders.Find(order.Id);
 
                 if (orderTemp == null)
                     return;
 
                 var positionTemp = orderTemp.Positions
-                    .Where(pos => pos.Id == position.Id)
-                    .FirstOrDefault();
+                    .FirstOrDefault(pos => pos.Id == position.Id);
 
-                if (positionTemp != null)
-                {
-                    positionTemp = (Position)position;
-                    context.SaveChanges();
-                }
-                else
+                if (positionTemp == null)
                     return;
+
+                orderTemp.Positions.Remove(positionTemp);
+                orderTemp.Positions.Add((Position)position);
+                context.SaveChanges();
             }
         }
     }
