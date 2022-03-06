@@ -29,7 +29,7 @@
 
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Kategorie"/>
+                    <!--<DataGridTextColumn Header="Kategorie"/>
                     <DataGridTextColumn Header="YOY"/>
                     <DataGridTextColumn Header="Q4 2021"/>
                     <DataGridTextColumn Header="Q3 2021"/>
@@ -42,7 +42,7 @@
                     <DataGridTextColumn Header="Q4 2019"/>
                     <DataGridTextColumn Header="Q3 2019"/>
                     <DataGridTextColumn Header="Q2 2019"/>
-                    <DataGridTextColumn Header="Q1 2019"/>
+                    <DataGridTextColumn Header="Q1 2019"/>-->
 
                 </DataGrid.Columns>
             </DataGrid>
