@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für NewView.xaml
+    /// Interaktionslogik für NewCustomerView.xaml
     /// </summary>
-    public partial class NewView : UserControl
+    public partial class NewCustomerView : UserControl
     {
-        public NewView()
+        public NewCustomerView()
         {
             InitializeComponent();
         }
