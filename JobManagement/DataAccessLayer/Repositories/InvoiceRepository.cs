@@ -90,37 +90,37 @@ namespace DataAccessLayer.Repositories
 
             result &= !filterTerm.ContainsKey(Property.CustomerId) ||
                       filterTerm[Property.CustomerId] == "" ||
-                      order.Customer.Id.ToString().Contains(filterTerm[Property.CustomerId], StringComparison.OrdinalIgnoreCase) ? true : false;
+                      order.Customer.Id.ToString().Contains(filterTerm[Property.CustomerId], StringComparison.OrdinalIgnoreCase);
 
             result &= !filterTerm.ContainsKey(Property.Name) ||
                       filterTerm[Property.Name] == "" ||
                       (order.Customer.Firstname + " " + order.Customer.Lastname)
-                      .Contains(filterTerm[Property.Name], StringComparison.OrdinalIgnoreCase) ? true : false;
+                      .Contains(filterTerm[Property.Name], StringComparison.OrdinalIgnoreCase);
 
             result &= !filterTerm.ContainsKey(Property.Date) ||
                       filterTerm[Property.Date] == "" ||
-                      (order.Date == Convert.ToDateTime(filterTerm[Property.Date])) ? true : false;
+                      (order.Date == Convert.ToDateTime(filterTerm[Property.Date]));
 
             result &= !filterTerm.ContainsKey(Property.Date) ||
                       filterTerm[Property.Date] == "" ||
-                      (order.Date < Convert.ToDateTime(filterTerm[Property.DateOlderThan])) ? true : false;
+                      (order.Date < Convert.ToDateTime(filterTerm[Property.DateOlderThan]));
 
             result &= !filterTerm.ContainsKey(Property.Date) ||
                       filterTerm[Property.Date] == "" ||
-                      (order.Date > Convert.ToDateTime(filterTerm[Property.DateNewerThan])) ? true : false;
+                      (order.Date > Convert.ToDateTime(filterTerm[Property.DateNewerThan]));
 
             result &= !filterTerm.ContainsKey(Property.Street) ||
                       filterTerm[Property.Street] == "" ||
                       (order.Customer.Address.Street + " " + order.Customer.Address.StreetNumber)
-                      .Contains(filterTerm[Property.Street], StringComparison.Ordinal) ? true : false;
+                      .Contains(filterTerm[Property.Street], StringComparison.Ordinal);
 
             result &= !filterTerm.ContainsKey(Property.Country)
                       || filterTerm[Property.Country] == "" ||
-                      order.Customer.Address.Country.Contains(filterTerm[Property.Country], StringComparison.OrdinalIgnoreCase) ? true : false;
+                      order.Customer.Address.Country.Contains(filterTerm[Property.Country], StringComparison.OrdinalIgnoreCase);
 
             result &= !filterTerm.ContainsKey(Property.City) ||
                       filterTerm[Property.Street] == "" ||
-                      order.Customer.Address.City.Contains(filterTerm[Property.Street], StringComparison.OrdinalIgnoreCase) ? true : false;
+                      order.Customer.Address.City.Contains(filterTerm[Property.Street], StringComparison.OrdinalIgnoreCase);
 
             return result;
         }
