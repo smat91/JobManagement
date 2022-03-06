@@ -11,12 +11,14 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 
         public IConfiguration Configuration { get; private set; }
 
-        //public readonly AddressConnection AddressConnection;
-        //public readonly CustomerConnection CustomerConnection;
+        public readonly AddressConnection AddressConnection;
+        public readonly CustomerConnection CustomerConnection;
         public readonly ItemConnection ItemConnection;
-        //public readonly ItemGroupConnection ItemGroupConnection;
-        //public readonly OrderConnection OrderConnection;
-        //public readonly PositionConnection PositionConnection;
+        public readonly ItemGroupConnection ItemGroupConnection;
+        public readonly OrderConnection OrderConnection;
+        public readonly PositionConnection PositionConnection;
+        public readonly InvoiceConnection InvoiceConnection;
+        //public readonly StatisticsConnection StatisticConnection;
 
         DataAccessConnection()
         {
@@ -26,12 +28,14 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 
             Configuration = builder.Build();
 
-            //AddressConnection = new AddressConnection(Configuration.GetConnectionString("JobManagement"));
-            //CustomerConnection = new CustomerConnection(Configuration.GetConnectionString("JobManagement"));
-            //ItemGroupConnection = new ItemGroupConnection(Configuration.GetConnectionString("JobManagement"));
+            AddressConnection = new AddressConnection(Configuration.GetConnectionString("JobManagement"));
+            CustomerConnection = new CustomerConnection(Configuration.GetConnectionString("JobManagement"));
+            ItemGroupConnection = new ItemGroupConnection(Configuration.GetConnectionString("JobManagement"));
             ItemConnection = new ItemConnection(Configuration.GetConnectionString("JobManagement"));
-            //OrderConnection = new OrderConnection(Configuration.GetConnectionString("JobManagement"));
-            //PositionConnection = new PositionConnection(Configuration.GetConnectionString("JobManagement"));
+            OrderConnection = new OrderConnection(Configuration.GetConnectionString("JobManagement"));
+            PositionConnection = new PositionConnection(Configuration.GetConnectionString("JobManagement"));
+            InvoiceConnection = new InvoiceConnection(Configuration.GetConnectionString("JobManagemen"));
+        //    StatisticsConnection = new StatisticsConnection(Configuration.GetConnectionStrin("JobManagement"));
         }
 
         public static DataAccessConnection Instance
