@@ -35,7 +35,7 @@ namespace DataAccessLayer.Repositories
 		                        QUARTER
 	                        FROM
 		                        (SELECT
-			                        SalesOrderID AS 'Id',
+			                        Id,
 			                        Date,
 			                        YEAR(Date) AS 'YEAR',
 			                        CASE
@@ -47,17 +47,17 @@ namespace DataAccessLayer.Repositories
 		                        FROM[dbo].[Orders]
 		                        WHERE Date >= DATEADD(year, -3, GETDATE())
 		                        ) innerquery
-	                        GROUP BY ORDER_ID, YEAR, QUARTER),
+	                        GROUP BY Id, YEAR, QUARTER),
 
                         SALES_QUARTER AS
 	                        (SELECT*,
 		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS ORDER_DATE,
-		                        COUNT(ORDER_ID)
+		                        COUNT(Id)
 		                        OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER)
 	                        AS 'TOTAL_QUARTERLY'
 	                        FROM SALES)
 
-                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY, 'CATEGORY' AS 'SALES'
+                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY, 'SALES' AS 'CATEGORY'
                         INTO #TEMP
                         FROM SALES_QUARTER
                             ORDER BY ORDER_DATE
@@ -78,10 +78,10 @@ namespace DataAccessLayer.Repositories
 	                        -- remove the last comma
 	                        SET @columns = LEFT(@columns, LEN(@columns) - 1);
 
-	                        SET @sql = 'SELECT SALES, ' + @columns + ' FROM 
+	                        SET @sql = 'SELECT CATEGORY, ' + @columns + ' FROM 
 					                        (
 						                        SELECT DISTINCT
-							                        SALES,
+							                        CATEGORY,
 							                        TOTAL_QUARTERLY,
 							                        ORDER_DATE
 						                        FROM #TEMP
@@ -100,5 +100,84 @@ namespace DataAccessLayer.Repositories
                     .ToDictionary(res => res.HeaderName, res => res.Value);
             }
         }
+
+        private Dictionary<string, decimal> GetNumberOfItemsByQuarter()
+		{
+			using (var context = new JobManagementContext(ConnectionString))
+			{
+				return context.OrderNumbersRequest.FromSqlRaw(
+					@"
+                    WITH ITEMS AS
+                        (SELECT
+		                    Id,
+		                    YEAR,
+		                    QUARTER
+	                    FROM
+		                    (SELECT
+			                    Production.Product.ProductID AS 'Id',
+			                    SellStartDate,
+			                    YEAR(SellStartDate) AS 'YEAR',
+			                    CASE
+				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 1 THEN 1
+				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 2 AND CAST(MONTH(SellStartDate) as decimal) > 1 THEN 2
+				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 3 AND CAST(MONTH(SellStartDate) as decimal) > 2 THEN 3
+				                    ELSE 4
+			                    END AS 'QUARTER'
+		                    FROM Production.Product
+		                    WHERE SellStartDate >= DATEADD(year, -20, GETDATE())
+		                    ) innerquery
+	                    GROUP BY Id, YEAR, QUARTER),
+
+                    ITEMS_QUARTER AS
+	                    (SELECT*,
+		                    CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
+		                    COUNT(Id)
+		                    OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER)
+	                    AS 'TOTAL_QUARTERLY'
+	                    FROM ITEMS)
+
+                    SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY, 'ITEMS' AS 'CATEGORY'
+                    INTO #TEMP
+                    FROM ITEMS_QUARTER
+                        ORDER BY CREATION_DATE
+
+                    IF (SELECT COUNT(*) FROM #TEMP) > 0
+	                    DECLARE 
+		                    @columns NVARCHAR(MAX) = '', 
+		                    @sql     NVARCHAR(MAX) = '';
+
+	                    -- select the category names
+	                    SELECT 
+		                    @columns+=QUOTENAME(CREATION_DATE) + ','
+	                    FROM 
+		                    #TEMP
+	                    ORDER BY 
+		                    CREATION_DATE
+
+	                    -- remove the last comma
+	                    SET @columns = LEFT(@columns, LEN(@columns) - 1);
+
+	                    SET @sql = 'SELECT CATEGORY, ' + @columns + ' FROM 
+					                    (
+						                    SELECT DISTINCT
+							                    CATEGORY,
+							                    TOTAL_QUARTERLY,
+							                    CREATION_DATE
+						                    FROM #TEMP
+					                    ) sel
+					                    PIVOT 
+					                    (
+						                    max(TOTAL_QUARTERLY)
+						                    for CREATION_DATE in (' + @columns + ')
+					                    ) piv '
+
+	                    EXECUTE(@sql)
+
+                    DROP TABLE #TEMP;                        
+                    "
+					)
+					.ToDictionary(res => res.HeaderName, res => res.Value);
+			}
+		}
     }
 }
