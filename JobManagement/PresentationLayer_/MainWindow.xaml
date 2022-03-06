@@ -85,28 +85,28 @@
                              Background="Transparent"
                     
                              FontSize="14"
-                             Command="{Binding OrderViewCommand}" Grid.Column="1" Margin="0,10,624,10"/>
+                             Command="" Grid.Column="1" Margin="0,10,624,10"/>
             <Button Content="Bearbeiten"
                              Foreground="White"
                              Background="Transparent"
                              FontSize="14"
-                             Command="{Binding OrderViewCommand}" Grid.Column="1" Margin="101,10,524,10"/>
+                             Command="" Grid.Column="1" Margin="101,10,524,10"/>
             <Button Content="Löschen"
                              Foreground="White"
                              Background="Transparent"
                              FontSize="14"
-                             Command="{Binding OrderViewCommand}" Grid.Column="1" Margin="201,10,424,10"/>
+                             Command="" Grid.Column="1" Margin="201,10,424,10"/>
 
             <Button Content="Suchen"
                              Foreground="White"
                              Background="Transparent"
                              FontSize="14"
-                             Command="{Binding OrderViewCommand}" Grid.Column="1" Margin="508,10,116,10"/>
-            <Button Content="Suche Zurücksetzen"
+                             Command="" Grid.Column="1" Margin="508,10,116,10"/>
+            <Button Content="Suche &#x0d;&#x0a; Zurücksetzen"
                              Foreground="White"
                              Background="Transparent"
                              FontSize="14"
-                             Command="{Binding OrderViewCommand}" Grid.Column="1" Margin="609,10,15,9"/>
+                             Command="" Grid.Column="1" Margin="609,10,15,9"/>
 
 
             <ContentControl Grid.Row="1"
