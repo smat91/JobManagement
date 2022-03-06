@@ -28,19 +28,15 @@ namespace DataAccessLayer.Context
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
         public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
         
-        public JobManagementContext()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            Configuration = builder.Build();
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var connection = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
             optionsBuilder
-                .UseSqlServer(Configuration.GetConnectionString("JobManagement"));
+                .UseSqlServer(connection.GetConnectionString("JobManagement"));
 
             optionsBuilder
                 .UseLazyLoadingProxies();
