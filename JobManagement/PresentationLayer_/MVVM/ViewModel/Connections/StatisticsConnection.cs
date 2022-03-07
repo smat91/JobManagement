@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
 {
     public class StatisticsConnection
     {
-        public static List<ExpandoObject> GetStatisticData()
+        public static DataTable GetStatisticData()
         {
             var statistics = StatisticsRepository.GetStatisticData();
             return statistics;

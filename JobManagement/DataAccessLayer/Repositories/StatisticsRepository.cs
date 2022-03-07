@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
@@ -11,70 +12,48 @@ namespace DataAccessLayer.Repositories
 {
     public class StatisticsRepository
     {
-        public static List<ExpandoObject> GetStatisticData()
+        public static DataTable GetStatisticData()
         {
-            List<ExpandoObject> objList = new List<ExpandoObject>();
+            DataTable dataTable = new DataTable();
 
-			var headers = GenerateHeaderData();
+            AddHeaderData(dataTable);
+            AddRowData(dataTable, "Anzahl Aufträge", GetNumberOfOrdersByQuarter());
 
-            objList.Add(AddStatisticData("Anzahl Aufträge", headers, GetNumberOfOrdersByQuarter()));
-            //objList.Add(AddStatisticData("Anzahl verwaltete Artikel", headers, GetNumberOfItemsByQuarter()));
-
-			return objList;
+			return dataTable;
         }
 		
-        private static ExpandoObject AddStatisticData(string category, List<string> header, Dictionary<string, decimal> statisticDataRaw)
-        {
-            ExpandoObject obj = new ExpandoObject();
 
-            foreach (var column in header)
-            {
-                if (column == "Kategorie")
-                {
-                    AddProperty(obj, "Kategorie", category);
-                }
-                else if (statisticDataRaw.ContainsKey(column))
-                {
-                    AddProperty(obj, column, statisticDataRaw[column]);
-                }
-                else
-                {
-                    AddProperty(obj, column, null);
-                }
-            }
-
-            return obj;
-        }
-
-        private static void AddProperty(ExpandoObject expando, string propertyName, object propertyValue)
-        {
-            var expandoDict = expando as IDictionary<String, object>;
-            if (expandoDict.ContainsKey(propertyName))
-                expandoDict[propertyName] = propertyValue;
-            else
-                expandoDict.Add(propertyName, propertyValue);
-        }
 
 		private static int GetQuarterFromDate(DateTime date)
         {
             return (date.Month + 2) / 3;
         }
 
-        private static List<string> GenerateHeaderData()
+        private static void AddHeaderData(DataTable dataTable)
         {
-            List<string> headers = new List<string>();
-
 			// add header data
-			headers.Add("Kategorie");
+            dataTable.Columns.Add("Kategorie");
 
             for (int i = 0; i < 12; i++)
             {
                 int quarter = GetQuarterFromDate(DateTime.Today.AddMonths(-i * 3));
                 string header = DateTime.Today.AddMonths(-i * 3).Year + " Q" + quarter;
-                headers.Add(header);
+                dataTable.Columns.Add(header);
             }
+        }
 
-			return headers;
+        private static void AddRowData(DataTable dataTable, string category, Dictionary<string, decimal> statisticData)
+        {
+            DataRow catRow = dataTable.NewRow();
+            catRow["Kategorie"] = category;
+            dataTable.Rows.Add(catRow);
+
+			foreach (var item in statisticData)
+            {
+				DataRow dr = dataTable.NewRow();
+                dr[item.Key] = item.Value;
+                dataTable.Rows.Add(dr);
+			}
         }
 
 		private static Dictionary<string, decimal> GetNumberOfOrdersByQuarter()
