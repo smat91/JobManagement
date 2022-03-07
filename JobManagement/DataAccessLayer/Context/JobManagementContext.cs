@@ -28,6 +28,8 @@ namespace DataAccessLayer.Context
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
         public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
         public DbSet<ItemNumbersRequest> ItemNumbersRequest { get; set; }
+        public DbSet<AverageItemNumbersPerOrderRequest> AverageItemNumbersPerOrderRequest { get; set; }
+        public DbSet<TotalSalesRequest> TotalSalesRequest { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -74,7 +76,13 @@ namespace DataAccessLayer.Context
                 .HasNoKey();
             modelBuilder
                 .Entity<ItemNumbersRequest>()
-                .HasNoKey(); 
+                .HasNoKey();
+            modelBuilder
+                .Entity<AverageItemNumbersPerOrderRequest>()
+                .HasNoKey();
+            modelBuilder
+                .Entity<TotalSalesRequest>()
+                .HasNoKey();
         }
     }
 }
