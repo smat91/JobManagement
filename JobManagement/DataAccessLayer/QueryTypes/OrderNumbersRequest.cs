@@ -9,6 +9,6 @@ namespace DataAccessLayer.QueryTypes
     public class OrderNumbersRequest
     {
         public string ORDER_DATE { get; set; }
-        public decimal TOTAL_QUARTERLY { get; set; }
+        public string TOTAL_QUARTERLY { get; set; }
     }
 }
