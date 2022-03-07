@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
+using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
@@ -20,9 +21,10 @@ namespace DataAccessLayer.Repositories
             AddRowData(dataTable, "Anzahl Aufträge", GetNumberOfOrdersByQuarter());
             AddRowData(dataTable, "Anzahl verwaltete Artikel", GetNumberOfItemsByQuarter());
             AddRowData(dataTable, "Durchschnittliche Anzahl Artikel pro Auftrag", GetAverageNumberOfItemsInOrdersByQuarter());
+            AddRowData(dataTable, GetTotalCustomerSalesByQuarter());
             AddRowData(dataTable, "Gesamtumsatz", GetTotalSalesByQuarter());
 
-			return dataTable;
+            return dataTable;
         }
         
 		private static int GetQuarterFromDate(DateTime date)
@@ -56,16 +58,18 @@ namespace DataAccessLayer.Repositories
             dataTable.Rows.Add(catRow);
 		}
 
-        private static void AddRowData(DataTable dataTable, Dictionary<string, string> statisticData)
+        private static void AddRowData(DataTable dataTable, Dictionary<string, Dictionary<string, string>> statisticCustomerData)
         {
-            DataRow catRow = dataTable.NewRow();
-            
-            foreach (var item in statisticData)
+            foreach (var dataset in statisticCustomerData)
             {
-                catRow[item.Key] = item.Value;
-            }
-
-            dataTable.Rows.Add(catRow);
+                DataRow catRow = dataTable.NewRow();
+				catRow["Kategorie"] = dataset.Key;
+                foreach (var item in dataset.Value)
+                {
+                    catRow[item.Key] = item.Value;
+                }
+                dataTable.Rows.Add(catRow);
+			}
         }
 
 		private static Dictionary<string, string> GetNumberOfOrdersByQuarter()
@@ -209,14 +213,14 @@ namespace DataAccessLayer.Repositories
             {
                 return context.TotalSalesRequest.FromSqlRaw(
 						@"
-                        WITH ORDER_ITEMS AS
+                        WITH TOTAL_SALES AS
                             (SELECT
 		                        POSITION_TOTAL,
 		                        YEAR,
 		                        QUARTER
 	                        FROM
 		                        (SELECT
-			                        (Items.Price + (Items.Price / 100 * Items.Vat)) AS 'POSITION_TOTAL',
+			                        ((Items.Price + (Items.Price / 100 * Items.Vat)) * Positions.Amount) AS 'POSITION_TOTAL',
 			                        YEAR(Orders.Date) AS 'YEAR',
 			                        CASE
 				                        WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 1 THEN 1
@@ -230,19 +234,75 @@ namespace DataAccessLayer.Repositories
 		                        WHERE Orders.PeriodStart >= DATEADD(year, -3, GETDATE())
 		                        ) innerquery),
 
-                        ITEMS_QUARTER AS
+                        SALES_QUARTER AS
 	                        (SELECT*,
 		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
 		                        CAST(SUM(POSITION_TOTAL) OVER(PARTITION BY YEAR, QUARTER ORDER BY YEAR, QUARTER) AS nvarchar)
 	                        AS 'TOTAL_SALES_QUARTERLY'
-	                        FROM ORDER_ITEMS)
+	                        FROM TOTAL_SALES)
 
                         SELECT DISTINCT CREATION_DATE, TOTAL_SALES_QUARTERLY
-                        FROM ITEMS_QUARTER
+                        FROM SALES_QUARTER
                             ORDER BY CREATION_DATE   
                         "
 					)
                     .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_SALES_QUARTERLY);
+            }
+		}
+
+		private static Dictionary<string, Dictionary<string, string>> GetTotalCustomerSalesByQuarter()
+		{
+			using (var context = new JobManagementContext())
+            {
+                Dictionary<string, Dictionary<string, string>> customerDataDict = new Dictionary<string, Dictionary<string,string>>();
+                var customerDataList = context.TotalCustomersSalesRequest.FromSqlRaw(
+						@"
+                            WITH CUSTOMER_SALES AS
+                                (SELECT
+		                            CUSTOMER_NAME,
+		                            POSITION_TOTAL,
+		                            YEAR,
+		                            QUARTER
+	                            FROM
+		                            (SELECT
+			                            CONCAT(Customers.Firstname, ' ', Customers.Lastname) AS 'CUSTOMER_NAME',
+			                            ((Items.Price + (Items.Price / 100 * Items.Vat)) * Positions.Amount) AS 'POSITION_TOTAL',
+			                            YEAR(Orders.Date) AS 'YEAR',
+			                            CASE
+				                            WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 1 THEN 1
+				                            WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 2 AND CAST(MONTH(Orders.Date) as decimal) > 1 THEN 2
+				                            WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 3 AND CAST(MONTH(Orders.Date) as decimal) > 2 THEN 3
+				                            ELSE 4
+			                            END AS 'QUARTER'
+		                            FROM [JobManagement].[dbo].[Positions]
+			                            FULL JOIN Items ON [JobManagement].[dbo].[Positions].ItemId = [JobManagement].[dbo].[Items].[Id]
+		                                FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
+			                            FULL JOIN Customers ON [JobManagement].[dbo].[Orders].[CustomerId] = [JobManagement].[dbo].[Customers].[Id]
+		                            WHERE Orders.PeriodStart >= DATEADD(year, -3, GETDATE())
+		                            ) innerquery),
+
+                            CUSTOMER_SALES_QUARTER AS
+	                            (SELECT*,
+		                            CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
+		                            CAST(SUM(POSITION_TOTAL) OVER(PARTITION BY CUSTOMER_NAME, YEAR, QUARTER ORDER BY YEAR, QUARTER) AS nvarchar)
+	                            AS 'TOTAL_SALES_QUARTERLY'
+	                            FROM CUSTOMER_SALES)
+
+                            SELECT DISTINCT CUSTOMER_NAME, CREATION_DATE, TOTAL_SALES_QUARTERLY
+                            FROM CUSTOMER_SALES_QUARTER
+                                ORDER BY CREATION_DATE     
+                        "
+					)
+					.ToList();
+
+                foreach (var dataset in customerDataList)
+                {
+                    if (!customerDataDict.ContainsKey(dataset.CUSTOMER_NAME))
+                        customerDataDict.Add(dataset.CUSTOMER_NAME, new Dictionary<string, string>());
+					customerDataDict[dataset.CUSTOMER_NAME].Add(dataset.CREATION_DATE, dataset.TOTAL_SALES_QUARTERLY);
+                }
+
+                return customerDataDict;
             }
 		}
 	}
