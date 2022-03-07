@@ -58,8 +58,18 @@ namespace PresentationLayer
             //};
             //ItemConnection.AddNewItem(testItem2);
 
-            var test = ItemGroupConnection.GetItemsWithLevel();
-            var test1 = StatisticsConnection.GetStatisticData();
+
+            var item1 = ItemConnection.GetItemById(1);
+            var item2 = ItemConnection.GetItemById(2);
+
+            item1.Price = 0.06m;
+            item2.Price = 0.07m;
+
+            ItemConnection.UpdateItemByDto(item1);
+            ItemConnection.UpdateItemByDto(item2);
+
+            //var test = ItemGroupConnection.GetItemsWithLevel();
+            //var test1 = StatisticsConnection.GetStatisticData();
         }
     }
 }

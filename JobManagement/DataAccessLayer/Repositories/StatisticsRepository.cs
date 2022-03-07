@@ -18,12 +18,11 @@ namespace DataAccessLayer.Repositories
 
             AddHeaderData(dataTable);
             AddRowData(dataTable, "Anzahl Aufträge", GetNumberOfOrdersByQuarter());
+            AddRowData(dataTable, "Anzahl verwaltete Artikel", GetNumberOfItemsByQuarter());
 
 			return dataTable;
         }
-		
-
-
+        
 		private static int GetQuarterFromDate(DateTime date)
         {
             return (date.Month + 2) / 3;
@@ -42,21 +41,20 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private static void AddRowData(DataTable dataTable, string category, Dictionary<string, decimal> statisticData)
+        private static void AddRowData(DataTable dataTable, string category, Dictionary<string, string> statisticData)
         {
             DataRow catRow = dataTable.NewRow();
             catRow["Kategorie"] = category;
-            dataTable.Rows.Add(catRow);
 
 			foreach (var item in statisticData)
             {
-				DataRow dr = dataTable.NewRow();
-                dr[item.Key] = item.Value;
-                dataTable.Rows.Add(dr);
+                catRow[item.Key] = item.Value;
 			}
-        }
 
-		private static Dictionary<string, decimal> GetNumberOfOrdersByQuarter()
+            dataTable.Rows.Add(catRow);
+		}
+
+		private static Dictionary<string, string> GetNumberOfOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
@@ -86,8 +84,7 @@ namespace DataAccessLayer.Repositories
                         ORDERS_QUARTER AS
 	                        (SELECT*,
 		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS ORDER_DATE,
-		                        COUNT(Id)
-		                        OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER)
+		                        CAST(COUNT(Id) OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER) AS nvarchar)
 	                        AS 'TOTAL_QUARTERLY'
 	                        FROM ORDERS)
 
@@ -100,7 +97,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private static Dictionary<string, decimal> GetNumberOfItemsByQuarter()
+        private static Dictionary<string, string> GetNumberOfItemsByQuarter()
 		{
 			using (var context = new JobManagementContext())
 			{
@@ -113,30 +110,31 @@ namespace DataAccessLayer.Repositories
 		                    QUARTER
 	                    FROM
 		                    (SELECT
-			                    Production.Product.ProductID AS 'Id',
-			                    SellStartDate,
-			                    YEAR(SellStartDate) AS 'YEAR',
+			                    Id,
+			                    PeriodStart,
+			                    YEAR(PeriodStart) AS 'YEAR',
 			                    CASE
-				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 1 THEN 1
-				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 2 AND CAST(MONTH(SellStartDate) as decimal) > 1 THEN 2
-				                    WHEN CAST(MONTH(SellStartDate) as decimal) / 3 <= 3 AND CAST(MONTH(SellStartDate) as decimal) > 2 THEN 3
+				                    WHEN CAST(MONTH(PeriodStart) as decimal) / 3 <= 1 THEN 1
+				                    WHEN CAST(MONTH(PeriodStart) as decimal) / 3 <= 2 AND CAST(MONTH(PeriodStart) as decimal) > 1 THEN 2
+				                    WHEN CAST(MONTH(PeriodStart) as decimal) / 3 <= 3 AND CAST(MONTH(PeriodStart) as decimal) > 2 THEN 3
 				                    ELSE 4
 			                    END AS 'QUARTER'
-		                    FROM Production.Product
-		                    WHERE SellStartDate >= DATEADD(year, -20, GETDATE())
+		                    FROM
+			                    (SELECT	Id,	PeriodStart	FROM [dbo].[Items]
+			                    UNION
+			                    SELECT Id, PeriodStart FROM [dbo].[ItemsHistory]) innerquery
+		                    WHERE PeriodStart >= DATEADD(year, -3, GETDATE())
 		                    ) innerquery
 	                    GROUP BY Id, YEAR, QUARTER),
 
                     ITEMS_QUARTER AS
 	                    (SELECT*,
 		                    CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
-		                    COUNT(Id)
-		                    OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER)
+		                    CAST(COUNT(Id) OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER) AS nvarchar)
 	                    AS 'TOTAL_QUARTERLY'
 	                    FROM ITEMS)
 
                     SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY
-                    INTO #TEMP
                     FROM ITEMS_QUARTER
                         ORDER BY CREATION_DATE         
                     "
