@@ -20,6 +20,7 @@ namespace DataAccessLayer.Repositories
             AddRowData(dataTable, "Anzahl Aufträge", GetNumberOfOrdersByQuarter());
             AddRowData(dataTable, "Anzahl verwaltete Artikel", GetNumberOfItemsByQuarter());
             AddRowData(dataTable, "Durchschnittliche Anzahl Artikel pro Auftrag", GetAverageNumberOfItemsInOrdersByQuarter());
+            AddRowData(dataTable, "Gesamtumsatz", GetTotalSalesByQuarter());
 
 			return dataTable;
         }
@@ -207,10 +208,40 @@ namespace DataAccessLayer.Repositories
 			using (var context = new JobManagementContext())
             {
                 return context.TotalSalesRequest.FromSqlRaw(
-                        @"
+						@"
+                        WITH ORDER_ITEMS AS
+                            (SELECT
+		                        POSITION_TOTAL,
+		                        YEAR,
+		                        QUARTER
+	                        FROM
+		                        (SELECT
+			                        (Items.Price + (Items.Price / 100 * Items.Vat)) AS 'POSITION_TOTAL',
+			                        YEAR(Orders.Date) AS 'YEAR',
+			                        CASE
+				                        WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 1 THEN 1
+				                        WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 2 AND CAST(MONTH(Orders.Date) as decimal) > 1 THEN 2
+				                        WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 3 AND CAST(MONTH(Orders.Date) as decimal) > 2 THEN 3
+				                        ELSE 4
+			                        END AS 'QUARTER'
+		                            FROM [JobManagement].[dbo].[Positions]
+			                        FULL JOIN Items ON [JobManagement].[dbo].[Positions].ItemId = [JobManagement].[dbo].[Items].[Id]
+		                            FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
+		                        WHERE Orders.PeriodStart >= DATEADD(year, -3, GETDATE())
+		                        ) innerquery),
 
+                        ITEMS_QUARTER AS
+	                        (SELECT*,
+		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
+		                        CAST(SUM(POSITION_TOTAL) OVER(PARTITION BY YEAR, QUARTER ORDER BY YEAR, QUARTER) AS nvarchar)
+	                        AS 'TOTAL_SALES_QUARTERLY'
+	                        FROM ORDER_ITEMS)
+
+                        SELECT DISTINCT CREATION_DATE, TOTAL_SALES_QUARTERLY
+                        FROM ITEMS_QUARTER
+                            ORDER BY CREATION_DATE   
                         "
-                    )
+					)
                     .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_SALES_QUARTERLY);
             }
 		}
