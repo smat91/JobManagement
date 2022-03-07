@@ -7,6 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
+
+        <StackPanel.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Color="#272537" Offset="0.0"></GradientStop>
+                <GradientStop Color="#66ff99" Offset="4"></GradientStop>
+            </LinearGradientBrush>
+        </StackPanel.Background>
+
         <TextBlock Text="Customerview"
                    Foreground="White"
                    FontSize="20"

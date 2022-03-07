@@ -55,6 +55,12 @@ namespace PresentationLayer.MVVM.ViewModel
                 CurrentView = OrderVM;
             });
         }
+
+        public void newdiesdas()
+        {
+
+        }
+
    
     }
 }
