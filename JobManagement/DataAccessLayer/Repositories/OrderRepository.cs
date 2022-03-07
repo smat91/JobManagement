@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -36,16 +38,19 @@ namespace DataAccessLayer.Repositories
                         order.Customer = customer;
                 }
 
-                foreach (Position pos in order.Positions)
+                if (!order.Positions.IsNullOrEmpty())
                 {
-                    if (pos != null)
+                    foreach (Position pos in order.Positions)
                     {
-                        var position = context.Positions
-                            .Find(pos.Id);
-                        if (position != null)
+                        if (pos != null)
                         {
-                            order.Positions.Remove(pos);
-                            order.Positions.Add(position);
+                            var position = context.Positions
+                                .Find(pos.Id);
+                            if (position != null)
+                            {
+                                order.Positions.Remove(pos);
+                                order.Positions.Add(position);
+                            }
                         }
                     }
                 }
@@ -99,14 +104,19 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order.Id);
+                var orderTemp = context.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.Positions)
+                    .FirstOrDefault(o => o.Id == order.Id);
 
-                if (orderTemp == null)
+                if (orderTemp == default(Order))
                     return;
 
-                var positionTemp = context.Positions.Find(position.Id);
+                var positionTemp = context.Positions
+                    .Include(p => p.Item)
+                    .FirstOrDefault(p => p.Id == position.Id);
 
-                if (positionTemp != null)
+                if (positionTemp == default(Position))
                 {
                     positionTemp = (Position)position;
                 }
