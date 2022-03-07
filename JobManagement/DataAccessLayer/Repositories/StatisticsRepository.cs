@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,79 @@ namespace DataAccessLayer.Repositories
 {
     public class StatisticsRepository
     {
-        public static List<Dictionary<string, decimal>> GetStatisticData()
+        public static List<ExpandoObject> GetStatisticData()
         {
-            return null;
+            List<ExpandoObject> objList = new List<ExpandoObject>();
+
+			var headers = GenerateHeaderData();
+
+            objList.Add(AddStatisticData("Anzahl Aufträge", headers, GetNumberOfOrdersByQuarter()));
+            //objList.Add(AddStatisticData("Anzahl verwaltete Artikel", headers, GetNumberOfItemsByQuarter()));
+
+			return objList;
+        }
+		
+        private static ExpandoObject AddStatisticData(string category, List<string> header, Dictionary<string, decimal> statisticDataRaw)
+        {
+            ExpandoObject obj = new ExpandoObject();
+
+            foreach (var column in header)
+            {
+                if (column == "Kategorie")
+                {
+                    AddProperty(obj, "Kategorie", category);
+                }
+                else if (statisticDataRaw.ContainsKey(column))
+                {
+                    AddProperty(obj, column, statisticDataRaw[column]);
+                }
+                else
+                {
+                    AddProperty(obj, column, null);
+                }
+            }
+
+            return obj;
         }
 
-        private Dictionary<string, decimal> GetNumberOfOrdersByQuarter()
+        private static void AddProperty(ExpandoObject expando, string propertyName, object propertyValue)
+        {
+            var expandoDict = expando as IDictionary<String, object>;
+            if (expandoDict.ContainsKey(propertyName))
+                expandoDict[propertyName] = propertyValue;
+            else
+                expandoDict.Add(propertyName, propertyValue);
+        }
+
+		private static int GetQuarterFromDate(DateTime date)
+        {
+            return (date.Month + 2) / 3;
+        }
+
+        private static List<string> GenerateHeaderData()
+        {
+            List<string> headers = new List<string>();
+
+			// add header data
+			headers.Add("Kategorie");
+
+            for (int i = 0; i < 12; i++)
+            {
+                int quarter = GetQuarterFromDate(DateTime.Today.AddMonths(-i * 3));
+                string header = DateTime.Today.AddMonths(-i * 3).Year + " Q" + quarter;
+                headers.Add(header);
+            }
+
+			return headers;
+        }
+
+		private static Dictionary<string, decimal> GetNumberOfOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
                 return context.OrderNumbersRequest.FromSqlRaw(
-                        @"
-                        WITH SALES AS
+						@"
+                        WITH ORDERS AS
                             (SELECT
 		                        Id,
 		                        YEAR,
@@ -37,68 +99,33 @@ namespace DataAccessLayer.Repositories
 				                        WHEN CAST(MONTH(Date) as decimal) / 3 <= 3 AND CAST(MONTH(Date) as decimal) > 2 THEN 3
 				                        ELSE 4
 			                        END AS 'QUARTER'
-		                        FROM[dbo].[Orders]
+		                        FROM [dbo].[Orders]
 		                        WHERE Date >= DATEADD(year, -3, GETDATE())
 		                        ) innerquery
 	                        GROUP BY Id, YEAR, QUARTER),
 
-                        SALES_QUARTER AS
+                        ORDERS_QUARTER AS
 	                        (SELECT*,
 		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS ORDER_DATE,
 		                        COUNT(Id)
 		                        OVER(PARTITION BY YEAR, QUARTER  ORDER BY YEAR, QUARTER)
 	                        AS 'TOTAL_QUARTERLY'
-	                        FROM SALES)
+	                        FROM ORDERS)
 
-                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY, 'SALES' AS 'Kategorie'
-                        INTO #TEMP
-                        FROM SALES_QUARTER
+                        SELECT DISTINCT ORDER_DATE, TOTAL_QUARTERLY
+                        FROM ORDERS_QUARTER
                             ORDER BY ORDER_DATE
-
-                        IF (SELECT COUNT(*) FROM #TEMP) > 0
-	                        DECLARE 
-		                        @columns NVARCHAR(MAX) = '', 
-		                        @sql     NVARCHAR(MAX) = '';
-
-	                        -- select the category names
-	                        SELECT 
-		                        @columns+=QUOTENAME(ORDER_DATE) + ','
-	                        FROM 
-		                        #TEMP
-	                        ORDER BY 
-		                        ORDER_DATE
-
-	                        -- remove the last comma
-	                        SET @columns = LEFT(@columns, LEN(@columns) - 1);
-
-	                        SET @sql = 'SELECT Kategorie, ' + @columns + ' FROM 
-					                        (
-						                        SELECT DISTINCT
-							                        Kategorie,
-							                        TOTAL_QUARTERLY,
-							                        ORDER_DATE
-						                        FROM #TEMP
-					                        ) sel
-					                        PIVOT 
-					                        (
-						                        max(TOTAL_QUARTERLY)
-						                        for ORDER_DATE in (' + @columns + ')
-					                        ) piv '
-
-	                        EXECUTE(@sql)
-
-                        DROP TABLE #TEMP;
                         "
-                    )
-                    .ToDictionary(res => res.HeaderName, res => res.Value);
+					)
+                    .ToDictionary(res => res.ORDER_DATE, res => res.TOTAL_QUARTERLY);
             }
         }
 
-        private Dictionary<string, decimal> GetNumberOfItemsByQuarter()
+        private static Dictionary<string, decimal> GetNumberOfItemsByQuarter()
 		{
 			using (var context = new JobManagementContext())
 			{
-				return context.OrderNumbersRequest.FromSqlRaw(
+				return context.ItemNumbersRequest.FromSqlRaw(
 					@"
                     WITH ITEMS AS
                         (SELECT
@@ -129,47 +156,13 @@ namespace DataAccessLayer.Repositories
 	                    AS 'TOTAL_QUARTERLY'
 	                    FROM ITEMS)
 
-                    SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY, 'ITEMS' AS 'Kategorie'
+                    SELECT DISTINCT CREATION_DATE, TOTAL_QUARTERLY
                     INTO #TEMP
                     FROM ITEMS_QUARTER
-                        ORDER BY CREATION_DATE
-
-                    IF (SELECT COUNT(*) FROM #TEMP) > 0
-	                    DECLARE 
-		                    @columns NVARCHAR(MAX) = '', 
-		                    @sql     NVARCHAR(MAX) = '';
-
-	                    -- select the category names
-	                    SELECT 
-		                    @columns+=QUOTENAME(CREATION_DATE) + ','
-	                    FROM 
-		                    #TEMP
-	                    ORDER BY 
-		                    CREATION_DATE
-
-	                    -- remove the last comma
-	                    SET @columns = LEFT(@columns, LEN(@columns) - 1);
-
-	                    SET @sql = 'SELECT Kategorie, ' + @columns + ' FROM 
-					                    (
-						                    SELECT DISTINCT
-							                    Kategorie,
-							                    TOTAL_QUARTERLY,
-							                    CREATION_DATE
-						                    FROM #TEMP
-					                    ) sel
-					                    PIVOT 
-					                    (
-						                    max(TOTAL_QUARTERLY)
-						                    for CREATION_DATE in (' + @columns + ')
-					                    ) piv '
-
-	                    EXECUTE(@sql)
-
-                    DROP TABLE #TEMP;                        
+                        ORDER BY CREATION_DATE         
                     "
 					)
-					.ToDictionary(res => res.HeaderName, res => res.Value);
+					.ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_QUARTERLY);
 			}
 		}
     }
