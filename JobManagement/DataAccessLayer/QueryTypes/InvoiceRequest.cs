@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace DataAccessLayer.QueryTypes
         public string Country { get; set; }
         public DateTime Date { get; set; }
         public int InvoiceNumber { get; set; }
+        [Column(TypeName = "decimal(7,2)")]
         public decimal PriceNet { get; set; }
+        [Column(TypeName = "decimal(7,2)")]
         public decimal PriceGross { get; set; }
     }
 }
