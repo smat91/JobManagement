@@ -17,6 +17,9 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var order = context.Orders.Find(id);
+                context.Entry(order).Reference(o => o.Customer).Load();
+                context.Entry(order).Reference(o => o.Positions).Load();
+
                 return order;
             }
         }

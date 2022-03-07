@@ -17,6 +17,7 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var position = context.Positions.Find(id);
+                context.Entry(position).Reference(p => p.Item).Load();
                 return position;
             }
         }

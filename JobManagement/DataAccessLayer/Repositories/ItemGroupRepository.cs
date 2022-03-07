@@ -18,6 +18,7 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var itemGroup = context.ItemGroups.Find(id);
+                context.Entry(itemGroup).Reference(i => i.ParentItemGroup).Load();
                 return itemGroup;
             }
         }
