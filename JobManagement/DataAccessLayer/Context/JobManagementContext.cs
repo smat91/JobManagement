@@ -27,6 +27,7 @@ namespace DataAccessLayer.Context
         public DbSet<ItemGroupHierarchyRequest> ItemGroupHierarchyRequest { get; set; }
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
         public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
+        public DbSet<ItemNumbersRequest> ItemNumbersRequest { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,13 +65,16 @@ namespace DataAccessLayer.Context
             // query types
             modelBuilder
                 .Entity<ItemGroupHierarchyRequest>()
-                .HasNoKey(); ;
+                .HasNoKey();
             modelBuilder
                 .Entity<InvoiceRequest>()
-                .HasNoKey(); ;
+                .HasNoKey(); 
             modelBuilder
                 .Entity<OrderNumbersRequest>()
-                .HasNoKey(); ;
+                .HasNoKey();
+            modelBuilder
+                .Entity<ItemNumbersRequest>()
+                .HasNoKey(); 
         }
     }
 }
