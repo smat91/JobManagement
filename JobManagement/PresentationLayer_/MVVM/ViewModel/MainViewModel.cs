@@ -32,6 +32,8 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             HomeVM = new HomeViewModel();
             CustomerVM = new CustomerViewModel();
+            ArticleVM = new ArticleViewModel();
+            OrderVM = new OrderViewModel();
 
             CurrentView = HomeVM;
 
