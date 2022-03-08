@@ -46,7 +46,9 @@ namespace DataAccessLayer.Repositories
             {
                 List<ICustomer> customerList = new List<ICustomer>();
                     
-                context.Customers.ToList()
+                context.Customers
+                    .Include(c => c.Address)
+                    .ToList()
                     .ForEach(customer => customerList.Add(customer));
 
                 return customerList;

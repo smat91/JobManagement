@@ -26,6 +26,22 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public static List<IOrder> GetAllOrders()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IOrder> ordersList = new List<IOrder>();
+
+                context.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.Positions)
+                    .ToList()
+                    .ForEach(order => ordersList.Add(order));
+
+                return ordersList;
+            }
+        }
+
         public static void AddNewOrder(IOrder order)
         {
             using (var context = new JobManagementContext())

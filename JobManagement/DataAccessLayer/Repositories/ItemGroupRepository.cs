@@ -23,6 +23,21 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public static List<IItemGroup> GetAllItemGroups()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IItemGroup> itemGroupsList = new List<IItemGroup>();
+
+                context.ItemGroups
+                    .Include(i => i.ParentItemGroup)
+                    .ToList()
+                    .ForEach(itemGroup => itemGroupsList.Add(itemGroup));
+
+                return itemGroupsList;
+            }
+        }
+
         public static Dictionary<string, int> GetItemsWithLevel()
         {
             using (var context = new JobManagementContext())

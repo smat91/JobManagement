@@ -7,6 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -20,6 +21,21 @@ namespace DataAccessLayer.Repositories
                 context.Entry(item).Reference(i => i.Group).Load();
 
                 return item;
+            }
+        }
+
+        public static List<IItem> GetAllItems()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IItem> itemsList = new List<IItem>();
+
+                context.Items
+                    .Include(i => i.Group)
+                    .ToList()
+                    .ForEach(item => itemsList.Add(item));
+
+                return itemsList;
             }
         }
 

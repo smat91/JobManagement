@@ -21,6 +21,20 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public static List<IAddress> GetAllAddresses()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IAddress> addressesList = new List<IAddress>();
+
+                context.Addresses
+                    .ToList()
+                    .ForEach(address => addressesList.Add(address));
+
+                return addressesList;
+            }
+        }
+
         public static void AddNewAddress(IAddress address)
         {
             using (var context = new JobManagementContext())
