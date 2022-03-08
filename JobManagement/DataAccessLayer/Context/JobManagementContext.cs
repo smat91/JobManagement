@@ -11,7 +11,6 @@ using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
-using Microsoft.IdentityModel.Protocols;
 
 namespace DataAccessLayer.Context
 {
