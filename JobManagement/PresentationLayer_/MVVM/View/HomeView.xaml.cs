@@ -15,7 +15,7 @@ namespace PresentationLayer.MVVM.View
         public HomeView()
         {
             InitializeComponent();
-            DataGridJahresvergleich.DataContext = StatisticsConnection.GetStatisticData().DefaultView;
+            //DataGridJahresvergleich.DataContext = StatisticsConnection.GetStatisticData().DefaultView;
         }
     }
 }
