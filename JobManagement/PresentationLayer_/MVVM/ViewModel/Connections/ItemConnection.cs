@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Context;
+﻿using System.Collections.Generic;
+using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
@@ -11,6 +12,12 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
         {
             var item = ItemRepository.GetItemById(id);
             return item;
+        }
+
+        public static List<IItem> GetAllItems()
+        {
+            var itemsList = ItemRepository.GetAllItems();
+            return itemsList;
         }
 
         public static void AddNewItem(IItem item)

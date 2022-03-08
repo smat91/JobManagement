@@ -7,6 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,7 +18,23 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var position = context.Positions.Find(id);
+                context.Entry(position).Reference(p => p.Item).Load();
                 return position;
+            }
+        }
+
+        public static List<IPosition> GetAllPositions()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IPosition> positionsList = new List<IPosition>();
+
+                context.Positions
+                    .Include(p => p.Item)
+                    .ToList()
+                    .ForEach(position => positionsList.Add(position));
+
+                return positionsList;
             }
         }
 
@@ -25,6 +42,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (position.Item != null)
+                {
+                    var item = context.Items
+                        .Find(position.Item.Id);
+                    if (item != null)
+                        position.Item = item;
+                }
+
                 context.Positions.Add((Position)position);
                 context.SaveChanges();
             }
@@ -43,6 +68,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (position.Item != null)
+                {
+                    var item = context.Items
+                        .Find(position.Item.Id);
+                    if (item != null)
+                        position.Item = item;
+                }
+
                 context.Positions.Update((Position)position);
                 context.SaveChanges();
             }

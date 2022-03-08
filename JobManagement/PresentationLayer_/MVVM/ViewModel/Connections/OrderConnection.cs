@@ -16,6 +16,12 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
              return order;
         }
 
+        public static List<IOrder> GetAllOrders()
+        {
+            var ordersList = OrderRepository.GetAllOrders();
+            return ordersList;
+        }
+
         public static void AddNewOrder(IOrder order)
         {
             OrderRepository.AddNewOrder(order);

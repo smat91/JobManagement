@@ -7,6 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,7 +18,24 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var item = context.Items.Find(id);
+                context.Entry(item).Reference(i => i.Group).Load();
+
                 return item;
+            }
+        }
+
+        public static List<IItem> GetAllItems()
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<IItem> itemsList = new List<IItem>();
+
+                context.Items
+                    .Include(i => i.Group)
+                    .ToList()
+                    .ForEach(item => itemsList.Add(item));
+
+                return itemsList;
             }
         }
 
@@ -25,6 +43,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (item.Group != null)
+                {
+                    var itemGroup = context.ItemGroups
+                        .Find(item.Group.Id);
+                    if (itemGroup != null)
+                        item.Group = itemGroup;
+                }
+
                 context.Items.Add((Item)item);
                 context.SaveChanges();
             }
@@ -43,6 +69,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (item.Group != null)
+                {
+                    var itemGroup = context.ItemGroups
+                        .Find(item.Group.Id);
+                    if (itemGroup != null)
+                        item.Group = itemGroup;
+                }
+
                 context.Items.Update((Item)item);
                 context.SaveChanges();
             }

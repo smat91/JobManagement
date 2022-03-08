@@ -21,29 +21,43 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewAddress(IAddress addressDto)
+        public static List<IAddress> GetAllAddresses()
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Add((Address)addressDto);
+                List<IAddress> addressesList = new List<IAddress>();
+
+                context.Addresses
+                    .ToList()
+                    .ForEach(address => addressesList.Add(address));
+
+                return addressesList;
+            }
+        }
+
+        public static void AddNewAddress(IAddress address)
+        {
+            using (var context = new JobManagementContext())
+            {
+                context.Addresses.Add((Address)address);
                 context.SaveChanges();
             }
         }
 
-        public static void DeleteAddressByDto(IAddress addressDto)
+        public static void DeleteAddressByDto(IAddress address)
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Remove((Address)addressDto);
+                context.Addresses.Remove((Address)address);
                 context.SaveChanges();
             }
         }
 
-        public static void UpdateAddressByDto(IAddress addressDto)
+        public static void UpdateAddressByDto(IAddress address)
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Update((Address)addressDto);
+                context.Addresses.Update((Address)address);
                 context.SaveChanges();
             }
         }

@@ -27,20 +27,20 @@ namespace DataAccessLayer.Context
         public DbSet<ItemGroupHierarchyRequest> ItemGroupHierarchyRequest { get; set; }
         public DbSet<InvoiceRequest> InvoiceRequest { get; set; }
         public DbSet<OrderNumbersRequest> OrderNumbersRequest { get; set; }
+        public DbSet<ItemNumbersRequest> ItemNumbersRequest { get; set; }
+        public DbSet<AverageItemNumbersPerOrderRequest> AverageItemNumbersPerOrderRequest { get; set; }
+        public DbSet<TotalSalesRequest> TotalSalesRequest { get; set; }
+        public DbSet<TotalCustomersSalesRequest> TotalCustomersSalesRequest { get; set; }
         
-        public JobManagementContext()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            Configuration = builder.Build();
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var connection = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
             optionsBuilder
-                .UseSqlServer(Configuration.GetConnectionString("JobManagement"));
+                .UseSqlServer(connection.GetConnectionString("JobManagement"));
 
             optionsBuilder
                 .UseLazyLoadingProxies();
@@ -68,13 +68,25 @@ namespace DataAccessLayer.Context
             // query types
             modelBuilder
                 .Entity<ItemGroupHierarchyRequest>()
-                .HasNoKey(); ;
+                .HasNoKey();
             modelBuilder
                 .Entity<InvoiceRequest>()
-                .HasNoKey(); ;
+                .HasNoKey(); 
             modelBuilder
                 .Entity<OrderNumbersRequest>()
-                .HasNoKey(); ;
+                .HasNoKey();
+            modelBuilder
+                .Entity<ItemNumbersRequest>()
+                .HasNoKey();
+            modelBuilder
+                .Entity<AverageItemNumbersPerOrderRequest>()
+                .HasNoKey();
+            modelBuilder
+                .Entity<TotalSalesRequest>()
+                .HasNoKey();
+            modelBuilder
+                .Entity<TotalCustomersSalesRequest>()
+                .HasNoKey();
         }
     }
 }

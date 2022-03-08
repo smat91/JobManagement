@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.QueryTypes
 {
-    public class OrderNumbersRequest
+    public class ItemNumbersRequest
     {
-        public string ORDER_DATE { get; set; }
+        public string CREATION_DATE { get; set; }
         public string TOTAL_QUARTERLY { get; set; }
     }
 }

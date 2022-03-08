@@ -15,7 +15,6 @@ namespace DataAccessLayer.Models
         public DateTime Date { get; set; }
         [Required]
         public virtual Customer Customer { get; set; }
-        [Required]
         public virtual ICollection<Position> Positions { get; set; }
     }
 }
