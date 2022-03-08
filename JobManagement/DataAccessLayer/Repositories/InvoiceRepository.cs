@@ -14,7 +14,7 @@ namespace DataAccessLayer.Repositories
 {
     public class InvoiceRepository
     {
-        public static List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
+        public List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
         {
             using (var context = new JobManagementContext())
             {
@@ -33,7 +33,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static InvoiceRequest OrderToInvoice(JobManagementContext context, IOrder order)
+        public InvoiceRequest OrderToInvoice(JobManagementContext context, IOrder order)
         {
             var customer = context.Customers
                 .TemporalAsOf(order.Date)
@@ -64,7 +64,7 @@ namespace DataAccessLayer.Repositories
             };
         }
 
-        public static bool EvaluateFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm, IOrder order)
+        public bool EvaluateFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm, IOrder order)
         {
             bool result = true;
 

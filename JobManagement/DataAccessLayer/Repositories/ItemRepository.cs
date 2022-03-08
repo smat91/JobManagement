@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemRepository
     {
-        public static IItem GetItemById(int id)
+        public IItem GetItemById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -24,7 +24,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<IItem> GetAllItems()
+        public List<IItem> GetAllItems()
         {
             using (var context = new JobManagementContext())
             {
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewItem(IItem item)
+        public void AddNewItem(IItem item)
         {
             using (var context = new JobManagementContext())
             {
@@ -56,7 +56,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeleteItemByDto(IItem item)
+        public void DeleteItemByDto(IItem item)
         {
             using (var context = new JobManagementContext())
             {
@@ -65,7 +65,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdateItemByDto(IItem item)
+        public void UpdateItemByDto(IItem item)
         {
             using (var context = new JobManagementContext())
             {

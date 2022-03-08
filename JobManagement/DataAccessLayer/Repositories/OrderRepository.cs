@@ -14,7 +14,7 @@ namespace DataAccessLayer.Repositories
 {
     public class OrderRepository
     {
-        public static IOrder GetOrderById(int id)
+        public IOrder GetOrderById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -26,7 +26,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<IOrder> GetAllOrders()
+        public List<IOrder> GetAllOrders()
         {
             using (var context = new JobManagementContext())
             {
@@ -42,7 +42,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewOrder(IOrder order)
+        public void AddNewOrder(IOrder order)
         {
             using (var context = new JobManagementContext())
             {
@@ -76,7 +76,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeleteOrderByDto(IOrder order)
+        public void DeleteOrderByDto(IOrder order)
         {
             using (var context = new JobManagementContext())
             {
@@ -85,7 +85,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdateOrderByDto(IOrder order)
+        public void UpdateOrderByDto(IOrder order)
         {
             using (var context = new JobManagementContext())
             {
@@ -116,7 +116,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public void AddNewPositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext())
             {
@@ -143,7 +143,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public void DeletePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext())
             {
@@ -158,7 +158,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
+        public void UpdatePositionByOrderDtoAndPositionDto(IOrder order, IPosition position)
         {
             using (var context = new JobManagementContext())
             {

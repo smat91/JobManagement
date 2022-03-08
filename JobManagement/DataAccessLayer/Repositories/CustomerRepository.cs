@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class CustomerRepository
     {
-        public static ICustomer GetCustomerById(int id)
+        public ICustomer GetCustomerById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,7 +23,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
+        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
         {
             using (var context = new JobManagementContext())
             {
@@ -40,7 +40,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<ICustomer> GetAllCustomers()
+        public List<ICustomer> GetAllCustomers()
         {
             using (var context = new JobManagementContext())
             {
@@ -55,7 +55,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewCustomer(ICustomer customer)
+        public void AddNewCustomer(ICustomer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -72,7 +72,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeleteCustomerByDto(ICustomer customer)
+        public void DeleteCustomerByDto(ICustomer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -81,7 +81,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdateCustomerByDto(ICustomer customer)
+        public void UpdateCustomerByDto(ICustomer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -98,7 +98,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
+        public void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
         {
             using (var context = new JobManagementContext())
             {
@@ -121,7 +121,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private static bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm, ICustomer customer)
+        private bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm, ICustomer customer)
         {
             bool result = true;
 

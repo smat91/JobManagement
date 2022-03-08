@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemGroupRepository
     {
-        public static IItemGroup GetItemGroupById(int id)
+        public IItemGroup GetItemGroupById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,7 +23,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<IItemGroup> GetAllItemGroups()
+        public List<IItemGroup> GetAllItemGroups()
         {
             using (var context = new JobManagementContext())
             {
@@ -38,7 +38,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static Dictionary<string, int> GetItemsWithLevel()
+        public Dictionary<string, int> GetItemsWithLevel()
         {
             using (var context = new JobManagementContext())
             {
@@ -72,7 +72,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewItemGroup(IItemGroup itemGroupDto)
+        public void AddNewItemGroup(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -89,7 +89,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeleteItemGroupByDto(IItemGroup itemGroupDto)
+        public void DeleteItemGroupByDto(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -98,7 +98,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdateItemGroupByDto(IItemGroup itemGroupDto)
+        public void UpdateItemGroupByDto(IItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {

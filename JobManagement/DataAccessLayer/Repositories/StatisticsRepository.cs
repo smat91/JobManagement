@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class StatisticsRepository
     {
-        public static DataTable GetStatisticData()
+        public DataTable GetStatisticData()
         {
             DataTable dataTable = new DataTable();
 
@@ -27,12 +27,12 @@ namespace DataAccessLayer.Repositories
             return dataTable;
         }
         
-		private static int GetQuarterFromDate(DateTime date)
+		private int GetQuarterFromDate(DateTime date)
         {
             return (date.Month + 2) / 3;
         }
 
-        private static void AddHeaderData(DataTable dataTable)
+        private void AddHeaderData(DataTable dataTable)
         {
 			// add header data
             dataTable.Columns.Add("Kategorie");
@@ -45,7 +45,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private static void AddRowData(DataTable dataTable, string category, Dictionary<string, string> statisticData)
+        private void AddRowData(DataTable dataTable, string category, Dictionary<string, string> statisticData)
         {
             DataRow catRow = dataTable.NewRow();
             catRow["Kategorie"] = category;
@@ -58,7 +58,7 @@ namespace DataAccessLayer.Repositories
             dataTable.Rows.Add(catRow);
 		}
 
-        private static void AddRowData(DataTable dataTable, Dictionary<string, Dictionary<string, string>> statisticCustomerData)
+        private void AddRowData(DataTable dataTable, Dictionary<string, Dictionary<string, string>> statisticCustomerData)
         {
             foreach (var dataset in statisticCustomerData)
             {
@@ -72,7 +72,7 @@ namespace DataAccessLayer.Repositories
 			}
         }
 
-		private static Dictionary<string, string> GetNumberOfOrdersByQuarter()
+		private Dictionary<string, string> GetNumberOfOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
@@ -115,7 +115,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private static Dictionary<string, string> GetNumberOfItemsByQuarter()
+        private Dictionary<string, string> GetNumberOfItemsByQuarter()
 		{
 			using (var context = new JobManagementContext())
 			{
@@ -161,7 +161,7 @@ namespace DataAccessLayer.Repositories
 			}
 		}
 
-        private static Dictionary<string, string> GetAverageNumberOfItemsInOrdersByQuarter()
+        private Dictionary<string, string> GetAverageNumberOfItemsInOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
@@ -207,7 +207,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-		private static Dictionary<string, string> GetTotalSalesByQuarter()
+		private Dictionary<string, string> GetTotalSalesByQuarter()
 		{
 			using (var context = new JobManagementContext())
             {
@@ -250,7 +250,7 @@ namespace DataAccessLayer.Repositories
             }
 		}
 
-		private static Dictionary<string, Dictionary<string, string>> GetTotalCustomerSalesByQuarter()
+		private Dictionary<string, Dictionary<string, string>> GetTotalCustomerSalesByQuarter()
 		{
 			using (var context = new JobManagementContext())
             {

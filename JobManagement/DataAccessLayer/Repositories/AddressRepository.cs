@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
 {
     public class AddressRepository
     {
-        public static IAddress GetAddressById(int id)
+        public IAddress GetAddressById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -21,7 +21,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<IAddress> GetAllAddresses()
+        public List<IAddress> GetAllAddresses()
         {
             using (var context = new JobManagementContext())
             {
@@ -35,7 +35,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewAddress(IAddress address)
+        public void AddNewAddress(IAddress address)
         {
             using (var context = new JobManagementContext())
             {
@@ -44,7 +44,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeleteAddressByDto(IAddress address)
+        public void DeleteAddressByDto(IAddress address)
         {
             using (var context = new JobManagementContext())
             {
@@ -53,7 +53,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdateAddressByDto(IAddress address)
+        public void UpdateAddressByDto(IAddress address)
         {
             using (var context = new JobManagementContext())
             {

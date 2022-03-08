@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class PositionRepository
     {
-        public static IPosition GetPositionById(int id)
+        public IPosition GetPositionById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,7 +23,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static List<IPosition> GetAllPositions()
+        public List<IPosition> GetAllPositions()
         {
             using (var context = new JobManagementContext())
             {
@@ -38,7 +38,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void AddNewPosition(IPosition position)
+        public void AddNewPosition(IPosition position)
         {
             using (var context = new JobManagementContext())
             {
@@ -55,7 +55,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void DeletePositionByDto(IPosition position)
+        public void DeletePositionByDto(IPosition position)
         {
             using (var context = new JobManagementContext())
             {
@@ -64,7 +64,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public static void UpdatePositionByDto(IPosition position)
+        public void UpdatePositionByDto(IPosition position)
         {
             using (var context = new JobManagementContext())
             {
