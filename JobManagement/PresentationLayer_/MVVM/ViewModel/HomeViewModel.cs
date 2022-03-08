@@ -8,5 +8,6 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     public class HomeViewModel
     {
+    
     }
 }

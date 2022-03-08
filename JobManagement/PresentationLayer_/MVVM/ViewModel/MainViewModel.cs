@@ -40,6 +40,7 @@ namespace PresentationLayer.MVVM.ViewModel
             HomeViewCommand = new RelayCommand(o => 
             { 
                 CurrentView = HomeVM;
+            
             });
 
             CustomerViewCommand = new RelayCommand(o =>
@@ -54,7 +55,6 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 CurrentView = OrderVM;
             });
-        }
-   
+        }   
     }
 }
