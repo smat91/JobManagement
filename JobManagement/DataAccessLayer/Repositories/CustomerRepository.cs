@@ -7,6 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -17,6 +18,7 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var customer = context.Customers.Find(id);
+                context.Entry(customer).Reference(c => c.Address).Load();
                 return customer;
             }
         }
@@ -28,6 +30,7 @@ namespace DataAccessLayer.Repositories
                 List<ICustomer> customerList = new List<ICustomer>();
 
                 context.Customers
+                    .Include(c => c.Address)
                     .Where(customer => EvaluateSearchTerm(searchTerm, customer))
                     .ToList()
                     .ForEach(customer => customerList.Add(customer)
@@ -43,7 +46,9 @@ namespace DataAccessLayer.Repositories
             {
                 List<ICustomer> customerList = new List<ICustomer>();
                     
-                context.Customers.ToList()
+                context.Customers
+                    .Include(c => c.Address)
+                    .ToList()
                     .ForEach(customer => customerList.Add(customer));
 
                 return customerList;
@@ -54,6 +59,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (customer.Address != null)
+                {
+                    var address = context.Addresses
+                        .Find(customer.Address.Id);
+                    if (address != null)
+                        customer.Address = address;
+                }
+
                 context.Customers.Add((Customer)customer);
                 context.SaveChanges();
             }
@@ -72,6 +85,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
+                if (customer.Address != null)
+                {
+                    var address = context.Addresses
+                        .Find(customer.Address.Id);
+                    if (address != null)
+                        customer.Address = address;
+                }
+
                 context.Customers.Update((Customer)customer);
                 context.SaveChanges();
             }
@@ -81,8 +102,10 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var customerTemp = context.Customers.Find(customer);
-                var addressTemp = context.Addresses.Find(address);
+                var customerTemp = context.Customers.Find(customer.Id);
+                context.Entry(customer).Reference(c => c.Address).Load();
+
+                var addressTemp = context.Addresses.Find(address.Id);
 
                 if (customerTemp == null)
                     return;
@@ -91,8 +114,7 @@ namespace DataAccessLayer.Repositories
                     customerTemp.Address = addressTemp;
                 else
                 {
-                    AddressRepository.AddNewAddress(address);
-                    addressTemp = context.Addresses.Find(address);
+                    addressTemp = (Address)address;
                 }
 
                 customerTemp.Address = addressTemp;

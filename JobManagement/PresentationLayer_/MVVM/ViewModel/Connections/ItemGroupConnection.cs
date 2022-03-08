@@ -16,6 +16,12 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
             return itemGroup;
         }
 
+        public static List<IItemGroup> GetItemGroups()
+        {
+            var itemGroupsList = ItemGroupRepository.GetAllItemGroups();
+            return itemGroupsList;
+        }
+
         public static Dictionary<string, int> GetItemsWithLevel()
         {
             var itemGroupList = ItemGroupRepository.GetItemsWithLevel();
