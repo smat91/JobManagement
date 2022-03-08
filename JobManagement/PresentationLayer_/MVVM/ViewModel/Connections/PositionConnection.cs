@@ -16,6 +16,12 @@ namespace PresentationLayer.MVVM.ViewModel.Connections
            return position;
         }
 
+        public static List<IPosition> GetAllPositions()
+        {
+            var positionsList = PositionRepository.GetAllPositions();
+            return positionsList;
+        }
+
         public static void AddNewPosition(IPosition position)
         {
             PositionRepository.AddNewPosition(position);
