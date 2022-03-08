@@ -5,15 +5,9 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3AF69BF0-F864-4134-9008-2985064A4778}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designs", "Designs", "{DC6B8E22-443E-479B-BC32-60FD3AE10A3D}"
-	ProjectSection(SolutionItems) = preProject
-		Designs\DataLayers.drawio = Designs\DataLayers.drawio
-		Designs\UML_BusinessLayer.drawio = Designs\UML_BusinessLayer.drawio
-		Designs\UML_DataAccessLayer.drawio = Designs\UML_DataAccessLayer.drawio
-		Designs\UML_PresentationLayer.drawio = Designs\UML_PresentationLayer.drawio
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "PresentationLayer_\PresentationLayer.csproj", "{30F5AB19-0309-4958-A920-64528AC33867}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{37BBD2F7-F971-448C-AF07-A3F3E6EB435B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +23,10 @@ Global
 		{30F5AB19-0309-4958-A920-64528AC33867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30F5AB19-0309-4958-A920-64528AC33867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30F5AB19-0309-4958-A920-64528AC33867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37BBD2F7-F971-448C-AF07-A3F3E6EB435B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37BBD2F7-F971-448C-AF07-A3F3E6EB435B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37BBD2F7-F971-448C-AF07-A3F3E6EB435B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37BBD2F7-F971-448C-AF07-A3F3E6EB435B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
