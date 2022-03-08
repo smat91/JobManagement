@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using DataAccessLayer.Models;
-using PresentationLayer.MVVM.ViewModel.Connections;
 
 namespace PresentationLayer
 {
