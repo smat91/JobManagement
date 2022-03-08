@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
-using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
@@ -14,11 +13,11 @@ namespace DataAccessLayer.Repositories
 {
     public class InvoiceRepository
     {
-        public List<InvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
+        public List<IInvoiceRequest> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
         {
             using (var context = new JobManagementContext())
             {
-                List <InvoiceRequest> invoices = new List<InvoiceRequest>();
+                List <IInvoiceRequest> invoices = new List<IInvoiceRequest>();
 
                 var orders = context.Orders
                     .Where(order => EvaluateFilterTerm(filterTerm, order));
@@ -33,7 +32,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public InvoiceRequest OrderToInvoice(JobManagementContext context, IOrder order)
+        public IInvoiceRequest OrderToInvoice(JobManagementContext context, IOrder order)
         {
             var customer = context.Customers
                 .TemporalAsOf(order.Date)

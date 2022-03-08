@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
-using DataAccessLayer.DataTransferObjects;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
