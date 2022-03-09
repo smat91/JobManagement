@@ -15,15 +15,18 @@ namespace PresentationLayer.MVVM.ViewModel
         public HomeViewModel HomeVM{get; set;}
         public CustomerViewModel CustomerVM { get; set; }
         public ArticleViewModel ArticleVM { get; set; }
+        public NewArticleViewModel NewArticleVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
 
         private object _currentView;
-       
+        private object _lastView;
+
         public object CurrentView
         {
             get { return _currentView; }
             set
             {
+                _lastView = _currentView;
                 _currentView = value;
                 OnPropertyChanged();
             }
@@ -33,6 +36,7 @@ namespace PresentationLayer.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             CustomerVM = new CustomerViewModel();
             ArticleVM = new ArticleViewModel();
+            NewArticleVM = new NewArticleViewModel(this);
             OrderVM = new OrderViewModel();
 
             CurrentView = HomeVM;
@@ -55,6 +59,11 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 CurrentView = OrderVM;
             });
-        }   
+        }
+
+        public void LoadLastView()
+        {
+            CurrentView = _lastView;
+        }
     }
 }

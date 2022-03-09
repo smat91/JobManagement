@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PresentationLayer.MVVM.ViewModel;
 
 namespace PresentationLayer.MVVM.View
 {
@@ -22,6 +23,7 @@ namespace PresentationLayer.MVVM.View
     {
         public ArticleView()
         {
+            this.DataContext = new ArticleViewModel();
             InitializeComponent();
         }
     }

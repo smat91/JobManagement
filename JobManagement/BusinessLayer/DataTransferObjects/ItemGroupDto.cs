@@ -32,7 +32,7 @@ namespace BusinessLayer.DataTransferObjects
         }
 
         public static List<ItemGroupDto> ItemGroupListToItemGroupDtoList(List<IItemGroup> itemGroups)
-        {
+        { 
             List<ItemGroupDto> itemGroupDtos = new List<ItemGroupDto>();
             foreach (var itemGroup in itemGroups)
             {

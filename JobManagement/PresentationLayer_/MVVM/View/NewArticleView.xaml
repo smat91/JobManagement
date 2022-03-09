@@ -23,60 +23,70 @@
         <Label Foreground="White"
                HorizontalAlignment="Center">Artikelgruppe</Label>
         
-        <TextBox Width="232"
+        <ComboBox x:Name="TxtArtikelgruppe" Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      VerticalContentAlignment="Center"
+                     ItemsSource="{Binding Path=ItemGroupList}"
+                     DisplayMemberPath="Name"
+                     SelectedValuePath="Name"
+                     SelectedValue="{Binding Path=Group}"
                     
                 />
         <Label Foreground="White"
                Margin="0,20,0,0"
                HorizontalAlignment="Center">ArtikelName</Label>
-        <TextBox Width="231"
+        <TextBox x:Name="TxtArtikelName" Width="231"
                      Height="29"
                      FontFamily="/Fonts/#Poppins"
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="284,0,0,17"
                      Grid.Column="1"
+                     Text="{Binding Path = Name}"
+                     
                     
                 ></TextBox>
         <Label Foreground="White"
                HorizontalAlignment="Center"
-               Content="ArtikelNummer"/>
-        <TextBox Width="231"
+               Content="Preis"/>
+        <TextBox x:Name="TxtPreis" Width="231"
                      Height="33"
                      FontFamily="/Fonts/#Poppins"
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="284,0,0,17"
                      Grid.Column="1"
+                     Text="{Binding Path=Price}"
                     
                 ></TextBox>
         <Label Foreground="White"
                HorizontalAlignment="Center">MWST.</Label>
-        <TextBox Width="231"
+        <TextBox x:Name="TxtVat" Width="231"
                      Height="31"
                      FontFamily="/Fonts/#Poppins"
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="284,0,0,17"
-                     Grid.Column="1"                
+                     Grid.Column="1"  
+                     Text="{Binding Path=Vat}"
                 ></TextBox>
           
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button Foreground="Black"
+            <Button x:Name="CmdCancel" Foreground="Black"
                 Margin="10,10,10,20"
-                Content="Cancel"
+                Content="Cancle"
                 Height="40"
                 Width="50"
+                Command="{Binding CancleCommand}"
                 />
-            <Button Foreground="Black"
+            <Button x:Name="CmdOk" Foreground="Black"
                 Margin="10,10,10,20"
                 Content="OK"
                 Height="40"
                 Width="50"
+                Command="{Binding SaveCommand}"
                 />
         </StackPanel>
     </StackPanel>
