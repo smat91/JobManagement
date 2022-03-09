@@ -254,9 +254,8 @@ namespace DataAccessLayer.Repositories
 		{
 			using (var context = new JobManagementContext())
             {
-                Dictionary<string, Dictionary<string, string>> customerDataDict = new Dictionary<string, Dictionary<string,string>>();
-                var customerDataList = context.TotalCustomersSalesRequest.FromSqlRaw(
-						@"
+                return ConvertCustomerDataListToDictionary(context.TotalCustomersSalesRequest.FromSqlRaw(
+                        @"
                             WITH CUSTOMER_SALES AS
                                 (SELECT
 		                            CUSTOMER_NAME,
@@ -292,18 +291,23 @@ namespace DataAccessLayer.Repositories
                             FROM CUSTOMER_SALES_QUARTER
                                 ORDER BY CREATION_DATE     
                         "
-					)
-					.ToList();
-
-                foreach (var dataset in customerDataList)
-                {
-                    if (!customerDataDict.ContainsKey(dataset.CUSTOMER_NAME))
-                        customerDataDict.Add(dataset.CUSTOMER_NAME, new Dictionary<string, string>());
-					customerDataDict[dataset.CUSTOMER_NAME].Add(dataset.CREATION_DATE, dataset.TOTAL_SALES_QUARTERLY);
-                }
-
-                return customerDataDict;
+                    )
+                    .ToList());
             }
 		}
-	}
+
+        private Dictionary<string, Dictionary<string, string>> ConvertCustomerDataListToDictionary(List<TotalCustomersSalesRequest> customerDataList)
+        {
+            Dictionary<string, Dictionary<string, string>> customerDataDict = new Dictionary<string, Dictionary<string, string>>();
+
+			foreach (var dataset in customerDataList)
+            {
+                if (!customerDataDict.ContainsKey(dataset.CUSTOMER_NAME))
+                    customerDataDict.Add(dataset.CUSTOMER_NAME, new Dictionary<string, string>());
+                customerDataDict[dataset.CUSTOMER_NAME].Add(dataset.CREATION_DATE, dataset.TOTAL_SALES_QUARTERLY);
+            }
+
+            return customerDataDict;
+        }
+    }
 }
