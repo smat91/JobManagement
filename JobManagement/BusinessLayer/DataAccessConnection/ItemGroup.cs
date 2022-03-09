@@ -18,14 +18,13 @@ namespace BusinessLayer.DataAccessConnection
         public ItemGroupDto GetItemGroupById(int id)
         {
             var itemGroup = itemGroupRepository_.GetItemGroupById(id);
-            return (ItemGroupDto)itemGroup;
+            return new ItemGroupDto(itemGroup);
         }
 
         public List<ItemGroupDto> GetItemGroups()
         {
             var itemGroupsList = itemGroupRepository_.GetAllItemGroups();
-            return itemGroupsList.ConvertAll(
-                new Converter<IItemGroup, ItemGroupDto>(IItemGroupToItemGroupDto));
+            return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroupsList);
         }
 
         public Dictionary<string, int> GetItemsWithLevel()
@@ -34,24 +33,19 @@ namespace BusinessLayer.DataAccessConnection
             return itemGroupList;
         }
 
-        public void AddNewItemGroup(ItemGroupDto itemGroupDto)
+        public void AddNewItemGroup(ItemGroupDto IItemGroup)
         {
-            itemGroupRepository_.AddNewItemGroup(itemGroupDto);
+            itemGroupRepository_.AddNewItemGroup(ItemGroupDto.ItemGroupDtoToItemGroup(IItemGroup));
         }
 
-        public void DeleteItemGroupByDto(ItemGroupDto itemGroupDto)
+        public void DeleteItemGroupByDto(ItemGroupDto IItemGroup)
         {
-            itemGroupRepository_.DeleteItemGroupByDto(itemGroupDto);
+            itemGroupRepository_.DeleteItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(IItemGroup));
         }
 
-        public void UpdateItemGroupByDto(ItemGroupDto itemGroupDto)
+        public void UpdateItemGroupByDto(ItemGroupDto IItemGroup)
         {
-            itemGroupRepository_.UpdateItemGroupByDto(itemGroupDto);
-        }
-
-        private static ItemGroupDto IItemGroupToItemGroupDto(IItemGroup itemGroup)
-        {
-            return (ItemGroupDto)itemGroup;
+            itemGroupRepository_.UpdateItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(IItemGroup));
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using BusinessLayer.DataAccessConnection;
+using BusinessLayer.DataTransferObjects;
 
 namespace PresentationLayer
 {

@@ -8,7 +8,7 @@ using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.QueryTypes
 {
-    public class InvoiceRequest : IInvoiceRequest
+    public class InvoiceRequest : IInvoice
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }

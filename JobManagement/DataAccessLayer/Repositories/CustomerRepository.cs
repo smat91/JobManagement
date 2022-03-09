@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
+using DataAccessLayer.Helper;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,18 +23,19 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ICustomer> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
+        public List<ICustomer> GetCustomersBySearchTerm(string searchTerm)
         {
             using (var context = new JobManagementContext())
             {
                 List<ICustomer> customerList = new List<ICustomer>();
+                Search search = new Search();
 
                 context.Customers
                     .Include(c => c.Address)
-                    .Where(customer => EvaluateSearchTerm(searchTerm, customer))
+                    .AsEnumerable()
+                    .Where(customer => search.EvaluateSearchTerm(searchTerm, customer))
                     .ToList()
-                    .ForEach(customer => customerList.Add(customer)
-                    );
+                    .ForEach(customer => customerList.Add(customer));
 
                 return customerList;
             }
@@ -97,7 +99,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void SetAddressByCustomerDtoAndAddressDto(ICustomer customer, IAddress address)
+        public void SetAddressByCustomerAndAddress(ICustomer customer, IAddress address)
         {
             using (var context = new JobManagementContext())
             {
@@ -118,53 +120,6 @@ namespace DataAccessLayer.Repositories
 
                 customerTemp.Address = addressTemp;
             }
-        }
-
-        private bool EvaluateSearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm, ICustomer customer)
-        {
-            bool result = true;
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Id) || 
-                      searchTerm[ICustomerProperties.Property.Id] == "" || 
-                      customer.Id.ToString().Contains(searchTerm[ICustomerProperties.Property.Id], StringComparison.OrdinalIgnoreCase);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Firstname) ||
-                      searchTerm[ICustomerProperties.Property.Firstname] == "" ||
-                      customer.Firstname.Contains(searchTerm[ICustomerProperties.Property.Firstname], StringComparison.OrdinalIgnoreCase);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Lastname) ||
-                      searchTerm[ICustomerProperties.Property.Lastname] == "" ||
-                      customer.Firstname.Contains(searchTerm[ICustomerProperties.Property.Lastname], StringComparison.OrdinalIgnoreCase);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.EMail) ||
-                      searchTerm[ICustomerProperties.Property.EMail] == "" || 
-                      customer.EMail.Contains(searchTerm[ICustomerProperties.Property.EMail], StringComparison.Ordinal); 
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Website)
-                      || searchTerm[ICustomerProperties.Property.Website] == "" ||
-                      customer.Website.Contains(searchTerm[ICustomerProperties.Property.Website], StringComparison.OrdinalIgnoreCase);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Id) ||
-                      searchTerm[ICustomerProperties.Property.Street] == "" ||
-                      customer.Address.Street.Contains(searchTerm[ICustomerProperties.Property.Street], StringComparison.OrdinalIgnoreCase);
-            
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.StreetNumber) ||
-                      searchTerm[ICustomerProperties.Property.StreetNumber] == ""||
-                      customer.Address.StreetNumber.Contains(searchTerm[ICustomerProperties.Property.StreetNumber], StringComparison.Ordinal);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Zip) ||
-                      searchTerm[ICustomerProperties.Property.Zip] == "" ||
-                      customer.Address.Zip.Contains(searchTerm[ICustomerProperties.Property.Zip], StringComparison.Ordinal);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.Country) ||
-                      searchTerm[ICustomerProperties.Property.Country] == "" ||
-                      customer.Address.Country.Contains(searchTerm[ICustomerProperties.Property.Country], StringComparison.OrdinalIgnoreCase);
-
-            result &= !searchTerm.ContainsKey(ICustomerProperties.Property.City) ||
-                      searchTerm[ICustomerProperties.Property.City] == "" ||
-                      customer.Address.City.Contains(searchTerm[ICustomerProperties.Property.City], StringComparison.OrdinalIgnoreCase);
-
-            return result;
         }
     }
 }

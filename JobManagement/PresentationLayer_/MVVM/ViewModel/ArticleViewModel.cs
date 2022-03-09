@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
+
     internal class ArticleViewModel
     {
     }

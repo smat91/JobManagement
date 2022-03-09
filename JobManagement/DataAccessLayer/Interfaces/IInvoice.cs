@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IInvoiceRequest
+    public interface IInvoice
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }

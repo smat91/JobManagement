@@ -19,13 +19,7 @@ namespace BusinessLayer.DataAccessConnection
         public List<InvoiceDto> GetInvoicesByFilterTerm(Dictionary<IInvoiceProperties.Property, string> filterTerm)
         {
             var invoices = invoiceRepository_.GetInvoicesByFilterTerm(filterTerm);
-            return invoices.ConvertAll(
-                new Converter<IInvoiceRequest, InvoiceDto>(InvoiceDtoToInvoiceDto));
-        }
-
-        private static InvoiceDto InvoiceDtoToInvoiceDto(IInvoiceRequest invoice)
-        {
-            return (InvoiceDto)invoice;
+            return InvoiceDto.InvoiceListToInvoiceDtoList(invoices);
         }
     }
 }
