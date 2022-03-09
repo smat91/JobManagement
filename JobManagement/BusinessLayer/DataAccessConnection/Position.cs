@@ -18,34 +18,28 @@ namespace BusinessLayer.DataAccessConnection
         public PositionDto GetPositionById(int id)
         {
            var position = positionRepository_.GetPositionById(id);
-           return (PositionDto)position;
+           return new PositionDto(position);
         }
 
         public List<PositionDto> GetAllPositions()
         {
             var positionsList = positionRepository_.GetAllPositions();
-            return positionsList.ConvertAll(
-                new Converter<IPosition, PositionDto>(IPositionToPositionDto));
+            return PositionDto.PositionListToPositionDtoList(positionsList);
         }
 
         public void AddNewPosition(PositionDto position)
         {
-            positionRepository_.AddNewPosition(position);
+            positionRepository_.AddNewPosition(PositionDto.PositionDtoToPosition(position));
         }
 
         public void DeletePositionByDto(PositionDto position)
         {
-            positionRepository_.DeletePositionByDto(position);
+            positionRepository_.DeletePositionByDto(PositionDto.PositionDtoToPosition(position));
         }
 
         public void UpdatePositionByDto(PositionDto position)
         {
-            positionRepository_.UpdatePositionByDto(position);
-        }
-
-        private static PositionDto IPositionToPositionDto(IPosition address)
-        {
-            return (PositionDto)address;
+            positionRepository_.UpdatePositionByDto(PositionDto.PositionDtoToPosition(position));
         }
     }
 }

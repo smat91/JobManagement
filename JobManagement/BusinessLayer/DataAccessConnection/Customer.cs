@@ -17,48 +17,42 @@ namespace BusinessLayer.DataAccessConnection
         public CustomerDto GetCustomerById(int id)
         {
             var customer = customerRepository_.GetCustomerById(id);
-            return (CustomerDto)customer;
+            return new CustomerDto(customer);
         }
 
-        public List<CustomerDto> GetCustomersBySearchTerm(Dictionary<ICustomerProperties.Property, string> searchTerm)
+        public List<CustomerDto> GetCustomersBySearchTerm(string searchTerm)
         {
             var customersList = customerRepository_.GetCustomersBySearchTerm(searchTerm);
-            return customersList.ConvertAll(
-                new Converter<ICustomer, CustomerDto>(ICustomerToCustomerDto));
+            return CustomerDto.CustomerListToCustomerDtoList(customersList);
         }
 
         public List<CustomerDto> GetAllCustomers()
         {
             var customersList = customerRepository_.GetAllCustomers();
-            return customersList.ConvertAll(
-                new Converter<ICustomer, CustomerDto>(ICustomerToCustomerDto));
+            return CustomerDto.CustomerListToCustomerDtoList(customersList);
         }
 
         public void AddNewCustomer(CustomerDto customer)
         {
-            customerRepository_.AddNewCustomer(customer);
+            customerRepository_.AddNewCustomer(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public void DeleteCustomerByDto(CustomerDto customer)
         {
-            customerRepository_.DeleteCustomerByDto(customer);
+            customerRepository_.DeleteCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public void UpdateCustomerByDto(CustomerDto customer)
         {
-            customerRepository_.UpdateCustomerByDto(customer);
+            customerRepository_.UpdateCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
-        public void SetAddressByCustomerDtoAndAddressDto (CustomerDto customer, AddressDto address)
+        public void SetAddressByICustomerAndAddressDto (CustomerDto customer, AddressDto address)
         {
-            customerRepository_.SetAddressByCustomerDtoAndAddressDto(customer, address);
+            customerRepository_.SetAddressByCustomerAndAddress(
+                CustomerDto.CustomerDtoToCustomer(customer),
+                AddressDto.AddressDtoToAddress(address));
         }
-
-        private static CustomerDto ICustomerToCustomerDto(ICustomer customer)
-        {
-            return (CustomerDto)customer;
-        }
-
     }
     
 }
