@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
-        xmlns:commands="clr-namespace:PresentationLayer.MVVM.ViewModel.Commands"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"

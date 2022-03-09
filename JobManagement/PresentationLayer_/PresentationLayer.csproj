@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="appsettings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -49,6 +45,10 @@
   <ItemGroup>
     <Folder Include="Fonts\" />
     <Folder Include="MVVM\ViewModel\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Windows.Controls;
+using PresentationLayer.MVVM.ViewModel;
 
 namespace PresentationLayer.MVVM.View
 {
@@ -13,6 +14,7 @@ namespace PresentationLayer.MVVM.View
     {
         public HomeView()
         {
+            DataContext = new HomeViewModel();
             InitializeComponent();
         }
     }
