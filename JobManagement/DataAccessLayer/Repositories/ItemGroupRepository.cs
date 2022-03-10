@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemGroupRepository
     {
-        public IItemGroup GetItemGroupById(int id)
+        public ItemGroup GetItemGroupById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -22,11 +22,29 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<IItemGroup> GetAllItemGroups()
+        public List<ItemGroup> GetItemGroupBySearchTerm(string searchTerm)
+        {
+            List<ItemGroup> itemGroupList = new List<ItemGroup>();
+            Search search = new Search();
+
+            using (var context = new JobManagementContext())
+            {
+                context.ItemGroups
+                    .Include(i => i.ParentItemGroup)
+                    .AsEnumerable()
+                    .Where(itemGroup => search.EvaluateSearchTerm(searchTerm, itemGroup))
+                    .ToList()
+                    .ForEach(itemGroup => itemGroupList.Add(itemGroup));
+            }
+
+            return itemGroupList;
+        }
+
+        public List<ItemGroup> GetAllItemGroups()
         {
             using (var context = new JobManagementContext())
             {
-                List<IItemGroup> itemGroupsList = new List<IItemGroup>();
+                List<ItemGroup> itemGroupsList = new List<ItemGroup>();
 
                 context.ItemGroups
                     .Include(i => i.ParentItemGroup)
@@ -71,7 +89,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItemGroup(IItemGroup itemGroupDto)
+        public void AddNewItemGroup(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -88,7 +106,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteItemGroupByDto(IItemGroup itemGroupDto)
+        public void DeleteItemGroupByDto(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -97,7 +115,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateItemGroupByDto(IItemGroup itemGroupDto)
+        public void UpdateItemGroupByDto(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {

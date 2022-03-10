@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemRepository
     {
-        public IItem GetItemById(int id)
+        public Item GetItemById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,11 +23,29 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<IItem> GetAllItems()
+        public List<Item> GetItemBySearchTerm(string searchTerm)
+        {
+            List<Item> itemList = new List<Item>();
+            Search search = new Search();
+
+            using (var context = new JobManagementContext())
+            {
+                context.Items
+                    .Include(i => i.Group)
+                    .AsEnumerable()
+                    .Where(item => search.EvaluateSearchTerm(searchTerm, item))
+                    .ToList()
+                    .ForEach(item => itemList.Add(item));
+            }
+
+            return itemList;
+        }
+
+        public List<Item> GetAllItems()
         {
             using (var context = new JobManagementContext())
             {
-                List<IItem> itemsList = new List<IItem>();
+                List<Item> itemsList = new List<Item>();
 
                 context.Items
                     .Include(i => i.Group)
@@ -38,7 +56,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItem(IItem item)
+        public void AddNewItem(Item item)
         {
             using (var context = new JobManagementContext())
             {
@@ -55,7 +73,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteItemByDto(IItem item)
+        public void DeleteItemByDto(Item item)
         {
             using (var context = new JobManagementContext())
             {
@@ -64,7 +82,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateItemByDto(IItem item)
+        public void UpdateItemByDto(Item item)
         {
             using (var context = new JobManagementContext())
             {
