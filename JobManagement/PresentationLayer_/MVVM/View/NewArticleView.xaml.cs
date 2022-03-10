@@ -23,7 +23,6 @@ namespace PresentationLayer.MVVM.View
     {
         public NewArticleView()
         {
-            this.DataContext = new ArticleViewModel();
             InitializeComponent();
         }
     }

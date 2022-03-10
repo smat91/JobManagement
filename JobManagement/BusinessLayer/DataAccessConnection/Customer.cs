@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 
 namespace BusinessLayer.DataAccessConnection
@@ -22,14 +21,14 @@ namespace BusinessLayer.DataAccessConnection
 
         public List<CustomerDto> GetCustomersBySearchTerm(string searchTerm)
         {
-            var customersList = customerRepository_.GetCustomersBySearchTerm(searchTerm);
-            return CustomerDto.CustomerListToCustomerDtoList(customersList);
+            var customers = customerRepository_.GetCustomersBySearchTerm(searchTerm);
+            return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
         public List<CustomerDto> GetAllCustomers()
         {
-            var customersList = customerRepository_.GetAllCustomers();
-            return CustomerDto.CustomerListToCustomerDtoList(customersList);
+            var customers = customerRepository_.GetAllCustomers();
+            return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
         public void AddNewCustomer(CustomerDto customer)

@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
-using PresentationLayer.Annotations;
 using PresentationLayer.Core;
-using PresentationLayer.MVVM.ViewModel;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-
-    internal class NewArticleViewModel : ObservableObject
+    class NewArticleViewModel : ObservableObject
     {
         public string Name
         {
@@ -75,21 +67,18 @@ namespace PresentationLayer.MVVM.ViewModel
         public List<ItemGroupDto> ItemGroupList { get; set; }
 
         public RelayCommand SaveCommand { get; set; }
-        public RelayCommand CancleCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
         
 
         private ItemDto item_;
-        private MainViewModel mainViewModel_;
-       
-
-        public NewArticleViewModel(MainViewModel mainViewModel)
+        
+        public NewArticleViewModel()
         {
             item_ = new ItemDto();
-            mainViewModel_ = mainViewModel;
             ItemGroup itemGroup = new ItemGroup();
-            ItemGroupList = itemGroup.GetItemGroups();
-            SaveCommand = new RelayCommand(Save);
-
+            ItemGroupList = itemGroup.GetAllItemGroups();
+            SaveCommand = new RelayCommand(o => Save());
+            CancelCommand = new RelayCommand(o => Cancel());
         }
 
         private void Save()
@@ -98,6 +87,7 @@ namespace PresentationLayer.MVVM.ViewModel
             if (DataCheck())
             {
                 item.AddNewItem(item_);
+                Cancel();
             }
             else
             {
@@ -105,9 +95,12 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Cancle()
+        private void Cancel()
         {
-            mainViewModel_.LoadLastView();
+            item_.Name = "";
+            item_.Group = null;
+            item_.Price = 0;
+            item_.Vat = 0;
         }
 
         private bool DataCheck()

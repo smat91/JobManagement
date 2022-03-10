@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 
 namespace BusinessLayer.DataAccessConnection
@@ -21,10 +20,16 @@ namespace BusinessLayer.DataAccessConnection
             return new AddressDto(address);
         }
 
+        public List<AddressDto> GetAddressesBySearchTerm(string searchTerm)
+        {
+            var addresses = addressRepository_.GetAddressesBySearchTerm(searchTerm);
+            return AddressDto.AddressListToAddressDtoList(addresses);
+        }
+
         public List<AddressDto> GetAllAddresses()
         {
-            var addressesList = addressRepository_.GetAllAddresses();
-            return AddressDto.AddressListToAddressDtoList(addressesList);
+            var addresses = addressRepository_.GetAllAddresses();
+            return AddressDto.AddressListToAddressDtoList(addresses);
         }
 
         public void AddNewAddress(AddressDto address)

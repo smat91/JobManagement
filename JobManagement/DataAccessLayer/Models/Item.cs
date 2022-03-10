@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.Models
 {
-    public class Item : IItem
+    public class Item
     {
         public int Id { get; set; }
         [Required]

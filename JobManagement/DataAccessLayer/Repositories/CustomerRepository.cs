@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +12,7 @@ namespace DataAccessLayer.Repositories
 {
     public class CustomerRepository
     {
-        public ICustomer GetCustomerById(int id)
+        public Customer GetCustomerById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,11 +22,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ICustomer> GetCustomersBySearchTerm(string searchTerm)
+        public List<Customer> GetCustomersBySearchTerm(string searchTerm)
         {
             using (var context = new JobManagementContext())
             {
-                List<ICustomer> customerList = new List<ICustomer>();
+                List<Customer> customerList = new List<Customer>();
                 Search search = new Search();
 
                 context.Customers
@@ -41,11 +40,11 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ICustomer> GetAllCustomers()
+        public List<Customer> GetAllCustomers()
         {
             using (var context = new JobManagementContext())
             {
-                List<ICustomer> customerList = new List<ICustomer>();
+                List<Customer> customerList = new List<Customer>();
                     
                 context.Customers
                     .Include(c => c.Address)
@@ -56,7 +55,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewCustomer(ICustomer customer)
+        public void AddNewCustomer(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -73,7 +72,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteCustomerByDto(ICustomer customer)
+        public void DeleteCustomerByDto(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -82,7 +81,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateCustomerByDto(ICustomer customer)
+        public void UpdateCustomerByDto(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -99,7 +98,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void SetAddressByCustomerAndAddress(ICustomer customer, IAddress address)
+        public void SetAddressByCustomerAndAddress(Customer customer, Address address)
         {
             using (var context = new JobManagementContext())
             {

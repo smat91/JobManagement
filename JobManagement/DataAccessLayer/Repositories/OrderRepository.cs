@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using DataAccessLayer.Context;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
 {
     public class OrderRepository
     {
-        public IOrder GetOrderById(int id)
+        public Order GetOrderById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -25,11 +25,30 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<IOrder> GetAllOrders()
+        public List<Order> GetOrdersBySearchTerm(string searchTerm)
+        {
+            List<Order> orderList = new List<Order>();
+            Search search = new Search();
+
+            using (var context = new JobManagementContext())
+            {
+                context.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.Positions)
+                    .AsEnumerable()
+                    .Where(order => search.EvaluateSearchTerm(searchTerm, order))
+                    .ToList()
+                    .ForEach(order => orderList.Add(order));
+            }
+
+            return orderList;
+        }
+
+        public List<Order> GetAllOrders()
         {
             using (var context = new JobManagementContext())
             {
-                List<IOrder> ordersList = new List<IOrder>();
+                List<Order> ordersList = new List<Order>();
 
                 context.Orders
                     .Include(o => o.Customer)
@@ -41,7 +60,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewOrder(IOrder order)
+        public void AddNewOrder(Order order)
         {
             using (var context = new JobManagementContext())
             {
@@ -75,7 +94,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteOrderByDto(IOrder order)
+        public void DeleteOrderByDto(Order order)
         {
             using (var context = new JobManagementContext())
             {
@@ -84,7 +103,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateOrderByDto(IOrder order)
+        public void UpdateOrderByDto(Order order)
         {
             using (var context = new JobManagementContext())
             {
@@ -115,7 +134,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewPositionByOrderAndPosition(IOrder order, IPosition position)
+        public void AddNewPositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -142,7 +161,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeletePositionByOrderAndPosition(IOrder order, IPosition position)
+        public void DeletePositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -157,7 +176,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdatePositionByOrderAndPosition(IOrder order, IPosition position)
+        public void UpdatePositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {

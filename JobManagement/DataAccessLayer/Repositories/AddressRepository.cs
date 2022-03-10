@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
-using DataAccessLayer.Interfaces;
+using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Repositories
 {
     public class AddressRepository
     {
-        public IAddress GetAddressById(int id)
+        public Address GetAddressById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -20,11 +20,28 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<IAddress> GetAllAddresses()
+        public List<Address> GetAddressesBySearchTerm(string searchTerm)
+        {
+            List<Address> addressList = new List<Address>();
+            Search search = new Search();
+
+            using (var context = new JobManagementContext())
+            {
+                context.Addresses
+                    .AsEnumerable()
+                    .Where(address => search.EvaluateSearchTerm(searchTerm, address))
+                    .ToList()
+                    .ForEach(address => addressList.Add(address));
+            }
+
+            return addressList;
+        }
+
+        public List<Address> GetAllAddresses()
         {
             using (var context = new JobManagementContext())
             {
-                List<IAddress> addressesList = new List<IAddress>();
+                List<Address> addressesList = new List<Address>();
 
                 context.Addresses
                     .ToList()
@@ -34,7 +51,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewAddress(IAddress address)
+        public void AddNewAddress(Address address)
         {
             using (var context = new JobManagementContext())
             {
@@ -43,7 +60,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteAddressByDto(IAddress address)
+        public void DeleteAddressByDto(Address address)
         {
             using (var context = new JobManagementContext())
             {
@@ -52,7 +69,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateAddressByDto(IAddress address)
+        public void UpdateAddressByDto(Address address)
         {
             using (var context = new JobManagementContext())
             {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace BusinessLayer.DataTransferObjects
@@ -16,7 +15,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public ItemDto(IItem item)
+        public ItemDto(Item item)
         {
             Id = item.Id;
             Name = item.Name;
@@ -37,7 +36,7 @@ namespace BusinessLayer.DataTransferObjects
             };
         }
 
-        public static List<ItemDto> ItemListToItemDtoList(List<IItem> items)
+        public static List<ItemDto> ItemListToItemDtoList(List<Item> items)
         {
             List<ItemDto> ItemDtos = new List<ItemDto>();
             foreach (var item in items)

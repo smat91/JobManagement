@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace BusinessLayer.DataTransferObjects
@@ -14,11 +13,11 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public ItemGroupDto(IItemGroup itemGroup)
+        public ItemGroupDto(ItemGroup itemGroup)
         {
             Id = itemGroup.Id;
             Name = itemGroup.Name;
-            ParentItemGroup = new ItemGroupDto(itemGroup.ParentItemGroup);
+            ParentItemGroup = (itemGroup.ParentItemGroup == null) ? null : new ItemGroupDto(itemGroup.ParentItemGroup);
         }
 
         public static DataAccessLayer.Models.ItemGroup ItemGroupDtoToItemGroup(ItemGroupDto itemGroup)
@@ -27,12 +26,12 @@ namespace BusinessLayer.DataTransferObjects
             {
                 Id = itemGroup.Id,
                 Name = itemGroup.Name,
-                ParentItemGroup = ItemGroupDto.ItemGroupDtoToItemGroup(itemGroup.ParentItemGroup)
+                ParentItemGroup = (itemGroup.ParentItemGroup == null)? null : ItemGroupDto.ItemGroupDtoToItemGroup(itemGroup.ParentItemGroup)
             };
         }
 
-        public static List<ItemGroupDto> ItemGroupListToItemGroupDtoList(List<IItemGroup> itemGroups)
-        { 
+        public static List<ItemGroupDto> ItemGroupListToItemGroupDtoList(List<ItemGroup> itemGroups)
+        {
             List<ItemGroupDto> itemGroupDtos = new List<ItemGroupDto>();
             foreach (var itemGroup in itemGroups)
             {
