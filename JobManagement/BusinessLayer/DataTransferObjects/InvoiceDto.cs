@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLayer.DataAccessConnection;
-using DataAccessLayer.QueryTypes;
 
 namespace BusinessLayer.DataTransferObjects
 {
@@ -25,7 +23,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public InvoiceDto(InvoiceRequest invoice)
+        public InvoiceDto(DataAccessLayer.QueryTypes.InvoiceRequest invoice)
         {
             CustomerId = invoice.CustomerId;
             Name = invoice.Street;
@@ -39,7 +37,7 @@ namespace BusinessLayer.DataTransferObjects
             PriceGross = invoice.PriceGross;
         }
 
-        public static List<InvoiceDto> InvoiceListToInvoiceDtoList(List<InvoiceRequest> invoices)
+        public static List<InvoiceDto> InvoiceListToInvoiceDtoList(List<DataAccessLayer.QueryTypes.InvoiceRequest> invoices)
         {
             List<InvoiceDto> invoiceDtos = new List<InvoiceDto>();
             foreach (var invoice in invoices)

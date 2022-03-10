@@ -15,7 +15,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public OrderDto(Order order)
+        public OrderDto(DataAccessLayer.Models.Order order)
         {
             Id = order.Id;
             Date = order.Date;
@@ -34,7 +34,7 @@ namespace BusinessLayer.DataTransferObjects
             };
         }
 
-        public static List<OrderDto> OrderListToOrderDtoList(List<Order> Orders)
+        public static List<OrderDto> OrderListToOrderDtoList(List<DataAccessLayer.Models.Order> Orders)
         {
             List<OrderDto> OrderDtos = new List<OrderDto>();
             foreach (var Order in Orders)
