@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace BusinessLayer.DataTransferObjects
@@ -16,7 +15,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public OrderDto(IOrder order)
+        public OrderDto(Order order)
         {
             Id = order.Id;
             Date = order.Date;
@@ -35,7 +34,7 @@ namespace BusinessLayer.DataTransferObjects
             };
         }
 
-        public static List<OrderDto> OrderListToOrderDtoList(List<IOrder> Orders)
+        public static List<OrderDto> OrderListToOrderDtoList(List<Order> Orders)
         {
             List<OrderDto> OrderDtos = new List<OrderDto>();
             foreach (var Order in Orders)

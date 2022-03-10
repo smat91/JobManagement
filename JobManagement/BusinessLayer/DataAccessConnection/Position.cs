@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 
 namespace BusinessLayer.DataAccessConnection
@@ -19,6 +18,12 @@ namespace BusinessLayer.DataAccessConnection
         {
            var position = positionRepository_.GetPositionById(id);
            return new PositionDto(position);
+        }
+
+        public List<PositionDto> GetPositionsBySearchTerm(string searchTerm)
+        {
+            var positionsList = positionRepository_.GetCustomersBySearchTerm(searchTerm);
+            return PositionDto.PositionListToPositionDtoList(positionsList);
         }
 
         public List<PositionDto> GetAllPositions()

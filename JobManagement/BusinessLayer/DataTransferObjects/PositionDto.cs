@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace BusinessLayer.DataTransferObjects
@@ -14,7 +13,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public PositionDto(IPosition position)
+        public PositionDto(Position position)
         {
             Id = position.Id;
             Item = new ItemDto(position.Item);
@@ -31,7 +30,7 @@ namespace BusinessLayer.DataTransferObjects
             };
         }
         
-        public static List<PositionDto> PositionListToPositionDtoList(List<IPosition> positions)
+        public static List<PositionDto> PositionListToPositionDtoList(List<Position> positions)
         {
             List<PositionDto> positionDtos = new List<PositionDto>();
             foreach (var position in positions)

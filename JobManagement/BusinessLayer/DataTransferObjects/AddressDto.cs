@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 
 namespace BusinessLayer.DataTransferObjects
@@ -17,7 +16,7 @@ namespace BusinessLayer.DataTransferObjects
         {
         }
 
-        public AddressDto(IAddress address)
+        public AddressDto(Address address)
         {
             Id = address.Id;
             Street = address.Street;
@@ -40,7 +39,7 @@ namespace BusinessLayer.DataTransferObjects
             };
         }
 
-        public static List<AddressDto> AddressListToAddressDtoList(List<IAddress> addresses)
+        public static List<AddressDto> AddressListToAddressDtoList(List<Address> addresses)
         {
             List <AddressDto> addressDtos = new List <AddressDto>();
             foreach (var address in addresses)
