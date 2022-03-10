@@ -26,7 +26,7 @@ namespace BusinessLayer.DataTransferObjects
             {
                 Id = itemGroup.Id,
                 Name = itemGroup.Name,
-                ParentItemGroup = ItemGroupDto.ItemGroupDtoToItemGroup(itemGroup.ParentItemGroup)
+                ParentItemGroup = (itemGroup.ParentItemGroup == null)? null : ItemGroupDto.ItemGroupDtoToItemGroup(itemGroup.ParentItemGroup)
             };
         }
 
