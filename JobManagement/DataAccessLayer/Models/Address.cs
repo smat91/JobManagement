@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.Models
 {
-    public class Address : IAddress
+    public class Address
     {
         public int Id { get; set; }
         [Required]
