@@ -79,7 +79,7 @@ namespace DataAccessLayer.Repositories
 	                        INNER JOIN [CTE_Products] AS [p1]
 		                        ON [p1].[Id] = [pn].[ParentItemGroupId]
                         )
-                        SELECT	[Name] ,
+                        SELECT DISTINCT [Name] ,
 		                        [ProductLevel]
                         FROM [CTE_Products]
                         ORDER BY [ProductLevel], [Name];
