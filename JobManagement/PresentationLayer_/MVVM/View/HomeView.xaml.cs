@@ -14,7 +14,6 @@ namespace PresentationLayer.MVVM.View
     {
         public HomeView()
         {
-            DataContext = new HomeViewModel();
             InitializeComponent();
         }
     }
