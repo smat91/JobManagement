@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer.QueryTypes
 {
-    public class InvoiceRequest : IInvoice
+    public class InvoiceRequest
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }
