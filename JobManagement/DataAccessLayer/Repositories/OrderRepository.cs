@@ -134,7 +134,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewPositionByOrderAndPosition(Order order, IPosition position)
+        public void AddNewPositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -161,7 +161,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeletePositionByOrderAndPosition(Order order, IPosition position)
+        public void DeletePositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -176,7 +176,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdatePositionByOrderAndPosition(Order order, IPosition position)
+        public void UpdatePositionByOrderAndPosition(Order order, Position position)
         {
             using (var context = new JobManagementContext())
             {

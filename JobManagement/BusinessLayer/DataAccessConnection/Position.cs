@@ -22,7 +22,7 @@ namespace BusinessLayer.DataAccessConnection
 
         public List<PositionDto> GetPositionsBySearchTerm(string searchTerm)
         {
-            var positionsList = positionRepository_.GetCustomersBySearchTerm(searchTerm);
+            var positionsList = positionRepository_.GetPositionsBySearchTerm(searchTerm);
             return PositionDto.PositionListToPositionDtoList(positionsList);
         }
 
