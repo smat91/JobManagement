@@ -1,25 +1,31 @@
-﻿<UserControl x:Class="PresentationLayer.MVVM.View.NewCustomerView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.MVVM.View"
+             xmlns:ViewModel="clr-namespace:PresentationLayer.MVVM.ViewModel" x:Class="PresentationLayer.MVVM.View.NewCustomerView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <ViewModel:NewCustomerViewModel/>
+    </UserControl.DataContext>
+
     <StackPanel>
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                <GradientStop Color="#123" Offset="0.0"></GradientStop>
-                <GradientStop Color="Yellow" Offset="6"></GradientStop>
+                <GradientStop Color="#123" Offset="0.0"/>
+                <GradientStop Color="Yellow" Offset="6"/>
             </LinearGradientBrush>
         </StackPanel.Background>
-            <!--Titel-->
+        <!--Titel-->
         <TextBlock Text="Kunden Hinzufügen"
                    Foreground="White"
                    FontSize="20"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
-        
+
         <StackPanel Height="343">
             <StackPanel Orientation="Horizontal"
                     Height="40">
@@ -28,9 +34,9 @@
                HorizontalAlignment="Center"
                        Content="Kundennummer"
                        HorizontalContentAlignment="Center"
-                       Width="160"></Label>
+                       Width="160"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
@@ -40,16 +46,16 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Passwort"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
                     
                 />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
                     Height="40">
 
 
@@ -57,9 +63,9 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Vorname"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
@@ -69,16 +75,16 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Nachname"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
                     
                 />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
                     Height="40">
 
 
@@ -86,9 +92,9 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Strasse"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
@@ -98,16 +104,16 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Nummer"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
                     
                 />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
                     Height="40">
 
 
@@ -115,9 +121,9 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="PLZ"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
-            <TextBox Width="232"
+                <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
@@ -127,7 +133,7 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Ort"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
                 <TextBox Width="232"
                      Height="28"
@@ -142,7 +148,7 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="E-Mail"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
                 <TextBox Width="232"
                      Height="28"
@@ -153,7 +159,7 @@
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Website"
-               HorizontalAlignment="Center"></Label>
+               HorizontalAlignment="Center"/>
 
                 <TextBox Width="232"
                      Height="28"

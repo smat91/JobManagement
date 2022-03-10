@@ -87,7 +87,6 @@ namespace PresentationLayer.MVVM.ViewModel
             if (DataCheck())
             {
                 item.AddNewItem(item_);
-                Cancel();
             }
             else
             {
