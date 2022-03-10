@@ -43,7 +43,6 @@
                       CanUserSortColumns="False"
                       IsReadOnly="True"
                       />
-
         </Grid>
 
     </StackPanel>

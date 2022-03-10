@@ -5,20 +5,21 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLayer.DataTransferObjects;
+using BusinessLayer.DataAccessConnection;
 using PresentationLayer.Annotations;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
 
-    internal class ArticleViewModel : INotifyPropertyChanged
+    internal class ArticleViewModel
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public List<ItemDto> ItemDtoList { get; set; }
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        public ArticleViewModel()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Item items = new Item();
+            ItemDtoList = items.GetAllItems();
         }
-      
     }
 }
