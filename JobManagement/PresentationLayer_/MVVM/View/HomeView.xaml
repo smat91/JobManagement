@@ -32,9 +32,9 @@
                       AutoGenerateColumns="True"
                       HorizontalAlignment="Stretch"
                       Margin="0,0,0,0"
-                      VerticalAlignment="Top"
-                      Height="200"
+                      Height="400"
                       Width="800"
+                      ColumnWidth="*"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
                       CanUserReorderColumns="False"
@@ -42,6 +42,8 @@
                       CanUserResizeRows="False"
                       CanUserSortColumns="False"
                       IsReadOnly="True"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto"
                       />
         </Grid>
 
