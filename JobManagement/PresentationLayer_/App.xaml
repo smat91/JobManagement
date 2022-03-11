@@ -21,6 +21,10 @@
                 <view:CustomerView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:SearchCustomerViewModel}">
+                <view:SearchCustomerView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:NewCustomerViewModel}">
                 <view:NewCustomerView/>
             </DataTemplate>
@@ -33,8 +37,16 @@
                 <view:NewArticleView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:SearchArticleViewModel}">
+                <view:SearchArticleView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:OrderViewModel}">
                 <view:OrderView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SearchOrderViewModel}">
+                <view:SearchOrderView/>
             </DataTemplate>
 
         </ResourceDictionary>

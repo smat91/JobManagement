@@ -12,8 +12,6 @@
         Background="Transparent"
         AllowsTransparency="True">
 
-
-
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
@@ -35,7 +33,6 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="75">
-
                 </RowDefinition>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -92,6 +89,7 @@
                      HorizontalAlignment="Left"
                      Margin="284,18,0,17"
                      Grid.Column="1"
+                     Text="{Binding SearchTerm}"
                      Style="{StaticResource ModernTextbox}"
                 ></TextBox>
             <Button Content="Neu"
@@ -123,17 +121,16 @@
                              Grid.Column="1" 
                              Margin="201,15,424,14"
                              Style="{StaticResource RoundButton}"/>
-
             <Button Content="Suchen"
-                             Foreground="White"
-                             Background="Black"
-                             Opacity="0.4"
-                             FontSize="14"
-                             FontFamily="/Fonts/#Poppins"
-                             Grid.Column="1" 
-                             Margin="508,15,116,14"
-                             Style="{StaticResource RoundButton}"/>
-        
+                    Command="{Binding Path=SearchCommand}"
+                    Foreground="White"
+                    Background="Black"
+                    Opacity="0.4"
+                    FontSize="14"
+                    FontFamily="/Fonts/#Poppins"
+                    Grid.Column="1" 
+                    Margin="508,15,116,14"
+                    Style="{StaticResource RoundButton}"/>
 
 
             <ContentControl Grid.Row="1"
@@ -142,14 +139,6 @@
                             Content="{Binding CurrentView}"/>
 
         </Grid>
-
-
-
-
-
     </Border>
-
-
-
 </Window>
     
