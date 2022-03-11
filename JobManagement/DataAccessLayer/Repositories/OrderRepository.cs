@@ -17,9 +17,14 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var order = context.Orders.Find(id);
-                context.Entry(order).Reference(o => o.Customer).Load();
-                context.Entry(order).Reference(o => o.Positions).Load();
+                var order = context.Orders
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
+                    .Single(order => order.Id == id);
 
                 return order;
             }
@@ -33,8 +38,12 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 context.Orders
-                    .Include(o => o.Customer)
-                    .Include(o => o.Positions)
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .AsEnumerable()
                     .Where(order => search.EvaluateSearchTerm(searchTerm, order))
                     .ToList()
@@ -51,8 +60,12 @@ namespace DataAccessLayer.Repositories
                 List<Order> ordersList = new List<Order>();
 
                 context.Orders
-                    .Include(o => o.Customer)
-                    .Include(o => o.Positions)
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .ToList()
                     .ForEach(order => ordersList.Add(order));
 
@@ -67,8 +80,9 @@ namespace DataAccessLayer.Repositories
                 if (order.Customer != null)
                 {
                     var customer = context.Customers
-                        .Find(order.Customer.Id);
-                    if (customer != null)
+                        .Include(customer => customer.Address)
+                        .FirstOrDefault(customer => customer.Id == order.Customer.Id);
+                    if (customer != default(Customer))
                         order.Customer = customer;
                 }
 
@@ -79,8 +93,11 @@ namespace DataAccessLayer.Repositories
                         if (pos != null)
                         {
                             var position = context.Positions
-                                .Find(pos.Id);
-                            if (position != null)
+                                .Include(positions => positions.Item)
+                                .ThenInclude(item => item.Group)
+                                .ThenInclude(group => group.ParentItemGroup)
+                                .FirstOrDefault(position => position.Id == pos.Id);
+                            if (position != default(Position))
                             {
                                 order.Positions.Remove(pos);
                                 order.Positions.Add(position);
@@ -89,7 +106,7 @@ namespace DataAccessLayer.Repositories
                     }
                 }
 
-                context.Orders.Add((Order)order);
+                context.Orders.Add(order);
                 context.SaveChanges();
             }
         }
@@ -98,7 +115,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Orders.Remove((Order)order);
+                context.Orders.Remove(order);
                 context.SaveChanges();
             }
         }
@@ -110,8 +127,9 @@ namespace DataAccessLayer.Repositories
                 if (order.Customer != null)
                 {
                     var customer = context.Customers
-                        .Find(order.Customer.Id);
-                    if (customer != null)
+                        .Include(customer => customer.Address)
+                        .FirstOrDefault(customer => customer.Id == order.Customer.Id);
+                    if (customer != default(Customer))
                         order.Customer = customer;
                 }
 
@@ -120,8 +138,11 @@ namespace DataAccessLayer.Repositories
                     if (pos != null)
                     {
                         var position = context.Positions
-                            .Find(pos.Id);
-                        if (position != null)
+                            .Include(positions => positions.Item)
+                            .ThenInclude(item => item.Group)
+                            .ThenInclude(group => group.ParentItemGroup)
+                            .FirstOrDefault(position => position.Id == pos.Id);
+                        if (position != default(Position))
                         {
                             order.Positions.Remove(pos);
                             order.Positions.Add(position);
@@ -129,7 +150,7 @@ namespace DataAccessLayer.Repositories
                     }
                 }
 
-                context.Orders.Update((Order)order);
+                context.Orders.Update(order);
                 context.SaveChanges();
             }
         }
@@ -139,15 +160,21 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 var orderTemp = context.Orders
-                    .Include(o => o.Customer)
-                    .Include(o => o.Positions)
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .FirstOrDefault(o => o.Id == order.Id);
 
                 if (orderTemp == default(Order))
                     return;
 
                 var positionTemp = context.Positions
-                    .Include(p => p.Item)
+                    .Include(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .FirstOrDefault(p => p.Id == position.Id);
 
                 if (positionTemp == default(Position))
@@ -165,12 +192,19 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order.Id);
+                var orderTemp = context.Orders
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
+                    .FirstOrDefault(o => o.Id == order.Id);
 
-                if (orderTemp == null)
+                if (orderTemp == default(Order))
                     return;
 
-                orderTemp.Positions.Remove((Position)position);
+                orderTemp.Positions.Remove(position);
 
                 context.SaveChanges();
             }
@@ -180,19 +214,26 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var orderTemp = context.Orders.Find(order.Id);
+                var orderTemp = context.Orders
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
+                    .FirstOrDefault(o => o.Id == order.Id);
 
-                if (orderTemp == null)
+                if (orderTemp == default(Order))
                     return;
 
                 var positionTemp = orderTemp.Positions
                     .FirstOrDefault(pos => pos.Id == position.Id);
 
-                if (positionTemp == null)
+                if (positionTemp == default(Position))
                     return;
 
                 orderTemp.Positions.Remove(positionTemp);
-                orderTemp.Positions.Add((Position)position);
+                orderTemp.Positions.Add(position);
                 context.SaveChanges();
             }
         }

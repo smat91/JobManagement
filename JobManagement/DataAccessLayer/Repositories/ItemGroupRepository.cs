@@ -96,8 +96,9 @@ namespace DataAccessLayer.Repositories
                 if (itemGroupDto.ParentItemGroup != null)
                 {
                     var parentItemGroup = context.ItemGroups
-                        .Find(itemGroupDto.ParentItemGroup.Id);
-                    if (parentItemGroup != null)
+                        .Include(itemGroup => itemGroup.ParentItemGroup)
+                        .FirstOrDefault(itemGroup => itemGroup.Id == itemGroupDto.ParentItemGroup.Id);
+                    if (parentItemGroup != default(ItemGroup))
                         itemGroupDto.ParentItemGroup = parentItemGroup;
                 }
 
@@ -122,8 +123,9 @@ namespace DataAccessLayer.Repositories
                 if (itemGroupDto.ParentItemGroup != null)
                 {
                     var parentItemGroup = context.ItemGroups
-                        .Find(itemGroupDto.ParentItemGroup.Id);
-                    if (parentItemGroup != null)
+                        .Include(itemGroup => itemGroup.ParentItemGroup)
+                        .FirstOrDefault(itemGroup => itemGroup.Id == itemGroupDto.ParentItemGroup.Id);
+                    if (parentItemGroup != default(ItemGroup))
                         itemGroupDto.ParentItemGroup = parentItemGroup;
                 }
 
