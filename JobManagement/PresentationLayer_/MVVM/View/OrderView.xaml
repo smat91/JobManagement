@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.MVVM.View"
+             xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:OrderViewModel/>
+    </UserControl.DataContext>
+
     <StackPanel>
 
         <StackPanel.Background>
@@ -21,5 +27,25 @@
                    FontFamily="/Fonts/#Poppins"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
+
+        <DataGrid x:Name="DataGridOrderData"
+                  ItemsSource="{Binding Path=OrderDtoList}"
+                  AutoGenerateColumns="True"
+                  HorizontalAlignment="Stretch"
+                  Margin="0,0,0,0"
+                  Height="400"
+                  Width="800"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="False"
+                  IsReadOnly="True"
+        >
+            <DataGrid.ItemContainerStyle>
+                <Style/>
+            </DataGrid.ItemContainerStyle>
+        </DataGrid>
     </StackPanel>
 </UserControl>
