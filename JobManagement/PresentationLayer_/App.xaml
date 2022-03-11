@@ -21,6 +21,10 @@
                 <view:CustomerView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:NewCustomerViewModel}">
+                <view:NewCustomerView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:ArticleViewModel}">
                 <view:ArticleView/>
             </DataTemplate>

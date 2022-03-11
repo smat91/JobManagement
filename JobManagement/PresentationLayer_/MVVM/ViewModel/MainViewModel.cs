@@ -15,6 +15,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public HomeViewModel HomeVM{get; set;}
         public CustomerViewModel CustomerVM { get; set; }
+        public NewCustomerViewModel NewCustomerVM { get; set; }
         public ArticleViewModel ArticleVM { get; set; }
         public NewArticleViewModel NewArticleVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
@@ -55,6 +56,7 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             HomeVM = new HomeViewModel();
             CustomerVM = new CustomerViewModel();
+            NewCustomerVM = new NewCustomerViewModel();
             ArticleVM = new ArticleViewModel();
             NewArticleVM = new NewArticleViewModel();
             OrderVM = new OrderViewModel();
@@ -98,6 +100,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Customer:
+                    CurrentView = NewCustomerVM;
                     break;
 
                 case RadioButtonState.Article:
