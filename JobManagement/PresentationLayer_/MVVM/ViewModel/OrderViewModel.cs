@@ -33,9 +33,17 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public OrderViewModel()
         {
+            MainViewModel.ReloadOrderView = ReloadData;
             Order order = new Order();
             OrderDtoTable = new DataTable();
             AddHeaderData(OrderDtoTable);
+            AddRowData(OrderDtoTable, order.GetAllOrders());
+        }
+
+        private void ReloadData()
+        {
+            Order order = new Order();
+            OrderDtoTable.Clear();
             AddRowData(OrderDtoTable, order.GetAllOrders());
         }
 

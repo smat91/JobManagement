@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Dynamic;
+using System.Windows;
+using BusinessLayer.DataAccessConnection;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -11,6 +13,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public RelayCommand NewCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CustomerViewCommand { get; set; }
@@ -28,8 +31,11 @@ namespace PresentationLayer.MVVM.ViewModel
         public SearchOrderViewModel SearchOrderVM { get; set; }
 
 
+        public static Action ReloadCustomerView { get ; set; }
         public static Action ReloadSearchCustomerView { get ; set; }
+        public static Action ReloadArticleView { get ; set; }
         public static Action ReloadSearchArticleView { get ; set; }
+        public static Action ReloadOrderView { get ; set; }
         public static Action ReloadSearchOrderView { get ; set; }
 
         public static string SearchTermStatic
@@ -107,6 +113,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
             NewCommand = new RelayCommand(o => OnNewCommand());
             EditCommand = new RelayCommand(o => OnEditCommand());
+            DeleteCommand = new RelayCommand(o => OnDeleteCommand());
             SearchCommand = new RelayCommand(o => OnSearchCommand());
 
             HomeViewCommand = new RelayCommand(o => 
@@ -192,6 +199,87 @@ namespace PresentationLayer.MVVM.ViewModel
                 case RadioButtonState.Order:
                     CurrentView = SearchOrderVM;
                     ReloadSearchOrderView();
+                    break;
+            }
+        }
+
+        private void OnDeleteCommand()
+        {
+            switch (radioButtonsState_)
+            {
+                case RadioButtonState.Home:
+                    break;
+
+                case RadioButtonState.Customer:
+                    var customer = new Customer();
+                    if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        var res = customer.DeleteCustomerByDto(
+                            customer.GetCustomerById(selectedId_));
+
+                        if (currentView_.GetType() == CustomerVM.GetType())
+                        {
+                            ReloadCustomerView();
+                        }
+                        else
+                        {
+                            ReloadSearchCustomerView();
+                        }
+
+                        MessageBox.Show(
+                            res, 
+                            "Info",
+                            MessageBoxButton.OK, 
+                            MessageBoxImage.Information);
+                    }
+                    break;
+
+                case RadioButtonState.Article:
+                    var item = new Item();
+                    if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        var res = item.DeleteItemByDto(
+                            item.GetItemById(selectedId_));
+
+                        if (currentView_.GetType() == ArticleVM.GetType())
+                        {
+                            ReloadArticleView();
+                        }
+                        else
+                        {
+                            ReloadSearchArticleView();
+                        }
+
+                        MessageBox.Show(
+                            res,
+                            "Info",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
+                    break;
+
+                case RadioButtonState.Order:
+                    var order = new Order();
+                    if (MessageBox.Show("Auftrag endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        var res = order.DeleteOrderByDto(
+                            order.GetOrderById(selectedId_));
+
+                        if (currentView_.GetType() == OrderVM.GetType())
+                        {
+                            ReloadOrderView();
+                        }
+                        else
+                        {
+                            ReloadSearchOrderView();
+                        }
+
+                        MessageBox.Show(
+                            res,
+                            "Info",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
                     break;
             }
         }

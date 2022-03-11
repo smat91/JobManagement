@@ -33,9 +33,17 @@ namespace PresentationLayer.MVVM.ViewModel
         
         public CustomerViewModel()
         {
+            MainViewModel.ReloadCustomerView = ReloadData;
             Customer customer = new Customer();
             CustomerDtoTable = new DataTable();
             AddHeaderData(CustomerDtoTable);
+            AddRowData(CustomerDtoTable, customer.GetAllCustomers());
+        }
+
+        private void ReloadData()
+        {
+            Customer customer = new Customer();
+            CustomerDtoTable.Clear();
             AddRowData(CustomerDtoTable, customer.GetAllCustomers());
         }
 

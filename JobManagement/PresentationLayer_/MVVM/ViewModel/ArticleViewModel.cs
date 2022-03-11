@@ -50,9 +50,17 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public ArticleViewModel()
         {
+            MainViewModel.ReloadArticleView = ReloadData;
             Item items = new Item();
             ItemDtoTable = new DataTable();
             AddHeaderData(ItemDtoTable);
+            AddRowData(ItemDtoTable, items.GetAllItems());
+        }
+
+        private void ReloadData()
+        {
+            Item items = new Item();
+            ItemDtoTable.Clear();
             AddRowData(ItemDtoTable, items.GetAllItems());
         }
 

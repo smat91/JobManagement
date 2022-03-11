@@ -113,6 +113,7 @@
                              Margin="101,15,524,14"
                              Style="{StaticResource RoundButton}"/>
             <Button Content="Löschen"
+                             Command="{Binding Path=DeleteCommand}"
                              Foreground="White"
                              Background="Black"
                              Opacity="0.4"
