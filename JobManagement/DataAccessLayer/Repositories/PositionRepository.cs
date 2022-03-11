@@ -81,12 +81,21 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeletePositionByDto(Position position)
+        public string DeletePositionByDto(Position position)
         {
             using (var context = new JobManagementContext())
             {
                 context.Positions.Remove(position);
-                context.SaveChanges();
+
+                try
+                {
+                    context.SaveChanges();
+                    return "Datensatz erfolgreich gelöscht";
+                }
+                catch (DbUpdateException e)
+                {
+                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
+                }
             }
         }
 

@@ -107,12 +107,20 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteItemGroupByDto(ItemGroup itemGroupDto)
+        public string DeleteItemGroupByDto(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
                 context.ItemGroups.Remove((ItemGroup)itemGroupDto);
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                    return "Datensatz erfolgreich gelöscht";
+                }
+                catch (DbUpdateException e)
+                {
+                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
+                }
             }
         }
 

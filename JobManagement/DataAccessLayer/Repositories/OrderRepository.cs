@@ -111,12 +111,21 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteOrderByDto(Order order)
+        public string DeleteOrderByDto(Order order)
         {
             using (var context = new JobManagementContext())
             {
                 context.Orders.Remove(order);
-                context.SaveChanges();
+
+                try
+                {
+                    context.SaveChanges();
+                    return "Datensatz erfolgreich gelöscht";
+                }
+                catch (DbUpdateException e)
+                {
+                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
+                }
             }
         }
 

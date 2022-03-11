@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -60,12 +61,21 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void DeleteAddressByDto(Address address)
+        public string DeleteAddressByDto(Address address)
         {
             using (var context = new JobManagementContext())
             {
                 context.Addresses.Remove(address);
-                context.SaveChanges();
+
+                try
+                {
+                    context.SaveChanges();
+                    return "Datensatz erfolgreich gelöscht";
+                }
+                catch (DbUpdateException e)
+                {
+                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
+                }
             }
         }
 
