@@ -113,9 +113,13 @@ namespace DataAccessLayer.Repositories
 
         public string DeleteOrderByDto(Order order)
         {
+            order.Positions.Clear();
+            UpdateOrderByDto(order);
+
             using (var context = new JobManagementContext())
             {
-                context.Orders.Remove(order);
+
+                context.Orders.Remove(GetOrderById(order.Id));
 
                 try
                 {

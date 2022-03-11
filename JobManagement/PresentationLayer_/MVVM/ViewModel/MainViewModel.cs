@@ -236,7 +236,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
                 case RadioButtonState.Article:
                     var item = new Item();
-                    if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = item.DeleteItemByDto(
                             item.GetItemById(selectedId_));
