@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Helper
 {
@@ -28,7 +29,21 @@ namespace DataAccessLayer.Helper
 
             foreach (var property in obj.GetType().GetProperties())
             {
-                result |= property.GetValue(obj).ToString().Contains(term, StringComparison.OrdinalIgnoreCase);
+                var propertyType = property.PropertyType.FullName;
+                var addressType = typeof(Address).FullName;
+                var customerType = typeof(Customer).FullName;
+                if ((propertyType == addressType) || (propertyType == customerType))
+                {
+                    var test = property.GetValue(obj).GetType().GetProperties();
+                    foreach (var subProperty in test)
+                    {
+                        result |= subProperty.GetValue(property.GetValue(obj)).ToString().Contains(term, StringComparison.OrdinalIgnoreCase);
+                    }
+                }
+                else
+                {
+                    result |= property.GetValue(obj).ToString().Contains(term, StringComparison.OrdinalIgnoreCase);
+                }
             }
 
             return result;
