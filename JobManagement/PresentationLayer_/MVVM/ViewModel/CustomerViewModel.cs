@@ -22,8 +22,9 @@ namespace PresentationLayer.MVVM.ViewModel
             set
             {
                 selectedRow_ = value;
-                MainViewModel.SelectedId = Int32.Parse(
-                    value.Row[CustomerDtoTable.Columns.IndexOf("Kundennummer")].ToString());
+                if (value != null)
+                    MainViewModel.SelectedId = Int32.Parse(
+                        value.Row[CustomerDtoTable.Columns.IndexOf("Kundennummer")].ToString());
                 OnPropertyChanged();
             }
         }
@@ -38,7 +39,7 @@ namespace PresentationLayer.MVVM.ViewModel
             AddRowData(CustomerDtoTable, customer.GetAllCustomers());
         }
 
-        private void AddHeaderData(DataTable dataTable)
+        public void AddHeaderData(DataTable dataTable)
         {
             // add header data
             dataTable.Columns.Add("Kundennummer");
@@ -49,7 +50,7 @@ namespace PresentationLayer.MVVM.ViewModel
             dataTable.Columns.Add("Ort");
         }
 
-        private void AddRowData(DataTable dataTable, List<CustomerDto> customerDtoList)
+        public void AddRowData(DataTable dataTable, List<CustomerDto> customerDtoList)
         {
             foreach (var customer in customerDtoList)
             {

@@ -22,8 +22,9 @@ namespace PresentationLayer.MVVM.ViewModel
             set
             {
                 selectedRow_ = value;
-                MainViewModel.SelectedId = Int32.Parse(
-                    value.Row[OrderDtoTable.Columns.IndexOf("Auftragsnummer")].ToString());
+                if (value != null)
+                    MainViewModel.SelectedId = Int32.Parse(
+                        value.Row[OrderDtoTable.Columns.IndexOf("Auftragsnummer")].ToString());
                 OnPropertyChanged();
             }
         }
@@ -38,7 +39,7 @@ namespace PresentationLayer.MVVM.ViewModel
             AddRowData(OrderDtoTable, order.GetAllOrders());
         }
 
-        private void AddHeaderData(DataTable dataTable)
+        public void AddHeaderData(DataTable dataTable)
         {
             // add header data
             dataTable.Columns.Add("Auftragsnummer");
@@ -46,7 +47,7 @@ namespace PresentationLayer.MVVM.ViewModel
             dataTable.Columns.Add("Datum");
         }
 
-        private void AddRowData(DataTable dataTable, List<OrderDto> orderDtoList)
+        public void AddRowData(DataTable dataTable, List<OrderDto> orderDtoList)
         {
             foreach (var order in orderDtoList)
             {

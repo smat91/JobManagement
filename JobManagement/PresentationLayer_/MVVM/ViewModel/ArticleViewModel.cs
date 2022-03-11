@@ -16,7 +16,19 @@ namespace PresentationLayer.MVVM.ViewModel
 
     internal class ArticleViewModel : ObservableObject
     {
-        public DataTable ItemDtoTable { get; set; }
+        public DataTable ItemDtoTable
+        {
+            get
+            {
+                return itemDtoTable_;
+            }
+            set
+            {
+                itemDtoTable_ = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DataRowView SelectedRow
         {
             get
@@ -26,12 +38,14 @@ namespace PresentationLayer.MVVM.ViewModel
             set
             {
                 selectedRow_ = value;
-                MainViewModel.SelectedId = Int32.Parse(
-                    value.Row[ItemDtoTable.Columns.IndexOf("Artikelnummer")].ToString());
+                if (value != null)
+                    MainViewModel.SelectedId = Int32.Parse(
+                        value.Row[ItemDtoTable.Columns.IndexOf("Artikelnummer")].ToString());
                 OnPropertyChanged();
             }
         }
 
+        private DataTable itemDtoTable_;
         private DataRowView selectedRow_;
 
         public ArticleViewModel()
@@ -42,7 +56,7 @@ namespace PresentationLayer.MVVM.ViewModel
             AddRowData(ItemDtoTable, items.GetAllItems());
         }
 
-        private void AddHeaderData(DataTable dataTable)
+        internal void AddHeaderData(DataTable dataTable)
         {
             // add header data
             dataTable.Columns.Add("Artikelnummer");
@@ -52,7 +66,7 @@ namespace PresentationLayer.MVVM.ViewModel
             dataTable.Columns.Add("MWSt");
         }
 
-        private void AddRowData(DataTable dataTable, List<ItemDto> itemDtoList)
+        internal void AddRowData(DataTable dataTable, List<ItemDto> itemDtoList)
         {
             foreach (var item in itemDtoList)
             {
