@@ -16,8 +16,11 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                var position = context.Positions.Find(id);
-                context.Entry(position).Reference(p => p.Item).Load();
+                var position = context.Positions
+                    .Include(position => position.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
+                    .Single(position => position.Id == id);
                 return position;
             }
         }
@@ -30,7 +33,9 @@ namespace DataAccessLayer.Repositories
             using (var context = new JobManagementContext())
             {
                 context.Positions
-                    .Include(p => p.Item)
+                    .Include(position => position.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .AsEnumerable()
                     .Where(position => search.EvaluateSearchTerm(searchTerm, position))
                     .ToList()
@@ -47,7 +52,9 @@ namespace DataAccessLayer.Repositories
                 List<Position> positionsList = new List<Position>();
 
                 context.Positions
-                    .Include(p => p.Item)
+                    .Include(position => position.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .ToList()
                     .ForEach(position => positionsList.Add(position));
 
@@ -62,12 +69,14 @@ namespace DataAccessLayer.Repositories
                 if (position.Item != null)
                 {
                     var item = context.Items
-                        .Find(position.Item.Id);
-                    if (item != null)
+                        .Include(item => item.Group)
+                        .ThenInclude(group => group.ParentItemGroup)
+                        .FirstOrDefault(item => item.Id == position.Item.Id);
+                    if (item != default(Item))
                         position.Item = item;
                 }
 
-                context.Positions.Add((Position)position);
+                context.Positions.Add(position);
                 context.SaveChanges();
             }
         }
@@ -76,7 +85,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Positions.Remove((Position)position);
+                context.Positions.Remove(position);
                 context.SaveChanges();
             }
         }
@@ -88,12 +97,14 @@ namespace DataAccessLayer.Repositories
                 if (position.Item != null)
                 {
                     var item = context.Items
-                        .Find(position.Item.Id);
-                    if (item != null)
+                        .Include(item => item.Group)
+                        .ThenInclude(group => group.ParentItemGroup)
+                        .FirstOrDefault(item => item.Id == position.Item.Id);
+                    if (item != default(Item))
                         position.Item = item;
                 }
 
-                context.Positions.Update((Position)position);
+                context.Positions.Update(position);
                 context.SaveChanges();
             }
         }

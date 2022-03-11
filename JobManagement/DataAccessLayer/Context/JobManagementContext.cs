@@ -42,9 +42,6 @@ namespace DataAccessLayer.Context
                 .UseSqlServer(connection.GetConnectionString("JobManagement"));
 
             optionsBuilder
-                .UseLazyLoadingProxies();
-
-            optionsBuilder
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
 

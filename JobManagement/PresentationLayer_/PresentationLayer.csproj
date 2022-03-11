@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MVVM\ViewModel\Commands\**" />
+    <EmbeddedResource Remove="MVVM\ViewModel\Commands\**" />
+    <None Remove="MVVM\ViewModel\Commands\**" />
+    <Page Remove="MVVM\ViewModel\Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

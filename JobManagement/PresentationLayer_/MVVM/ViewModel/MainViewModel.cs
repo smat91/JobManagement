@@ -20,6 +20,19 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewArticleViewModel NewArticleVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
 
+        public static int SelectedId
+        {
+            get
+            {
+                return selectedId_;
+            }
+            set
+            {
+                selectedId_ = value;
+            }
+        }
+
+        private static int selectedId_;
         private object currentView_;
         private RadioButtonState radioButtonsState_;
         private enum RadioButtonState

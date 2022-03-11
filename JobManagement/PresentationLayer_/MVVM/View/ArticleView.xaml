@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PresentationLayer.MVVM.View"
+             xmlns:ViewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <ViewModel:ArticleViewModel/>
+    </UserControl.DataContext>
+
     <StackPanel>
 
         <StackPanel.Background>
@@ -22,29 +27,29 @@
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
 
-        <TreeView Name="myTreeViewEvent" >
-            <TreeViewItem Header="Employee1" IsSelected="True">
-                <TreeViewItem Header="Jesper Aaberg"/>
-                <TreeViewItem Header="Employee Number">
-                    <TreeViewItem Header="12345"/>
-                </TreeViewItem>
-                <TreeViewItem Header="Work Days">
-                    <TreeViewItem Header="Monday"/>
-                    <TreeViewItem Header="Tuesday"/>
-                    <TreeViewItem Header="Thursday"/>
-                </TreeViewItem>
-            </TreeViewItem>
-            <TreeViewItem Header="Employee2">
-                <TreeViewItem Header="Dominik Paiha"/>
-                <TreeViewItem Header="Employee Number">
-                    <TreeViewItem Header="98765"/>
-                </TreeViewItem>
-                <TreeViewItem Header="Work Days">
-                    <TreeViewItem Header="Tuesday"/>
-                    <TreeViewItem Header="Wednesday"/>
-                    <TreeViewItem Header="Friday"/>
-                </TreeViewItem>
-            </TreeViewItem>
-        </TreeView>
+        <DataGrid x:Name="DataGridItemData"
+                  ItemsSource="{Binding Path=ItemDtoTable}"
+                  SelectedItem="{Binding Path=SelectedRow}"
+                  AutoGenerateColumns="True"
+                  HorizontalAlignment="Stretch"
+                  Margin="0,0,0,0"
+                  Height="400"
+                  Width="800"
+                  ColumnWidth="*"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="False"
+                  IsReadOnly="True"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto" 
+                  SelectedIndex="0"
+        >
+            <DataGrid.ItemContainerStyle>
+                <Style/>
+            </DataGrid.ItemContainerStyle>
+        </DataGrid>
     </StackPanel>
 </UserControl>

@@ -21,6 +21,12 @@ namespace DataAccessLayer.Repositories
                 Search search = new Search();
 
                 var orders = context.Orders
+                    .Include(order => order.Customer)
+                    .ThenInclude(customer => customer.Address)
+                    .Include(order => order.Positions)
+                    .ThenInclude(positions => positions.Item)
+                    .ThenInclude(item => item.Group)
+                    .ThenInclude(group => group.ParentItemGroup)
                     .Where(order => search.EvaluateSearchTerm(searchTerm, order));
 
                 if (orders != null)

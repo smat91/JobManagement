@@ -55,7 +55,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Add((Address)address);
+                context.Addresses.Add(address);
                 context.SaveChanges();
             }
         }
@@ -64,7 +64,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Remove((Address)address);
+                context.Addresses.Remove(address);
                 context.SaveChanges();
             }
         }
@@ -73,7 +73,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Addresses.Update((Address)address);
+                context.Addresses.Update(address);
                 context.SaveChanges();
             }
         }
