@@ -36,9 +36,9 @@ namespace BusinessLayer.DataAccessConnection
             customerRepository_.AddNewCustomer(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
-        public void DeleteCustomerByDto(CustomerDto customer)
+        public string DeleteCustomerByDto(CustomerDto customer)
         {
-            customerRepository_.DeleteCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
+            return customerRepository_.DeleteCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public void UpdateCustomerByDto(CustomerDto customer)

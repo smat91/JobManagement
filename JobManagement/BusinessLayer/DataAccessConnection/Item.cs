@@ -37,9 +37,9 @@ namespace BusinessLayer.DataAccessConnection
             itemRepository_.AddNewItem(ItemDto.ItemDtoToItem(item));
         }
 
-        public void DeleteItemByDto(ItemDto item)
+        public string DeleteItemByDto(ItemDto item)
         {
-            itemRepository_.DeleteItemByDto(ItemDto.ItemDtoToItem(item));
+            return itemRepository_.DeleteItemByDto(ItemDto.ItemDtoToItem(item));
         }
 
         public void UpdateItemByDto(ItemDto item)

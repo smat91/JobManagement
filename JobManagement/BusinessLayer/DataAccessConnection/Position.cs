@@ -37,9 +37,9 @@ namespace BusinessLayer.DataAccessConnection
             positionRepository_.AddNewPosition(PositionDto.PositionDtoToPosition(position));
         }
 
-        public void DeletePositionByDto(PositionDto position)
+        public string DeletePositionByDto(PositionDto position)
         {
-            positionRepository_.DeletePositionByDto(PositionDto.PositionDtoToPosition(position));
+            return positionRepository_.DeletePositionByDto(PositionDto.PositionDtoToPosition(position));
         }
 
         public void UpdatePositionByDto(PositionDto position)

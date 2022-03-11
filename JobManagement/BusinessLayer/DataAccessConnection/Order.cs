@@ -37,9 +37,9 @@ namespace BusinessLayer.DataAccessConnection
             orderRepository_.AddNewOrder(OrderDto.OrderDtoToOrder(order));
         }
 
-        public void DeleteOrderByDto(OrderDto order)
+        public string DeleteOrderByDto(OrderDto order)
         {
-            orderRepository_.DeleteOrderByDto(OrderDto.OrderDtoToOrder(order));
+            return orderRepository_.DeleteOrderByDto(OrderDto.OrderDtoToOrder(order));
         }
 
         public void UpdateOrderByDto(OrderDto order)

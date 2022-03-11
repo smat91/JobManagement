@@ -37,9 +37,9 @@ namespace BusinessLayer.DataAccessConnection
             addressRepository_.AddNewAddress(AddressDto.AddressDtoToAddress(address));
         }
 
-        public void DeleteAddressByDto(AddressDto address)
+        public string DeleteAddressByDto(AddressDto address)
         {
-            addressRepository_.DeleteAddressByDto(AddressDto.AddressDtoToAddress(address));
+            return addressRepository_.DeleteAddressByDto(AddressDto.AddressDtoToAddress(address));
         }
 
         public void UpdateAddressByDto(AddressDto address)

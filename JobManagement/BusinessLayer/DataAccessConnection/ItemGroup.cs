@@ -43,9 +43,9 @@ namespace BusinessLayer.DataAccessConnection
             itemGroupRepository_.AddNewItemGroup(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
-        public void DeleteItemGroupByDto(ItemGroupDto ItemGroup)
+        public string DeleteItemGroupByDto(ItemGroupDto ItemGroup)
         {
-            itemGroupRepository_.DeleteItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
+            return itemGroupRepository_.DeleteItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
         public void UpdateItemGroupByDto(ItemGroupDto ItemGroup)
