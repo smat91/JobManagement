@@ -20,20 +20,20 @@
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
 
-        <StackPanel Height="343">
+        <StackPanel Height="140">
             <StackPanel Orientation="Horizontal"
                     Height="40">
 
                 <Label Foreground="White"
                HorizontalAlignment="Center"
-                       Content="Bestellnummer"
+                       Content="Kundennummer"
                        HorizontalContentAlignment="Center"
                        Width="160"></Label>
 
-                <TextBox Width="232"
+                <ComboBox x:Name="TxtKundenNummer" Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                   
                     
                 />
                 <Label Foreground="White"
@@ -49,36 +49,9 @@
                     
                 />
             </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                    Height="40">
+            
 
-
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Kundennummer"
-               HorizontalAlignment="Center"></Label>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Positionen"
-               HorizontalAlignment="Center"></Label>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
+                <StackPanel Orientation="Horizontal"
                     Height="40">
 
 
@@ -90,29 +63,55 @@
 
                 <TextBox Width="232"
                      Height="28"
-                     FontFamily="/Fonts/#Poppins" 
+                     FontFamily="/Fonts/#Poppins"             
                 />
+                <Button Foreground="Black"
+                Content="Hinzufügen"
+                Width="160" Height="25"
+                        Margin="200,0,0,0"
+                />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40"
+                       >
+
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
                     Width="160"
-                    Content="Anzahl"
+                    Content="Menge"
                HorizontalAlignment="Center"></Label>
 
                 <TextBox Width="232"
                      Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
+                     FontFamily="/Fonts/#Poppins" 
                 />
+
+                <Button Foreground="Black"
+                Content="Löschen"
+                Height="28"
+                Width="160"
+                Margin="200,0,0,0"
+
+                    />
             </StackPanel>
-     
-        
+
+         
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                   Height="205">
+            <DataGrid Width="700"
+                      Height="185"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Margin= "55,0,0,0">
+                
+            </DataGrid>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
                 Margin="10,10,10,20"
-                Content="Cancel"
+                Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />
