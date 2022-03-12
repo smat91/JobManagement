@@ -8,70 +8,8 @@ using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    class EditArticleViewModel : ObservableObject
+    class EditArticleViewModel : NewArticleViewModel
     {
-        public string Name
-        {
-            get
-            {
-                return item_.Name;
-            }
-            set
-            {
-                item_.Name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ItemGroupDto Group
-        {
-            get
-            {
-                return item_.Group;
-            }
-            set
-            {
-                item_.Group = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public decimal Price
-        {
-            get
-            {
-                return item_.Price;
-
-            }
-            set
-            {
-                item_.Price = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public decimal Vat
-        {
-            get
-            {
-                return item_.Vat;
-
-            }
-            set
-            {
-                item_.Vat = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public List<ItemGroupDto> ItemGroupList { get; set; }
-
-        public RelayCommand SaveCommand { get; set; }
-        public RelayCommand CancelCommand { get; set; }
-        
-
-        private ItemDto item_;
-        
         public EditArticleViewModel()
         {
             item_ = new ItemDto();
@@ -92,22 +30,6 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 MessageBox.Show("Artikeldaten unvollständig!");
             }
-        }
-
-        private void Cancel()
-        {
-            item_.Name = "";
-            item_.Group = null;
-            item_.Price = 0;
-            item_.Vat = 0;
-        }
-
-        private bool DataCheck()
-        {
-            return !item_.Name.IsNullOrEmpty()
-                   && (item_.Group != null)
-                   && (item_.Price >= 0)
-                   && (item_.Vat >= 0);
         }
     }
 }
