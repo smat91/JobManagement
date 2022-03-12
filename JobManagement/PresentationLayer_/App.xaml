@@ -12,7 +12,6 @@
                 <ResourceDictionary Source="Theme/ButtonRounded.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
@@ -20,11 +19,9 @@
             <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
                 <view:CustomerView/>
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewModel:SearchCustomerViewModel}">
                 <view:SearchCustomerView/>
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewModel:NewCustomerViewModel}">
                 <view:NewCustomerView/>
             </DataTemplate>
@@ -32,11 +29,9 @@
             <DataTemplate DataType="{x:Type viewModel:ArticleViewModel}">
                 <view:ArticleView/>
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewModel:NewArticleViewModel}">
                 <view:NewArticleView/>
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewModel:SearchArticleViewModel}">
                 <view:SearchArticleView/>
             </DataTemplate>
@@ -44,7 +39,9 @@
             <DataTemplate DataType="{x:Type viewModel:OrderViewModel}">
                 <view:OrderView/>
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewModel:NewOrderViewModel}">
+                <view:NewOrderView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:SearchOrderViewModel}">
                 <view:SearchOrderView/>
             </DataTemplate>

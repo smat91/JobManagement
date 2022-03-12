@@ -12,6 +12,12 @@ namespace BusinessLayer.DataTransferObjects
         public string Password { get; set; }
         public string Website { get; set; }
         public AddressDto Address { get; set; }
+        public string Identifier {
+            get
+            {
+                return $"{Id}: {Firstname} {Lastname}";
+            }
+        }
 
         public CustomerDto()
         {

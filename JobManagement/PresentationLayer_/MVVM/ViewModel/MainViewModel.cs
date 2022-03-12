@@ -28,6 +28,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewArticleViewModel NewArticleVM { get; set; }
         public SearchArticleViewModel SearchArticleVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
+        public NewOrderViewModel NewOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
 
 
@@ -106,6 +107,7 @@ namespace PresentationLayer.MVVM.ViewModel
             NewArticleVM = new NewArticleViewModel();
             SearchArticleVM = new SearchArticleViewModel();
             OrderVM = new OrderViewModel();
+            NewOrderVM = new NewOrderViewModel();
             SearchOrderVM = new SearchOrderViewModel();
 
             CurrentView = HomeVM;
@@ -157,6 +159,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Order:
+                    CurrentView = NewOrderVM;
                     break;
             }
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
+using System.Windows.Automation;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
@@ -11,35 +13,28 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     class NewOrderViewModel : ObservableObject
     {
-        // Bestellnummer fehlt
-        // Kundennummer fehlt
-        // Artikel, Bestelldatum, Position, Anzahl ist implementiert.
-        
-        public 
-        
-        public ItemDto Item
+        public CustomerDto Customer
         {
             get
             {
-                // da sollte doch Name kommen.
-                return order_.Position.Item;
+                return order_.Customer;
             }
             set
             {
-                order_.Position.Item = value;
+                order_.Customer = value;
                 OnPropertyChanged();
             }
         }
 
-        public int Amount
+        public List<CustomerDto> CustomerList
         {
             get
             {
-                return order_.Position.Amount;
+                return customerGroupList_;
             }
             set
             {
-                order_.Position.Amount = value;
+                customerGroupList_ = value;
                 OnPropertyChanged();
             }
         }
@@ -57,30 +52,104 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        public ICollection<PositionDto> Positions
-        {
+        public ItemDto Item {
             get
             {
-                return order_.Positions;
+                return item_;
             }
             set
             {
-                order_.Positions = value;
+                item_ = value;
                 OnPropertyChanged();
             }
         }
 
+        public List<ItemDto> ItemList
+        {
+            get
+            {
+                Item item = new Item();
+                return item.GetAllItems();
+            }
+            set
+            {
+                itemGroupList_ = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Amount
+        {
+            get
+            {
+                return amount_;
+            }
+            set
+            {
+                amount_ = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DataTable PositionTable
+        {
+            get
+            {
+                return positionTable_;
+            }
+            set
+            {
+                positionTable_ = value;
+                OnPropertyChanged();
+            }
+        }
+        public DataRowView SelectedRow
+        {
+            get
+            {
+                return selectedRow_;
+            }
+            set
+            {
+                selectedRow_ = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
+        public RelayCommand AddPositionCommand { get; set; }
+        public RelayCommand DeletePositionCommand { get; set; }
 
-
+        private List<CustomerDto> customerGroupList_;
+        private ItemDto item_;
+        private List<ItemDto> itemGroupList_;
+        private int amount_;
+        private DataTable positionTable_;
+        private DataRowView selectedRow_;
         private OrderDto order_;
 
         public NewOrderViewModel()
         {
             order_ = new OrderDto();
+            order_.Positions = new List<PositionDto>();
+            Date = DateTime.Now;
+
+            Item item = new Item();
+            ItemList = item.GetAllItems();
+
+            Customer customer = new Customer();
+            CustomerList = customer.GetAllCustomers();
+
             SaveCommand = new RelayCommand(o => Save());
             CancelCommand = new RelayCommand(o => Cancel());
+            AddPositionCommand = new RelayCommand(o => AddPosition());
+            DeletePositionCommand = new RelayCommand(o => DeletePosition());
+
+            PositionTable = new DataTable();
+            AddHeaderData(PositionTable);
+            AddRowData(PositionTable, order_.Positions);
         }
 
         private void Save()
@@ -92,25 +161,85 @@ namespace PresentationLayer.MVVM.ViewModel
             }
             else
             {
-                MessageBox.Show("Einige Felder sind unvollständig!");
+                MessageBox.Show("Einige Felder sind unvollständig\noder keine Positionen vorhanden!");
             }
         }
 
         private void Cancel()
         {
-            order_.Position.Item = null;
-            //order_.Date = ;
-            order_.Positions = null;
-            order_.Position.Amount = 0;
+            Customer = default(CustomerDto);
+            Date = DateTime.Now;
+            order_.Positions.Clear();
+            ReloadData();
         }
 
         private bool DataCheck()
         {
-            // hier ist name drin
-            return !order_.Position.Item.Name.IsNullOrEmpty()
-                   //&& (order_.Date != "")
-                   //&& (order_.Positions >= 0)
-                   && (order_.Position.Amount >= 0);
+            return Customer != default(CustomerDto)
+                   && !order_.Positions.IsNullOrEmpty();
+        }
+
+        private void AddPosition()
+        {
+            if ((item_ != default(ItemDto)) && (amount_ > 0))
+            {
+                order_.Positions.Add(new PositionDto()
+                {
+                    Item = item_,
+                    Amount = amount_
+                });
+
+                ReloadData();
+            }
+        }
+
+        private void DeletePosition()
+        {
+            if (selectedRow_ != null)
+            {
+                var selectedName = selectedRow_.Row[PositionTable.Columns.IndexOf("Artikel")];
+                var selectedAmount = Int32.Parse(
+                    selectedRow_.Row[PositionTable.Columns.IndexOf("Menge")].ToString());
+
+                PositionDto positionToDelete = null;
+
+                foreach (var position in order_.Positions)
+                {
+                    if ((position.Item.Name == selectedName) && (position.Amount == selectedAmount))
+                        positionToDelete = position; 
+                }
+
+                if (positionToDelete != null)
+                    order_.Positions.Remove(positionToDelete);
+
+                ReloadData();
+            }
+        }
+
+        private void ReloadData()
+        {
+            PositionTable.Clear();
+            AddRowData(PositionTable, order_.Positions);
+        }
+
+        internal void AddHeaderData(DataTable dataTable)
+        {
+            // add header data
+            dataTable.Columns.Add("Artikel");
+            dataTable.Columns.Add("Menge");
+        }
+
+        internal void AddRowData(DataTable dataTable, ICollection<PositionDto> positionCollection)
+        {
+            foreach (var position in positionCollection)
+            {
+                DataRow catRow = dataTable.NewRow();
+
+                catRow["Artikel"] = position.Item.Name;
+                catRow["Menge"] = position.Amount;
+
+                dataTable.Rows.Add(catRow);
+            }
         }
     }
 }

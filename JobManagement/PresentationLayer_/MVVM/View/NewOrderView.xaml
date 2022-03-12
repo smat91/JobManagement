@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.MVVM.View"
+             xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:NewOrderViewModel/>
+    </UserControl.DataContext>
+
     <StackPanel>
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -20,9 +26,8 @@
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
 
-        <StackPanel Height="140">
-            <StackPanel Orientation="Horizontal"
-                    Height="40">
+        <StackPanel Height="344">
+            <StackPanel Orientation="Horizontal" Height="40">
 
                 <Label Foreground="White"
                HorizontalAlignment="Center"
@@ -30,92 +35,131 @@
                        HorizontalContentAlignment="Center"
                        Width="160"></Label>
 
-                <ComboBox x:Name="TxtKundenNummer" Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                   
-                    
+                <ComboBox x:Name="TxtKundennummer" Width="480"
+                          Height="28"
+                          FontFamily="/Fonts/#Poppins"
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding Path=CustomerList}"
+                          DisplayMemberPath= "Identifier"
+                          SelectedValuePath="{Binding Customer}"
+                          SelectedValue="{Binding Path=Customer}"
                 />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="40">
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
                     Width="160"
                     Content="Bestelldatum"
-               HorizontalAlignment="Center"></Label>
+                    HorizontalAlignment="Center"></Label>
 
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
+                <TextBox 
+                    Width="480"
+                    Text="{Binding Path=Date}"
+                    Height="28"
+                    FontFamily="/Fonts/#Poppins"
                 />
             </StackPanel>
             
+            <GroupBox Name ="Positionen"
+                      Margin="5"
+                      Header="Positionen"
+                      Foreground="White">
 
-                <StackPanel Orientation="Horizontal"
-                    Height="40">
+                <StackPanel Height="243">
+                    <StackPanel Orientation="Horizontal"
+                                Height="40">
 
 
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Artikel"
-               HorizontalAlignment="Center"></Label>
+                        <Label Foreground="White"
+                               HorizontalContentAlignment="Center"
+                               Width="160"
+                               Content="Artikel"
+                               HorizontalAlignment="Center"></Label>
 
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"             
-                />
-                <Button Foreground="Black"
-                Content="Hinzufügen"
-                Width="160" Height="25"
-                        Margin="200,0,0,0"
-                />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                    Height="40"
-                       >
+                        <ComboBox x:Name="TxtArtikel" Width="232"
+                                  Height="28"
+                                  FontFamily="/Fonts/#Poppins"
+                                  VerticalContentAlignment="Center"
+                                  ItemsSource="{Binding Path=ItemList}"
+                                  DisplayMemberPath="Name"
+                                  SelectedValuePath="{Binding Item}"
+                                  SelectedValue="{Binding Path=Item}"
+                        />
+                        <Button Foreground="Black"
+                                Command="{Binding Path=AddPositionCommand}"
+                                Content="Position hinzufügen"
+                                Width="160" Height="25"
+                                Margin="200,0,0,0"
+                        />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Height="40"
+                    >
 
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Menge"
-               HorizontalAlignment="Center"></Label>
+                        <Label Foreground="White"
+                               HorizontalContentAlignment="Center"
+                               Width="160"
+                               Content="Menge"
+                               HorizontalAlignment="Center"></Label>
 
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins" 
-                />
+                        <TextBox 
+                            Width="232"
+                            Height="28"
+                            FontFamily="/Fonts/#Poppins"
+                            Text="{Binding Path=Amount}"
+                        />
 
-                <Button Foreground="Black"
-                Content="Löschen"
-                Height="28"
-                Width="160"
-                Margin="200,0,0,0"
+                        <Button Foreground="Black"
+                                Command="{Binding Path=DeletePositionCommand}"
+                                Content="Position löschen"
+                                Height="28"
+                                Width="160"
+                                Margin="200,0,0,0"
 
-                    />
-            </StackPanel>
-
-         
+                        />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Height="205">
+                        <DataGrid x:Name="DataGridItemData"
+                                  ItemsSource="{Binding Path=PositionTable}"
+                                  SelectedItem="{Binding Path=SelectedRow}"
+                                  AutoGenerateColumns="True"
+                                  HorizontalAlignment="Stretch"
+                                  Margin="0,0,0,0"
+                                  Height="400"
+                                  Width="800"
+                                  ColumnWidth="*"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  CanUserReorderColumns="False"
+                                  CanUserResizeColumns="False"
+                                  CanUserResizeRows="False"
+                                  CanUserSortColumns="False"
+                                  IsReadOnly="True"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Auto" 
+                                  SelectedIndex="0"
+                        >
+                            <DataGrid.ItemContainerStyle>
+                                <Style/>
+                            </DataGrid.ItemContainerStyle>
+                        </DataGrid>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                   Height="205">
-            <DataGrid Width="700"
-                      Height="185"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Margin= "55,0,0,0">
-                
-            </DataGrid>
-        </StackPanel>
+
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
+                    Command="{Binding Path=.CancelCommand}"
                 Margin="10,10,10,20"
                 Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />
             <Button Foreground="Black"
+                    Command="{Binding Path=SaveCommand}"
                 Margin="10,10,10,20"
                 Content="OK"
                 Height="40"
