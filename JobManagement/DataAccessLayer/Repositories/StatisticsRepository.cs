@@ -170,12 +170,12 @@ namespace DataAccessLayer.Repositories
                         WITH ORDER_ITEMS AS
                             (SELECT
 		                        ORDER_ID,
-		                        AMMOUNT,
+		                        AMOUNT,
 		                        YEAR,
 		                        QUARTER
 	                        FROM
 		                        (SELECT
-			                        Positions.Amount AS 'AMMOUNT', 
+			                        Positions.Amount AS 'AMOUNT', 
 			                        Positions.OrderId AS 'ORDER_ID',
 			                        Orders.Date AS 'DATE',
 			                        YEAR(Orders.Date) AS 'YEAR',
@@ -185,22 +185,22 @@ namespace DataAccessLayer.Repositories
 				                        WHEN CAST(MONTH(Orders.Date) as decimal) / 3 <= 3 AND CAST(MONTH(Orders.Date) as decimal) > 2 THEN 3
 				                        ELSE 4
 			                        END AS 'QUARTER'
-		                          FROM [JobManagement].[dbo].[Positions]
-		                          FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
+		                            FROM [JobManagement].[dbo].[Positions]
+		                            FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
 		                        WHERE PeriodStart >= DATEADD(year, -3, GETDATE())
 		                        ) innerquery
-	                        GROUP BY ORDER_ID, AMMOUNT, YEAR, QUARTER),
+	                        GROUP BY ORDER_ID, AMOUNT, YEAR, QUARTER),
 
                         ITEMS_QUARTER AS
 	                        (SELECT*,
 		                        CONCAT(YEAR, ' ', 'Q', QUARTER) AS CREATION_DATE,
-		                        CAST(AVG(AMMOUNT) OVER(PARTITION BY YEAR, QUARTER, ORDER_ID ORDER BY YEAR, QUARTER, ORDER_ID) AS nvarchar)
+		                        CAST(AVG(AMOUNT) OVER(PARTITION BY YEAR, QUARTER ORDER BY YEAR, QUARTER) AS nvarchar)
 	                        AS 'TOTAL_AVERAGE_QUARTERLY'
 	                        FROM ORDER_ITEMS)
 
                         SELECT DISTINCT CREATION_DATE, TOTAL_AVERAGE_QUARTERLY
                         FROM ITEMS_QUARTER
-                            ORDER BY CREATION_DATE        
+                            ORDER BY CREATION_DATE     
                         "
 					)
                     .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_AVERAGE_QUARTERLY);

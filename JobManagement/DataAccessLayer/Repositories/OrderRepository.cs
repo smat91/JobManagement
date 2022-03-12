@@ -88,6 +88,8 @@ namespace DataAccessLayer.Repositories
 
                 if (!order.Positions.IsNullOrEmpty())
                 {
+                    ICollection<Position> tempList = new List<Position>();
+
                     foreach (Position pos in order.Positions)
                     {
                         if (pos != null)
@@ -97,13 +99,26 @@ namespace DataAccessLayer.Repositories
                                 .ThenInclude(item => item.Group)
                                 .ThenInclude(group => group.ParentItemGroup)
                                 .FirstOrDefault(position => position.Id == pos.Id);
+
                             if (position != default(Position))
                             {
-                                order.Positions.Remove(pos);
-                                order.Positions.Add(position);
+                                tempList.Add(position);
+                            }
+                            else
+                            {
+                                tempList.Add(new Position()
+                                {
+                                    Item = context.Items
+                                        .Include(item => item.Group)
+                                        .ThenInclude(group => group.ParentItemGroup)
+                                        .Single(item => item.Id == pos.Item.Id),
+                                    Amount = pos.Amount
+                                });
                             }
                         }
                     }
+
+                    order.Positions = tempList;
                 }
 
                 context.Orders.Add(order);
@@ -146,6 +161,8 @@ namespace DataAccessLayer.Repositories
                         order.Customer = customer;
                 }
 
+                ICollection<Position> tempList = new List<Position>();
+
                 foreach (Position pos in order.Positions)
                 {
                     if (pos != null)
@@ -155,13 +172,26 @@ namespace DataAccessLayer.Repositories
                             .ThenInclude(item => item.Group)
                             .ThenInclude(group => group.ParentItemGroup)
                             .FirstOrDefault(position => position.Id == pos.Id);
+
                         if (position != default(Position))
                         {
-                            order.Positions.Remove(pos);
-                            order.Positions.Add(position);
+                            tempList.Add(position);
+                        }
+                        else
+                        {
+                            tempList.Add(new Position()
+                            {
+                                Item = context.Items
+                                    .Include(item => item.Group)
+                                    .ThenInclude(group => group.ParentItemGroup)
+                                    .Single(item => item.Id == pos.Item.Id),
+                                Amount = pos.Amount
+                            });
                         }
                     }
                 }
+
+                order.Positions = tempList;
 
                 context.Orders.Update(order);
                 context.SaveChanges();
@@ -192,7 +222,14 @@ namespace DataAccessLayer.Repositories
 
                 if (positionTemp == default(Position))
                 {
-                    positionTemp = (Position)position;
+                    positionTemp = new Position()
+                    {
+                        Item = context.Items
+                            .Include(item => item.Group)
+                            .ThenInclude(group => group.ParentItemGroup)
+                            .Single(item => item.Id == position.Item.Id),
+                        Amount = position.Amount
+                    }; 
                 }
 
                 orderTemp.Positions.Add(positionTemp);
