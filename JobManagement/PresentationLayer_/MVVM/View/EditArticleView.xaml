@@ -31,7 +31,7 @@
                 />
         <Label Foreground="White"
                Margin="0,20,0,0"
-               HorizontalAlignment="Center">ArtikelName</Label>
+               HorizontalAlignment="Center">Artikel Name</Label>
         <TextBox Width="231"
                      Height="29"
                      FontFamily="/Fonts/#Poppins"
@@ -43,7 +43,7 @@
                 ></TextBox>
         <Label Foreground="White"
                HorizontalAlignment="Center"
-               Content="ArtikelNummer"/>
+               Content="Artikel Nummer"/>
         <TextBox Width="231"
                      Height="33"
                      FontFamily="/Fonts/#Poppins"

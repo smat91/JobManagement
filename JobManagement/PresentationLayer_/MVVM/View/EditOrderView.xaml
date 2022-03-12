@@ -112,7 +112,7 @@
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
                 Margin="10,10,10,20"
-                Content="Cancel"
+                Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />

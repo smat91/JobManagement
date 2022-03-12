@@ -38,7 +38,7 @@
                 />
         <Label Foreground="White"
                Margin="0,20,0,0"
-               HorizontalAlignment="Center">ArtikelName</Label>
+               HorizontalAlignment="Center">Artikel Name</Label>
         <TextBox x:Name="TxtArtikelName" Width="231"
                      Height="29"
                      FontFamily="/Fonts/#Poppins"
@@ -73,7 +73,7 @@
                     HorizontalAlignment="Right">
             <Button x:Name="CmdCancel" Foreground="Black"
                 Margin="10,10,10,20"
-                Content="Cancle"
+                Content="Abbrechen"
                 Height="40"
                 Width="50"
                 Command="{Binding Path=CancelCommand}"

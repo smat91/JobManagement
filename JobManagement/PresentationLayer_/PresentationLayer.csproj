@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="White Black M Letter Logo Design Business Identity for Digital Design Company %281%29.png" />
+    <None Remove="White Black M Letter Logo Design Business Identity for Digital Design Company.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -66,6 +71,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="White Black M Letter Logo Design Business Identity for Digital Design Company (1).png" />
+    <Resource Include="White Black M Letter Logo Design Business Identity for Digital Design Company.png" />
   </ItemGroup>
 
 </Project>

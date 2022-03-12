@@ -97,7 +97,7 @@
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
                     Width="160"
-                    Content="Nummer"
+                    Content="Nr."
                HorizontalAlignment="Center"></Label>
 
                 <TextBox Width="232"
@@ -165,7 +165,7 @@
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
                 Margin="10,10,10,20"
-                Content="Cancel"
+                Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />
