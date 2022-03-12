@@ -23,13 +23,21 @@ namespace PresentationLayer.MVVM.ViewModel
         public HomeViewModel HomeVM{get; set;}
         public CustomerViewModel CustomerVM { get; set; }
         public NewCustomerViewModel NewCustomerVM { get; set; }
+        public EditCustomerViewModel EditCustomerVM { get; set; }
         public SearchCustomerViewModel SearchCustomerVM { get; set; }
         public ArticleViewModel ArticleVM { get; set; }
         public NewArticleViewModel NewArticleVM { get; set; }
+        public EditArticleViewModel EditArticleVM { get; set; }
         public SearchArticleViewModel SearchArticleVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
         public NewOrderViewModel NewOrderVM { get; set; }
+        public EditOrderViewModel EditOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
+        //public ItemGroupViewModel ItemGroupVM { get; set; }
+        public NewItemGroupViewModel NewItemGroupVM { get; set; }
+        public EditItemGroupViewModel EditItemGroupVM { get; set; }
+        //public SearchItemGroupViewModel ItemGroupVM { get; set; }
+        
 
 
         public static Action ReloadCustomerView { get ; set; }
@@ -86,6 +94,7 @@ namespace PresentationLayer.MVVM.ViewModel
             Customer,
             Article,
             Order,
+            ItemGroup,
         }
 
         public object CurrentView
@@ -105,10 +114,14 @@ namespace PresentationLayer.MVVM.ViewModel
             NewCustomerVM = new NewCustomerViewModel();
             ArticleVM = new ArticleViewModel();
             NewArticleVM = new NewArticleViewModel();
+            EditArticleVM = new EditArticleViewModel();
             SearchArticleVM = new SearchArticleViewModel();
             OrderVM = new OrderViewModel();
             NewOrderVM = new NewOrderViewModel();
+            EditOrderVM = new EditOrderViewModel();
             SearchOrderVM = new SearchOrderViewModel();
+            NewItemGroupVM = new NewItemGroupViewModel();
+            EditItemGroupVM = new EditItemGroupViewModel();
 
             CurrentView = HomeVM;
             radioButtonsState_ = RadioButtonState.Home;
@@ -161,6 +174,10 @@ namespace PresentationLayer.MVVM.ViewModel
                 case RadioButtonState.Order:
                     CurrentView = NewOrderVM;
                     break;
+
+                case RadioButtonState.ItemGroup:
+                    CurrentView = NewItemGroupVM;
+                    break;
             }
         }
 
@@ -178,6 +195,9 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Order:
+                    break;
+
+                case RadioButtonState.ItemGroup:
                     break;
             }
         }
@@ -282,6 +302,30 @@ namespace PresentationLayer.MVVM.ViewModel
                             "Info",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+                    }
+                    break;
+
+                case RadioButtonState.ItemGroup:
+                    var itemGroup = new ItemGroup();
+                    if (MessageBox.Show("Auftrag endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        var res = itemGroup.DeleteItemGroupByDto(
+                            itemGroup.GetItemGroupById(selectedId_));
+
+                        ////if (currentView_.GetType() == ItemGroupVM.GetType())
+                        //{
+                        //    ReloadOrderView();
+                        //}
+                        //else
+                        //{
+                        //    ReloadSearchOrderView();
+                        //}
+
+                        //MessageBox.Show(
+                        //    res,
+                        //    "Info",
+                        //    MessageBoxButton.OK,
+                            //MessageBoxImage.Information);
                     }
                     break;
             }
