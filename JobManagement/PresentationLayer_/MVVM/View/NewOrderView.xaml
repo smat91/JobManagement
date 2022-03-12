@@ -152,7 +152,7 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
-                    Command="{Binding Path=.CancelCommand}"
+                    Command="{Binding Path=CancelCommand}"
                 Margin="10,10,10,20"
                 Content="Abbrechen"
                 Height="37"
