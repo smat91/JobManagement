@@ -41,7 +41,6 @@
                           VerticalContentAlignment="Center"
                           ItemsSource="{Binding Path=CustomerList}"
                           DisplayMemberPath= "Identifier"
-                          SelectedValuePath="{Binding Customer}"
                           SelectedValue="{Binding Path=Customer}"
                 />
             </StackPanel>
@@ -82,7 +81,6 @@
                                   VerticalContentAlignment="Center"
                                   ItemsSource="{Binding Path=ItemList}"
                                   DisplayMemberPath="Name"
-                                  SelectedValuePath="{Binding Item}"
                                   SelectedValue="{Binding Path=Item}"
                         />
                         <Button Foreground="Black"

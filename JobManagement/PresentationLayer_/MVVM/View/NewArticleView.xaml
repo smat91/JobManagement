@@ -33,7 +33,6 @@
                      VerticalContentAlignment="Center"
                      ItemsSource="{Binding Path=ItemGroupList}"
                      DisplayMemberPath="Name"
-                     SelectedValuePath="{Binding Group}"
                      SelectedValue="{Binding Path=Group}"
                     
                 />
