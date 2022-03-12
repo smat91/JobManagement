@@ -8,7 +8,7 @@ using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    class NewEditArticleViewModel : ObservableObject
+    class EditArticleViewModel : ObservableObject
     {
         public string Name
         {
@@ -72,7 +72,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         private ItemDto item_;
         
-        public NewEditArticleViewModel()
+        public EditArticleViewModel()
         {
             item_ = new ItemDto();
             ItemGroup itemGroup = new ItemGroup();

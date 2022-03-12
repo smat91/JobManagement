@@ -9,7 +9,7 @@ using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    class NewEditOrderViewModel : ObservableObject
+    class EditOrderViewModel : ObservableObject
     {
     }
 }

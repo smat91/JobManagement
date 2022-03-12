@@ -87,6 +87,7 @@ namespace PresentationLayer.MVVM.ViewModel
             if (DataCheck())
             {
                 item.AddNewItem(item_);
+                Cancel();
             }
             else
             {
@@ -96,10 +97,10 @@ namespace PresentationLayer.MVVM.ViewModel
 
         private void Cancel()
         {
-            item_.Name = "";
-            item_.Group = null;
-            item_.Price = 0;
-            item_.Vat = 0;
+            Name = ""; 
+            Group = null;
+            Price = 0;
+            Vat = 0;
         }
 
         private bool DataCheck()

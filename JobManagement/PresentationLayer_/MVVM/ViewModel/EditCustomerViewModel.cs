@@ -16,7 +16,7 @@ using PresentationLayer.MVVM.ViewModel;
 namespace PresentationLayer.MVVM.ViewModel
 {
 
-    internal class NewEditCustomerViewModel : ObservableObject
+    internal class EditCustomerViewModel : ObservableObject
     {
         public string Firstname
         {
@@ -156,7 +156,7 @@ namespace PresentationLayer.MVVM.ViewModel
      
        
 
-        public NewEditCustomerViewModel()
+        public EditCustomerViewModel()
         {
             customer_ = new CustomerDto();
             SaveCommand = new RelayCommand(o =>Save());
