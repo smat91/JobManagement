@@ -40,7 +40,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand CancelCommand { get; set; }
         
 
-        private ItemGroupDto itemGroup_;
+        public ItemGroupDto itemGroup_;
         
         public NewItemGroupViewModel()
         {
@@ -49,7 +49,7 @@ namespace PresentationLayer.MVVM.ViewModel
             CancelCommand = new RelayCommand(o => Cancel());
         }
 
-        private void Save()
+        public void Save()
         {
             ItemGroup itemGroup = new ItemGroup();
             if (DataCheck())
@@ -63,13 +63,13 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Cancel()
+        public void Cancel()
         {
             Name = ""; 
             ParentItemGroup = null;
         }
 
-        private bool DataCheck()
+        public bool DataCheck()
         {
             return !itemGroup_.Name.IsNullOrEmpty()
                    && (itemGroup_.ParentItemGroup != null);

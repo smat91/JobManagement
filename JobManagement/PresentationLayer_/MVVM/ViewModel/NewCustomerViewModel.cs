@@ -151,7 +151,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand CancleCommand { get; set; }
         
 
-        private CustomerDto customer_;
+        public CustomerDto customer_;
        
      
        
@@ -164,7 +164,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         }
 
-        private void Save()
+        public void Save()
         {
             Customer customer = new Customer();
             if (DataCheck())
@@ -177,7 +177,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Cancle()
+        public void Cancle()
         {
             customer_.Firstname = "";
             customer_.Lastname = "";
@@ -191,7 +191,7 @@ namespace PresentationLayer.MVVM.ViewModel
             customer_.Address.Country = "";
         }
 
-        private bool DataCheck()
+        public bool DataCheck()
         {
             // da kommt noch mehr.
             return !customer_.Firstname.IsNullOrEmpty()

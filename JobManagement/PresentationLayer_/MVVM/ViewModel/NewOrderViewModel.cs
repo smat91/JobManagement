@@ -122,13 +122,13 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand AddPositionCommand { get; set; }
         public RelayCommand DeletePositionCommand { get; set; }
 
-        private List<CustomerDto> customerGroupList_;
-        private ItemDto item_;
-        private List<ItemDto> itemGroupList_;
-        private int amount_;
-        private DataTable positionTable_;
-        private DataRowView selectedRow_;
-        private OrderDto order_;
+        public List<CustomerDto> customerGroupList_;
+        public ItemDto item_;
+        public List<ItemDto> itemGroupList_;
+        public int amount_;
+        public DataTable positionTable_;
+        public DataRowView selectedRow_;
+        public OrderDto order_;
 
         public NewOrderViewModel()
         {
@@ -152,7 +152,7 @@ namespace PresentationLayer.MVVM.ViewModel
             AddRowData(PositionTable, order_.Positions);
         }
 
-        private void Save()
+        public void Save()
         {
             Order order = new Order();
             if (DataCheck())
@@ -165,7 +165,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Cancel()
+        public void Cancel()
         {
             Customer = default(CustomerDto);
             Date = DateTime.Now;
@@ -173,13 +173,13 @@ namespace PresentationLayer.MVVM.ViewModel
             ReloadData();
         }
 
-        private bool DataCheck()
+        public bool DataCheck()
         {
             return Customer != default(CustomerDto)
                    && !order_.Positions.IsNullOrEmpty();
         }
 
-        private void AddPosition()
+        public void AddPosition()
         {
             if ((item_ != default(ItemDto)) && (amount_ > 0))
             {
@@ -193,7 +193,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void DeletePosition()
+        public void DeletePosition()
         {
             if (selectedRow_ != null)
             {
@@ -216,7 +216,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void ReloadData()
+        public void ReloadData()
         {
             PositionTable.Clear();
             AddRowData(PositionTable, order_.Positions);
