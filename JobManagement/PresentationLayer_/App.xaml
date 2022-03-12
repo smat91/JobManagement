@@ -25,6 +25,23 @@
             <DataTemplate DataType="{x:Type viewModel:NewCustomerViewModel}">
                 <view:NewCustomerView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditCustomerViewModel}">
+                <view:EditCustomerView/>
+            </DataTemplate>
+
+            <!--<DataTemplate DataType="{x:Type viewModel:ItemGroupViewModel}">
+                <view:OrderView/>
+            </DataTemplate>-->
+            <!--<DataTemplate DataType="{x:Type viewModel:NewItemGroupViewModel}">
+                <view:NewItemGroupView/>
+            </DataTemplate>-->
+            <!--<DataTemplate DataType="{x:Type viewModel:SearchItemGroupViewModel}">
+                <view:SearchItemGroupView/>
+            </DataTemplate>-->
+            <!--<DataTemplate DataType="{x:Type viewModel:EditItemGroupViewModel}">
+                <view:EditItemGroupView/>
+            </DataTemplate>-->
+
 
             <DataTemplate DataType="{x:Type viewModel:ArticleViewModel}">
                 <view:ArticleView/>
@@ -35,6 +52,9 @@
             <DataTemplate DataType="{x:Type viewModel:SearchArticleViewModel}">
                 <view:SearchArticleView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditArticleViewModel}">
+                <view:EditArticleView/>
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:OrderViewModel}">
                 <view:OrderView/>
@@ -44,6 +64,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:SearchOrderViewModel}">
                 <view:SearchOrderView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditOrderViewModel}">
+                <view:EditOrderView/>
             </DataTemplate>
 
         </ResourceDictionary>
