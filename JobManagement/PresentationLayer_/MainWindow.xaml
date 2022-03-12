@@ -7,18 +7,16 @@
         xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="600" Width="920"
-        WindowStyle="None"
         ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True">
+        Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
+
     <Border Background="#272537" 
             CornerRadius="20">
-        <Grid>
+        <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                     <GradientStop Color="#272537" Offset="0.0"></GradientStop>
