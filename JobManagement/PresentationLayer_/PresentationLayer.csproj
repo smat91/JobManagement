@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="White Black M Letter Logo Design Business Identity for Digital Design Company %281%29.png" />
     <None Remove="White Black M Letter Logo Design Business Identity for Digital Design Company.png" />
   </ItemGroup>
 
@@ -74,7 +73,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="White Black M Letter Logo Design Business Identity for Digital Design Company (1).png" />
     <Resource Include="White Black M Letter Logo Design Business Identity for Digital Design Company.png" />
   </ItemGroup>
 
