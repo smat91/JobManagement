@@ -10,13 +10,14 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     class EditArticleViewModel : NewArticleViewModel
     {
-        public EditArticleViewModel()
+        public EditArticleViewModel() : base()
         {
-            item_ = new ItemDto();
-            ItemGroup itemGroup = new ItemGroup();
-            ItemGroupList = itemGroup.GetAllItemGroups();
-            SaveCommand = new RelayCommand(o => Save());
-            CancelCommand = new RelayCommand(o => Cancel());
+            Item item = new Item();
+
+            if (MainViewModel.SelectedId > 0)
+            {
+                item_ = item.GetItemById(MainViewModel.SelectedId);
+            }
         }
 
         private void Save()
@@ -24,7 +25,7 @@ namespace PresentationLayer.MVVM.ViewModel
             Item item = new Item();
             if (DataCheck())
             {
-                item.AddNewItem(item_);
+                item.UpdateItemByDto(item_);
             }
             else
             {

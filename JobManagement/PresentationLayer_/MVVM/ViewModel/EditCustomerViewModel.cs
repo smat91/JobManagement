@@ -18,12 +18,14 @@ namespace PresentationLayer.MVVM.ViewModel
 
     internal class EditCustomerViewModel : NewCustomerViewModel
     {
-        public EditCustomerViewModel()
+        public EditCustomerViewModel() : base()
         {
             Customer customer = new Customer();
-            customer_ = customer.GetCustomerById(MainViewModel.SelectedId);
-            SaveCommand = new RelayCommand(o =>Save());
-            CancleCommand = new RelayCommand(o =>Cancle());
+
+            if (MainViewModel.SelectedId > 0)
+            {
+                customer_ = customer.GetCustomerById(MainViewModel.SelectedId);
+            }
 
         }
 

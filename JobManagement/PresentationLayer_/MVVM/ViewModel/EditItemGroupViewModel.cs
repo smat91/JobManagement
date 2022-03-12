@@ -11,12 +11,14 @@ namespace PresentationLayer.MVVM.ViewModel
     class EditItemGroupViewModel : NewItemGroupViewModel
     {
 
-        public EditItemGroupViewModel()
+        public EditItemGroupViewModel() : base()
         {
             ItemGroup itemGroup = new ItemGroup();
-            itemGroup_ = itemGroup.GetItemGroupById(MainViewModel.SelectedId);
-            SaveCommand = new RelayCommand(o => Save());
-            CancelCommand = new RelayCommand(o => Cancel());
+
+            if (MainViewModel.SelectedId > 0)
+            {
+                itemGroup_ = itemGroup.GetItemGroupById(MainViewModel.SelectedId);
+            }
         }
 
         private void Save()

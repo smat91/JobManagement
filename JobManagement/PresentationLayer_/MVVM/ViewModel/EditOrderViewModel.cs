@@ -14,8 +14,12 @@ namespace PresentationLayer.MVVM.ViewModel
     {
         public EditOrderViewModel() : base()
         {
-            Order order = new Order();
-            order_ = order.GetOrderById(MainViewModel.SelectedId);
+            Order order= new Order();
+
+            if (MainViewModel.SelectedId > 0)
+            {
+                order_ = order.GetOrderById(MainViewModel.SelectedId);
+            }
         }
 
         private void Save()
