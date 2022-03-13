@@ -195,7 +195,6 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public bool DataCheck()
         {
-            // da kommt noch mehr.
             return !customer_.Firstname.IsNullOrEmpty()
                    && !customer_.Lastname.IsNullOrEmpty()
                    && !customer_.EMail.IsNullOrEmpty()
@@ -204,7 +203,8 @@ namespace PresentationLayer.MVVM.ViewModel
                    && !customer_.Address.Street.IsNullOrEmpty()
                    && !customer_.Address.StreetNumber.IsNullOrEmpty()
                    && !customer_.Address.Zip.IsNullOrEmpty()
-                   && !customer_.Address.City.IsNullOrEmpty();
+                   && !customer_.Address.City.IsNullOrEmpty()
+                   && !customer_.Address.Country.IsNullOrEmpty();
         }
     }
 }
