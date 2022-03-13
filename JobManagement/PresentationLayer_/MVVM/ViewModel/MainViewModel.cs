@@ -17,6 +17,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CustomerViewCommand { get; set; }
         public RelayCommand ItemViewCommand { get; set; }
+        public RelayCommand ItemGroupViewCommand { get; set; }
         public RelayCommand OrderViewCommand { get; set; }
 
         public HomeViewModel HomeVM{get; set;}
@@ -40,6 +41,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public static Action ReloadCustomerView { get ; set; }
         public static Action ReloadSearchCustomerView { get ; set; }
         public static Action ReloadItemView { get ; set; }
+        public static Action ReloadItemGroupView { get ; set; }
         public static Action ReloadSearchItemView { get ; set; }
         public static Action ReloadOrderView { get ; set; }
         public static Action ReloadSearchOrderView { get ; set; }
@@ -144,6 +146,12 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 CurrentView = ItemVM;
                 radioButtonsState_ = RadioButtonState.Item;
+            });
+
+            ItemGroupViewCommand = new RelayCommand(o =>
+            {
+                //CurrentView = ItemGroupVM;
+                radioButtonsState_ = RadioButtonState.ItemGroup;
             });
 
             OrderViewCommand = new RelayCommand(o =>
@@ -306,18 +314,11 @@ namespace PresentationLayer.MVVM.ViewModel
                     var itemGroup = new ItemGroup();
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = itemGroup.DeleteItemGroupByDto(
-                            itemGroup.GetItemGroupById(selectedId_));
+                        //var res = itemGroup.DeleteItemGroupByDto(
+                        //    itemGroup.GetItemGroupById(selectedId_));
 
-                        ////if (currentView_.GetType() == ItemGroupVM.GetType())
-                        //{
-                        //    ReloadOrderView();
-                        //}
-                        //else
-                        //{
-                        //    ReloadSearchOrderView();
-                        //}
-
+                        //ReloadItemGroupView();
+                        
                         //MessageBox.Show(
                         //    res,
                         //    "Info",

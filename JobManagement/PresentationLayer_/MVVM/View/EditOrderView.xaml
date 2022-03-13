@@ -36,7 +36,7 @@
 
                 <TextBox 
                     Width="232"
-                    Text="{Binding Path=OrderNumber}"
+                    Text="{Binding Path=OrderNumber, Mode=OneWay}"
                     Height="28"
                     FontFamily="/Fonts/#Poppins"
                 />
