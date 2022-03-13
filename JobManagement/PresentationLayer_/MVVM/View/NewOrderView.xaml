@@ -87,7 +87,7 @@
                                 Command="{Binding Path=AddPositionCommand}"
                                 Content="Position hinzufügen"
                                 Width="160" Height="25"
-                                Margin="200,0,0,0"
+                                Margin="75,0,0,0"
                         />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
@@ -112,7 +112,7 @@
                                 Content="Position löschen"
                                 Height="28"
                                 Width="160"
-                                Margin="200,0,0,0"
+                                Margin="75,0,0,0"
 
                         />
                     </StackPanel>
@@ -150,18 +150,18 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
-                    Command="{Binding Path=CancelCommand}"
-                Margin="10,10,10,20"
-                Content="Abbrechen"
-                Height="37"
-                Width="70"
-                />
-            <Button Foreground="Black"
                     Command="{Binding Path=SaveCommand}"
                 Margin="10,10,10,20"
                 Content="OK"
                 Height="40"
-                Width="60"
+                Width="70"
+                />
+            <Button Foreground="Black"
+                    Command="{Binding Path=CancleCommand}"
+                Margin="10,10,10,20"
+                Content="Abbrechen"
+                Height="40"
+                Width="70"
                 />
         </StackPanel>
     </StackPanel>
