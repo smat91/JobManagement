@@ -33,8 +33,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
-
-        //public ItemGroupViewModel ItemGroupVM { get; set; }
+        public ItemGroupViewModel ItemGroupVM { get; set; }
         public NewItemGroupViewModel NewItemGroupVM { get; set; }
         public EditItemGroupViewModel EditItemGroupVM { get; set; }
 
@@ -119,6 +118,7 @@ namespace PresentationLayer.MVVM.ViewModel
             NewOrderVM = new NewOrderViewModel();
             EditOrderVM = new EditOrderViewModel();
             SearchOrderVM = new SearchOrderViewModel();
+            ItemGroupVM = new ItemGroupViewModel();
             NewItemGroupVM = new NewItemGroupViewModel();
             EditItemGroupVM = new EditItemGroupViewModel();
 
@@ -150,7 +150,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
             ItemGroupViewCommand = new RelayCommand(o =>
             {
-                //CurrentView = ItemGroupVM;
+                CurrentView = ItemGroupVM;
                 radioButtonsState_ = RadioButtonState.ItemGroup;
             });
 

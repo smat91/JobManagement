@@ -60,7 +60,7 @@
                 Width="70"
                 />
             <Button Foreground="Black"
-                    Command="{Binding Path=CancleCommand}"
+                    Command="{Binding Path=CancelCommand}"
                 Margin="10,10,10,20"
                 Content="Abbrechen"
                 Height="40"

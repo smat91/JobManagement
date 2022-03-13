@@ -9,6 +9,7 @@ namespace DataAccessLayer.QueryTypes
     public class ItemGroupHierarchyRequest
     {
         public string Name { get; set; }
-        public int ProductLevel { get; set; }
+        public int Id { get; set; }
+        public int ParentItemGroupId { get; set; }
     }
 }

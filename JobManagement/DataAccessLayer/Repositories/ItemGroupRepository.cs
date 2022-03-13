@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
+using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
@@ -55,37 +56,37 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public Dictionary<string, int> GetItemsWithLevel()
+        public List<ItemGroupHierarchyRequest> GetItemsWithLevel()
         {
             using (var context = new JobManagementContext())
             {
                 return context.ItemGroupHierarchyRequest.FromSqlRaw(
                         @"
                         WITH [CTE_Products] (
-	                        [Id], [Name], [ParentItemGroupId], [ProductLevel] )
+                        [Id], [Name], [ParentItemGroupId])
                         AS (
-	                        SELECT	[Id],
-			                        [Name] ,
-		                            [ParentItemGroupId] ,
-		                            0 AS [ProductLevel]
-	                        FROM [dbo].[ItemGroups]
-	                        WHERE [ParentItemGroupId] IS NULL
-	                        UNION ALL
-	                        SELECT	[pn].[Id],
-			                        [pn].[Name] ,
-		                            [pn].[ParentItemGroupId] ,
-		                            [p1].[ProductLevel] + 1
-	                        FROM [dbo].[ItemGroups] AS [pn]
-	                        INNER JOIN [CTE_Products] AS [p1]
-		                        ON [p1].[Id] = [pn].[ParentItemGroupId]
+                        SELECT	[Id],
+		                        [Name] ,
+		                        [ParentItemGroupId]
+                        FROM [dbo].[ItemGroups]
+                        WHERE [ParentItemGroupId] IS NULL
+                        UNION ALL
+                        SELECT	[pn].[Id],
+		                        [pn].[Name] ,
+		                        [pn].[ParentItemGroupId]
+                        FROM [dbo].[ItemGroups] AS [pn]
+                        INNER JOIN [CTE_Products] AS [p1]
+	                        ON [p1].[Id] = [pn].[ParentItemGroupId]
                         )
-                        SELECT DISTINCT [Name] ,
-		                        [ProductLevel]
-                        FROM [CTE_Products]
-                        ORDER BY [ProductLevel], [Name];
+
+                        SELECT DISTINCT
+	                        [Id] ,
+	                        [Name] ,
+	                        COALESCE([ParentItemGroupId], 0) AS ParentItemGroupId
+                        FROM [CTE_Products];
                         "
                     )
-                    .ToDictionary(res => res.Name, res => res.ProductLevel);
+                    .ToList();
             }
         }
 

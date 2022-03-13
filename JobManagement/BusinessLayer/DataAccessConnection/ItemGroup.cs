@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
+using DataAccessLayer.QueryTypes;
 using DataAccessLayer.Repositories;
 
 namespace BusinessLayer.DataAccessConnection
@@ -32,10 +33,10 @@ namespace BusinessLayer.DataAccessConnection
             return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroups);
         }
 
-        public Dictionary<string, int> GetItemsWithLevel()
+        public List<ItemGroupHierarchyDto> GetItemsWithLevel()
         {
-            var itemGroups = itemGroupRepository_.GetItemsWithLevel();
-            return itemGroups;
+            var itemGroupHierarchy = itemGroupRepository_.GetItemsWithLevel();
+            return ItemGroupHierarchyDto.ItemGroupListToItemGroupDtoList(itemGroupHierarchy);
         }
 
         public void AddNewItemGroup(ItemGroupDto ItemGroup)
