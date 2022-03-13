@@ -21,7 +21,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
 
-        <TextBlock Text="Orderview"
+        <TextBlock Text="Bestellübersicht"
                    Foreground="White"
                    FontSize="20"
                    FontFamily="/Fonts/#Poppins"

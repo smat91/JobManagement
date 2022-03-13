@@ -20,7 +20,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
 
-        <TextBlock Text="Search customer view"
+        <TextBlock Text="Kunden suchen"
                    Foreground="White"
                    FontSize="20"
                    FontFamily="/Fonts/#Poppins"
