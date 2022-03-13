@@ -18,6 +18,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CustomerViewCommand { get; set; }
         public RelayCommand ArticleViewCommand { get; set; }
+        public RelayCommand ArticleGroupViewCommand { get; set; }
         public RelayCommand OrderViewCommand { get; set; }
 
         public HomeViewModel HomeVM{get; set;}
@@ -26,9 +27,13 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditCustomerViewModel EditCustomerVM { get; set; }
         public SearchCustomerViewModel SearchCustomerVM { get; set; }
         public ArticleViewModel ArticleVM { get; set; }
+        public ArticleGroupViewModel ArticleGroupVM { get; set; }
         public NewArticleViewModel NewArticleVM { get; set; }
+        public NewArticleViewModel NewArticleGroupVM { get; set; }
         public EditArticleViewModel EditArticleVM { get; set; }
+        public EditArticleViewModel EditArticleGroupVM { get; set; }
         public SearchArticleViewModel SearchArticleVM { get; set; }
+        public SearchArticleViewModel SearchArticleGroupVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
@@ -43,6 +48,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public static Action ReloadCustomerView { get ; set; }
         public static Action ReloadSearchCustomerView { get ; set; }
         public static Action ReloadArticleView { get ; set; }
+        public static Action ReloadArticleGroupView { get; set; }
         public static Action ReloadSearchArticleView { get ; set; }
         public static Action ReloadOrderView { get ; set; }
         public static Action ReloadSearchOrderView { get ; set; }
@@ -93,6 +99,7 @@ namespace PresentationLayer.MVVM.ViewModel
             Home,
             Customer,
             Article,
+            ArticleGroup,
             Order,
             ItemGroup,
         }
@@ -113,6 +120,7 @@ namespace PresentationLayer.MVVM.ViewModel
             SearchCustomerVM = new SearchCustomerViewModel();
             NewCustomerVM = new NewCustomerViewModel();
             ArticleVM = new ArticleViewModel();
+            ArticleGroupVM = new ArticleGroupViewModel();
             NewArticleVM = new NewArticleViewModel();
             EditArticleVM = new EditArticleViewModel();
             SearchArticleVM = new SearchArticleViewModel();
@@ -149,6 +157,12 @@ namespace PresentationLayer.MVVM.ViewModel
                 radioButtonsState_ = RadioButtonState.Article;
             });
 
+            ArticleGroupViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ArticleGroupVM;
+                radioButtonsState_ = RadioButtonState.ArticleGroup;
+            });
+
             OrderViewCommand = new RelayCommand(o =>
             {
                 CurrentView = OrderVM;
@@ -169,6 +183,9 @@ namespace PresentationLayer.MVVM.ViewModel
 
                 case RadioButtonState.Article:
                     CurrentView = NewArticleVM;
+                    break;
+                case RadioButtonState.ArticleGroup:
+                    CurrentView = NewArticleGroupVM;
                     break;
 
                 case RadioButtonState.Order:
@@ -192,6 +209,9 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Article:
+                    break;
+
+                case RadioButtonState.ArticleGroup:
                     break;
 
                 case RadioButtonState.Order:
@@ -218,6 +238,10 @@ namespace PresentationLayer.MVVM.ViewModel
                     CurrentView = SearchArticleVM;
                     ReloadSearchArticleView();
                     break;
+              /*  case RadioButtonState.ArticleGroup:
+                    CurrentView = SearchArticleGroupVM;
+                    ReloadSearchArticleGroupView();
+                    break;*/
 
                 case RadioButtonState.Order:
                     CurrentView = SearchOrderVM;
@@ -280,6 +304,30 @@ namespace PresentationLayer.MVVM.ViewModel
                             MessageBoxImage.Information);
                     }
                     break;
+
+                /*case RadioButtonState.ArticleGroup:
+                    var item = new Item();
+                    if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        var res = item.DeleteItemByDto(
+                            item.GetItemById(selectedId_));
+
+                        if (currentView_.GetType() == ArticleGroupVM.GetType())
+                        {
+                            ReloadArticleGroupView();
+                        }
+                        else
+                        {
+                            ReloadSearchArticleGroupView();
+                        }
+
+                        MessageBox.Show(
+                            res,
+                            "Info",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
+                    break; */
 
                 case RadioButtonState.Order:
                     var order = new Order();
