@@ -33,18 +33,17 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
-
-        //public ItemGroupViewModel ItemGroupVM { get; set; }
+        public ItemGroupViewModel ItemGroupVM { get; set; }
         public NewItemGroupViewModel NewItemGroupVM { get; set; }
         public EditItemGroupViewModel EditItemGroupVM { get; set; }
 
         public static Action ReloadCustomerView { get ; set; }
         public static Action ReloadSearchCustomerView { get ; set; }
         public static Action ReloadItemView { get ; set; }
-        public static Action ReloadItemGroupView { get ; set; }
         public static Action ReloadSearchItemView { get ; set; }
         public static Action ReloadOrderView { get ; set; }
         public static Action ReloadSearchOrderView { get ; set; }
+        public static Action ReloadItemGroupView { get; set; }
 
         public static string SearchTermStatic
         {
@@ -109,8 +108,9 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             HomeVM = new HomeViewModel();
             CustomerVM = new CustomerViewModel();
-            SearchCustomerVM = new SearchCustomerViewModel();
             NewCustomerVM = new NewCustomerViewModel();
+            EditCustomerVM = new EditCustomerViewModel();
+            SearchCustomerVM = new SearchCustomerViewModel();
             ItemVM = new ItemViewModel();
             NewItemVM = new NewItemViewModel();
             EditItemVM = new EditItemViewModel();
@@ -119,6 +119,7 @@ namespace PresentationLayer.MVVM.ViewModel
             NewOrderVM = new NewOrderViewModel();
             EditOrderVM = new EditOrderViewModel();
             SearchOrderVM = new SearchOrderViewModel();
+            ItemGroupVM = new ItemGroupViewModel();
             NewItemGroupVM = new NewItemGroupViewModel();
             EditItemGroupVM = new EditItemGroupViewModel();
 
@@ -150,7 +151,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
             ItemGroupViewCommand = new RelayCommand(o =>
             {
-                //CurrentView = ItemGroupVM;
+                CurrentView = ItemGroupVM;
                 radioButtonsState_ = RadioButtonState.ItemGroup;
             });
 
@@ -194,15 +195,19 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Customer:
+                    CurrentView = EditCustomerVM;
                     break;
 
                 case RadioButtonState.Item:
+                    CurrentView = EditItemVM;
                     break;
 
                 case RadioButtonState.Order:
+                    CurrentView = EditOrderVM;
                     break;
 
                 case RadioButtonState.ItemGroup:
+                    CurrentView = EditItemGroupVM;
                     break;
             }
         }
@@ -314,16 +319,16 @@ namespace PresentationLayer.MVVM.ViewModel
                     var itemGroup = new ItemGroup();
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        //var res = itemGroup.DeleteItemGroupByDto(
-                        //    itemGroup.GetItemGroupById(selectedId_));
+                        var res = itemGroup.DeleteItemGroupByDto(
+                            itemGroup.GetItemGroupById(selectedId_));
 
-                        //ReloadItemGroupView();
-                        
-                        //MessageBox.Show(
-                        //    res,
-                        //    "Info",
-                        //    MessageBoxButton.OK,
-                            //MessageBoxImage.Information);
+                        ReloadItemGroupView();
+
+                        MessageBox.Show(
+                            res,
+                            "Info",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
                     }
                     break;
             }

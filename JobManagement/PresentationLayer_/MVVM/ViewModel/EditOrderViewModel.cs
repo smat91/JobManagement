@@ -16,6 +16,11 @@ namespace PresentationLayer.MVVM.ViewModel
             get
             {
                 return order_.Id;
+            } 
+            private set
+            {
+                order_.Id = value;
+                OnPropertyChanged();
             }
         }
 
@@ -25,7 +30,9 @@ namespace PresentationLayer.MVVM.ViewModel
 
             if (MainViewModel.SelectedId > 0)
             {
-                order_ = order.GetOrderById(MainViewModel.SelectedId);
+                var orderTemp = order.GetOrderById(MainViewModel.SelectedId);
+                OrderNumber = orderTemp.Id;
+                Customer = orderTemp.Customer;
             }
         }
 

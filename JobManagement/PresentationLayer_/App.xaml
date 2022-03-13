@@ -33,7 +33,7 @@
                 <view:ItemView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:NewItemViewModel}">
-                <view:ItemView/>
+                <view:NewItemView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:SearchItemViewModel}">
                 <view:SearchItemView/>
