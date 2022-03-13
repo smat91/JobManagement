@@ -34,7 +34,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
-        //public ItemGroupViewModel ItemGroupVM { get; set; }
+        public ItemGroupViewModel ItemGroupVM { get; set; }
         public NewItemGroupViewModel NewItemGroupVM { get; set; }
         public EditItemGroupViewModel EditItemGroupVM { get; set; }
         public SearchItemGroupViewModel SearchItemGroupVM { get; set; }

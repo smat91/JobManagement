@@ -16,22 +16,22 @@ using PresentationLayer.Core;
 namespace PresentationLayer.MVVM.ViewModel
 {
 
-    //internal class SearchItemGroupViewModel : ItemGroupViewModel
-    //{
-    //    public SearchItemGroupViewModel()
-    //    {
-    //        MainViewModel.ReloadSearchItemGroupView = ReloadSearchData;
-    //        ItemGroupDtoTable = new DataTable();
-    //        ItemGroup itemGroup = new ItemGroup();
-    //        AddHeaderData(ItemGroupDtoTable);
-    //        AddRowData(ItemGroupDtoTable, itemGroup.GetItemGroupsBySearchTerm(MainViewModel.SearchTermStatic));
-    //    }
+    internal class SearchItemGroupViewModel : ItemGroupViewModel
+    {
+        public SearchItemGroupViewModel()
+        {
+            MainViewModel.ReloadSearchItemGroupView = ReloadSearchData;
+            ItemGroupDtoTable = new DataTable();
+            ItemGroup itemGroup = new ItemGroup();
+            AddHeaderData(ItemGroupDtoTable);
+            AddRowData(ItemGroupDtoTable, itemGroup.GetItemGroupsBySearchTerm(MainViewModel.SearchTermStatic));
+        }
 
-    //    private void ReloadSearchData()
-    //    {
-    //        ItemGroup itemGroup = new ItemGroup();
-    //        ItemGroupDtoTable.Clear();
-    //        AddRowData(ItemGroupDtoTable, itemGroup.GetItemGroupsBySearchTerm(MainViewModel.SearchTermStatic));
-    //    }
-    //}
+        private void ReloadSearchData()
+        {
+            ItemGroup itemGroup = new ItemGroup();
+            ItemGroupDtoTable.Clear();
+            AddRowData(ItemGroupDtoTable, itemGroup.GetItemGroupsBySearchTerm(MainViewModel.SearchTermStatic));
+        }
+    }
 }
