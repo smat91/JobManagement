@@ -30,34 +30,6 @@
             <StackPanel Orientation="Horizontal"
                     Height="40">
 
-                <Label Foreground="White"
-               HorizontalAlignment="Center"
-                       Content="Kundennummer"
-                       HorizontalContentAlignment="Center"
-                       Width="160"/>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Passwort"
-               HorizontalAlignment="Center"/>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                    Height="40">
-
 
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
@@ -164,6 +136,22 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"  
+                />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40">
+
+                <Label Foreground="White"
+                   HorizontalContentAlignment="Center"
+                    Width="160"
+                    Content="Passwort"
+               />
+
+                <TextBox Width="232"
+                     Height="28"
+                     FontFamily="/Fonts/#Poppins"
+                     
+                    
                 />
             </StackPanel>
         </StackPanel>
