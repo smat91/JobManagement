@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,11 +15,11 @@ using System.Windows.Shapes;
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für NewArticleGroupView.xaml
+    /// Interaktionslogik für ItemView.xaml
     /// </summary>
-    public partial class NewArticleGroupView : UserControl
+    public partial class ItemView : UserControl
     {
-        public NewArticleGroupView()
+        public ItemView()
         {
             InitializeComponent();
         }

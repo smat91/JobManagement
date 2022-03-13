@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PresentationLayer.MVVM.View.SearchArticleView"
+﻿<UserControl x:Class="PresentationLayer.MVVM.View.SearchItemView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
-        <ViewModel:SearchArticleViewModel/>
+        <ViewModel:SearchItemViewModel/>
     </UserControl.DataContext>
 
     <StackPanel>
@@ -20,7 +20,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
 
-        <TextBlock Text="Search article view"
+        <TextBlock Text="Search item view"
                    Foreground="White"
                    FontSize="20"
                    FontFamily="/Fonts/#Poppins"

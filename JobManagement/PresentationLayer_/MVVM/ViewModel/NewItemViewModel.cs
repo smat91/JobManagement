@@ -8,7 +8,7 @@ using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    class NewArticleViewModel : ObservableObject
+    class NewItemViewModel : ObservableObject
     {
         public string Name
         {
@@ -72,7 +72,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public ItemDto item_;
         
-        public NewArticleViewModel()
+        public NewItemViewModel()
         {
             item_ = new ItemDto();
             ItemGroup itemGroup = new ItemGroup();

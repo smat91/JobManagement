@@ -68,7 +68,7 @@
                              FontSize="14"
                              FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding ArticleViewCommand}"
+                             Command="{Binding ItemViewCommand}"
                 />
                 <RadioButton Content="Artikelgruppen"
                              Height="50"
@@ -76,7 +76,7 @@
                              FontSize="14"
                              FontFamily="/Fonts/#Poppins"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding ArticleGroupViewCommand}"
+                             Command="{Binding ItemGroupViewCommand}"
                 />
                 <RadioButton Content="Aufträge"
                              Height="50"

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,9 +17,9 @@ namespace PresentationLayer.MVVM.View
     /// <summary>
     /// Interaktionslogik für EditCustomerView.xaml
     /// </summary>
-    public partial class EditCustomerView : UserControl
+    public partial class InvoiceView : UserControl
     {
-        public EditCustomerView()
+        public InvoiceView()
         {
             InitializeComponent();
         }
