@@ -15,7 +15,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
 
-        <TextBlock Text="Artikel Hinzufügen"
+        <TextBlock Text="Artikelgruppe Hinzufügen"
                    Foreground="White"
                    FontSize="20"
                    HorizontalAlignment="Left"
