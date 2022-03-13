@@ -164,19 +164,20 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
-                    Command="{Binding Path=CancelCommand}"
-                Margin="10,10,10,20"
-                Content="Abbrechen"
-                Height="37"
-                Width="70"
-                />
-            <Button Foreground="Black"
                     Command="{Binding Path=SaveCommand}"
                 Margin="10,10,10,20"
                 Content="Änderungen Bestätigen"
                 Height="40"
                 Width="150"
                 />
+            <Button Foreground="Black"
+                    Command="{Binding Path=CancelCommand}"
+                Margin="10,10,10,20"
+                Content="Abbrechen"
+                Height="37"
+                Width="70"
+                />
+            
         </StackPanel>
     </StackPanel>
 </UserControl>
