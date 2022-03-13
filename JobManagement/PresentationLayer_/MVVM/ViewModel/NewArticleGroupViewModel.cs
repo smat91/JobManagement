@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    internal class ArticleGroupViewModel : ObservableObject
+    internal class NewArticleGroupViewModel : ObservableObject
     {
     }
 }

@@ -29,11 +29,11 @@ namespace PresentationLayer.MVVM.ViewModel
         public ArticleViewModel ArticleVM { get; set; }
         public ArticleGroupViewModel ArticleGroupVM { get; set; }
         public NewArticleViewModel NewArticleVM { get; set; }
-        public NewArticleViewModel NewArticleGroupVM { get; set; }
+        public NewArticleGroupViewModel NewArticleGroupVM { get; set; }
         public EditArticleViewModel EditArticleVM { get; set; }
-        public EditArticleViewModel EditArticleGroupVM { get; set; }
+        public EditArticleGroupViewModel EditArticleGroupVM { get; set; }
         public SearchArticleViewModel SearchArticleVM { get; set; }
-        public SearchArticleViewModel SearchArticleGroupVM { get; set; }
+        public SearchArticleGroupViewModel SearchArticleGroupVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
@@ -122,6 +122,7 @@ namespace PresentationLayer.MVVM.ViewModel
             ArticleVM = new ArticleViewModel();
             ArticleGroupVM = new ArticleGroupViewModel();
             NewArticleVM = new NewArticleViewModel();
+            NewArticleGroupVM = new NewArticleGroupViewModel();
             EditArticleVM = new EditArticleViewModel();
             SearchArticleVM = new SearchArticleViewModel();
             OrderVM = new OrderViewModel();
@@ -327,7 +328,7 @@ namespace PresentationLayer.MVVM.ViewModel
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
                     }
-                    break; */
+                    break;*/
 
                 case RadioButtonState.Order:
                     var order = new Order();
