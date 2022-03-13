@@ -31,6 +31,7 @@
                        Width="160"></Label>
 
                 <TextBox Width="232"
+                         IsReadOnly="True"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      
