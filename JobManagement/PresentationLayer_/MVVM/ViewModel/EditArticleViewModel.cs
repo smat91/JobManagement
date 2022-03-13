@@ -10,6 +10,14 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     class EditArticleViewModel : NewArticleViewModel
     {
+        public int ItemNumber
+        {
+            get
+            {
+                return item_.Id;
+            }
+        }
+
         public EditArticleViewModel() : base()
         {
             Item item = new Item();
@@ -20,7 +28,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Save()
+        public override void Save()
         {
             Item item = new Item();
             if (DataCheck())

@@ -10,6 +10,13 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     class EditItemGroupViewModel : NewItemGroupViewModel
     {
+        public int ItemGroupNumber
+        {
+            get
+            {
+                return itemGroup_.Id;
+            }
+        }
 
         public EditItemGroupViewModel() : base()
         {
@@ -21,7 +28,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Save()
+        public override void Save()
         {
             ItemGroup itemGroup = new ItemGroup();
             if (DataCheck())

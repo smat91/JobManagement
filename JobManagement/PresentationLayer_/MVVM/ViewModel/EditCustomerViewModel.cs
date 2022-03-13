@@ -15,9 +15,16 @@ using PresentationLayer.MVVM.ViewModel;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-
     internal class EditCustomerViewModel : NewCustomerViewModel
     {
+        public int CustomerNumber
+        {
+            get
+            {
+                return customer_.Id;
+            }
+        }
+
         public EditCustomerViewModel() : base()
         {
             Customer customer = new Customer();
@@ -29,7 +36,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         }
 
-        private void Save()
+        public override void Save()
         {
             Customer customer = new Customer();
             if (DataCheck())

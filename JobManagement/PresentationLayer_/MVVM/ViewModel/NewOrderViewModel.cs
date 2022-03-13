@@ -152,12 +152,13 @@ namespace PresentationLayer.MVVM.ViewModel
             AddRowData(PositionTable, order_.Positions);
         }
 
-        public void Save()
+        public virtual void Save()
         {
             Order order = new Order();
             if (DataCheck())
             {
                 order.AddNewOrder(order_);
+                Cancel();
             }
             else
             {

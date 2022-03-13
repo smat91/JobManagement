@@ -142,7 +142,7 @@
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
                     Width="160"
-                    Content="E-Mail"
+                    Content="Land"
                HorizontalAlignment="Center"></Label>
 
                 <TextBox Width="232"
@@ -159,6 +159,22 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"  
+                />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Height="40">
+
+
+                <Label Foreground="White"
+                       HorizontalContentAlignment="Center"
+                       Width="160"
+                       Content="E-Mail"
+                       HorizontalAlignment="Center"></Label>
+
+                <TextBox Width="232"
+                         Height="28"
+                         FontFamily="/Fonts/#Poppins"
+
                 />
             </StackPanel>
         </StackPanel>
