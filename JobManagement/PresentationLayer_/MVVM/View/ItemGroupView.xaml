@@ -21,5 +21,9 @@
                    FontFamily="/Fonts/#Poppins"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
+
+        <TreeView Height="400">
+            
+        </TreeView>
     </StackPanel>
 </UserControl>
