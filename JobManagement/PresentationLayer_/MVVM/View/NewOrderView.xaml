@@ -58,7 +58,7 @@
                     FontFamily="/Fonts/#Poppins"
                 />
             </StackPanel>
-            
+
             <GroupBox Name ="Positionen"
                       Margin="5"
                       Header="Positionen"
@@ -122,11 +122,10 @@
                                   ItemsSource="{Binding Path=PositionTable}"
                                   SelectedItem="{Binding Path=SelectedRow}"
                                   AutoGenerateColumns="True"
-                                  HorizontalAlignment="Stretch"
                                   Margin="0,0,0,0"
-                                  Height="400"
-                                  Width="800"
-                                  ColumnWidth="*"
+                                  Height="195"
+                                  Width="773"
+                                  ColumnWidth="Auto"
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="False"
                                   CanUserReorderColumns="False"

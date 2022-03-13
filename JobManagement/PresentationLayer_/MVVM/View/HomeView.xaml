@@ -29,8 +29,8 @@
                   ItemsSource="{Binding StatisticDataTable}"
                   AutoGenerateColumns="True"
                   Margin="0,0,0,186"
-                  Height="400"
-                  Width="800"
+                  Height="392"
+                  Width="790"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
@@ -39,7 +39,7 @@
                   CanUserSortColumns="False"
                   IsReadOnly="True"
                   VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto" ColumnWidth="Auto"
         />
     </StackPanel>
 </UserControl>
