@@ -31,9 +31,9 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewArticleViewModel NewArticleVM { get; set; }
         public NewArticleGroupViewModel NewArticleGroupVM { get; set; }
         public EditArticleViewModel EditArticleVM { get; set; }
-        public EditArticleViewModel EditArticleGroupVM { get; set; }
+        public EditArticleGroupViewModel EditArticleGroupVM { get; set; }
         public SearchArticleViewModel SearchArticleVM { get; set; }
-        public SearchArticleViewModel SearchArticleGroupVM { get; set; }
+        public SearchArticleGroupViewModel SearchArticleGroupVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }

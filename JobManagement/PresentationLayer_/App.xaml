@@ -46,9 +46,6 @@
             <DataTemplate DataType="{x:Type viewModel:ArticleViewModel}">
                 <view:ArticleView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:ArticleGroupViewModel}">
-                <view:ArticleView/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:NewArticleViewModel}">
                 <view:NewArticleView/>
             </DataTemplate>
@@ -57,6 +54,19 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:EditArticleViewModel}">
                 <view:EditArticleView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ArticleGroupViewModel}">
+                <view:ArticleGroupView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:NewArticleGroupViewModel}">
+                <view:NewArticleGroupView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SearchArticleGroupViewModel}">
+                <view:SearchArticleGroupView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditArticleGroupViewModel}">
+                <view:EditArticleGroupView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:OrderViewModel}">
