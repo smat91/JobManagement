@@ -35,26 +35,3 @@ Dokumentation sowie die konkrete Umsetzung bilden die Basis für das Bestehen de
 Zusätzlich wird die Projektarbeit als Teil der Modul-/Diplomprüfung bewertet.
 
 Quelle: Projektarbeit "Auftragsverwaltung", Aufgabenstellung (2021, Version 1.0). 
-
-__________________________________________________
-
-### Was funktioniert:
-<b>Funktionale Anforderungen</b>
-
-__________________________________________________
-
-<b>Optionale Anforderungen welche implementiert sind</b>
-
-
-__________________________________________________
-
-<b>Nicht funktionale Anforderungen</b>
-
-
-__________________________________________________
-
-<b>Danksagung</b>
-
-Wir bedanken uns .....
-
-<b>Vielen Dank und viel Spass mit dem Programm</b>
