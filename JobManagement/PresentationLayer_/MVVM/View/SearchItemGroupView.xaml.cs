@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für SearchArticleGroupView.xaml
+    /// Interaktionslogik für SearchItemGroupView.xaml
     /// </summary>
-    public partial class SearchArticleGroupView : UserControl
+    public partial class SearchItemGroupView : UserControl
     {
-        public SearchArticleGroupView()
+        public SearchItemGroupView()
         {
             InitializeComponent();
         }
