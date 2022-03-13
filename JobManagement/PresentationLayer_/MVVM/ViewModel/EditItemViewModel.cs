@@ -16,15 +16,26 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 return item_.Id;
             }
+            private set
+            {
+                item_.Id = value;
+                OnPropertyChanged();
+            }
         }
 
         public EditItemViewModel() : base()
         {
             Item item = new Item();
+            
 
             if (MainViewModel.SelectedId > 0)
             {
-                item_ = item.GetItemById(MainViewModel.SelectedId);
+                var itemTemp = item.GetItemById(MainViewModel.SelectedId);
+                ItemNumber = itemTemp.Id;
+                Name = itemTemp.Name;
+                Group = itemTemp.Group;
+                Price = itemTemp.Price;
+                Vat = itemTemp.Vat;
             }
         }
 

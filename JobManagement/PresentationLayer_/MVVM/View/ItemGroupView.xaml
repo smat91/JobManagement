@@ -33,7 +33,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
 
-        <TextBlock Text="ItemGroupview"
+        <TextBlock Text="Übersicht Artikelgruppe"
                    Foreground="White"
                    FontSize="20"
                    FontFamily="/Fonts/#Poppins"

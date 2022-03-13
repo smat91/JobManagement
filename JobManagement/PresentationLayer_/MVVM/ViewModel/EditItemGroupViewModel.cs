@@ -16,6 +16,10 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 return itemGroup_.Id;
             }
+            private set
+            {
+
+            }
         }
 
         public EditItemGroupViewModel() : base()
@@ -24,7 +28,9 @@ namespace PresentationLayer.MVVM.ViewModel
 
             if (MainViewModel.SelectedId > 0)
             {
-                itemGroup_ = itemGroup.GetItemGroupById(MainViewModel.SelectedId);
+                var itemGroupTemp = itemGroup.GetItemGroupById(MainViewModel.SelectedId);
+                ItemGroupNumber = itemGroupTemp.Id;
+                ParentItemGroup = itemGroupTemp.ParentItemGroup;
             }
         }
 

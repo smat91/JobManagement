@@ -124,7 +124,8 @@ namespace PresentationLayer.MVVM.ViewModel
             get
             {
                 return customer_.Address.Country;
-            } set
+            } 
+            set
             {
                 customer_.Address.Country = value;
                 OnPropertyChanged();
@@ -150,10 +151,7 @@ namespace PresentationLayer.MVVM.ViewModel
         
 
         public CustomerDto customer_;
-       
-     
-       
-
+        
         public NewCustomerViewModel()
         {
             customer_ = new CustomerDto();

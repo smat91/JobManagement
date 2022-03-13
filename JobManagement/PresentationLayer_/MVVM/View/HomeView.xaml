@@ -24,13 +24,11 @@
                    FontFamily="/Fonts/#Poppins"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,20"/>
-
         <DataGrid x:Name="DataGridJahresvergleich"
                   ItemsSource="{Binding StatisticDataTable}"
                   AutoGenerateColumns="True"
-                  Margin="0,0,0,186"
-                  Height="400"
-                  Width="800"
+                  Height="372"
+                  Width="789"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
@@ -39,7 +37,7 @@
                   CanUserSortColumns="False"
                   IsReadOnly="True"
                   VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto" ColumnWidth="Auto"
         />
     </StackPanel>
 </UserControl>

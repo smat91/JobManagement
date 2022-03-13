@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PresentationLayer.MVVM.View"
+             xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:EditCustomerViewModel/>
+    </UserControl.DataContext>
+
     <StackPanel>
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -14,7 +20,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
         <!--Titel-->
-        <TextBlock Text="Kunden Bearbeiten"
+        <TextBlock Text="Kunden bearbeiten"
                    Foreground="White"
                    FontSize="20"
                    HorizontalAlignment="Left"
@@ -32,8 +38,9 @@
 
                 <TextBox Width="232"
                          IsReadOnly="True"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
+                         Height="28"
+                         FontFamily="/Fonts/#Poppins"
+                         Text="{Binding Path=CustomerNumber, Mode=OneWay}"
                      
                     
                 />
@@ -46,6 +53,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Password}"
                      
                     
                 />
@@ -63,7 +71,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Firstname}"
                     
                 />
                 <Label Foreground="White"
@@ -75,6 +83,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Lastname}"
                      
                     
                 />
@@ -92,7 +101,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Street}"
                     
                 />
                 <Label Foreground="White"
@@ -104,6 +113,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=StreetNumber}"
                      
                     
                 />
@@ -121,6 +131,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Zip}"
                      
                     
                 />
@@ -133,6 +144,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"  
+                     Text="{Binding Path=City}"
                 />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
@@ -148,6 +160,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Country}"
 
                 />
                 <Label Foreground="White"
@@ -159,6 +172,8 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"  
+                     Text="{Binding Path=Website}"
+
                 />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
@@ -174,6 +189,7 @@
                 <TextBox Width="232"
                          Height="28"
                          FontFamily="/Fonts/#Poppins"
+                         Text="{Binding Path=EMail}"
 
                 />
             </StackPanel>
@@ -181,17 +197,20 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
+                    Command="{Binding Path=SaveCommand}"
+                Margin="10,10,10,20"
+                Content="Änderungen bestätigen"
+                Height="40"
+                Width="150"
+                />
+            <Button Foreground="Black"
+                    Command="{Binding Path=CancleCommand}"
                 Margin="10,10,10,20"
                 Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />
-            <Button Foreground="Black"
-                Margin="10,10,10,20"
-                Content="Änderungen Bestätigen"
-                Height="40"
-                Width="150"
-                />
+           
         </StackPanel>
     </StackPanel>
 </UserControl>

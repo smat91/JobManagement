@@ -21,6 +21,11 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 return customer_.Id;
             }
+            private set
+            {
+                customer_.Id = value;
+                OnPropertyChanged();
+            }
         }
 
         public EditCustomerViewModel() : base()
@@ -29,7 +34,18 @@ namespace PresentationLayer.MVVM.ViewModel
 
             if (MainViewModel.SelectedId > 0)
             {
-                customer_ = customer.GetCustomerById(MainViewModel.SelectedId);
+                var customerTemp = customer.GetCustomerById(MainViewModel.SelectedId);
+                CustomerNumber = customerTemp.Id;
+                Firstname = customerTemp.Firstname;
+                Lastname = customerTemp.Lastname;
+                EMail = customerTemp.EMail;
+                Password = customerTemp.Password;
+                Website = customerTemp.Website;
+                Street = customerTemp.Address.Street;
+                StreetNumber = customerTemp.Address.StreetNumber;
+                Zip = customerTemp.Address.Zip;
+                Country = customerTemp.Address.Country;
+                City = customerTemp.Address.City;
             }
 
         }

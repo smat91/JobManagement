@@ -78,7 +78,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ItemGroupViewCommand}"
                 />
-                <RadioButton Content="Aufträge"
+                <RadioButton Content="Bestellungen"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
