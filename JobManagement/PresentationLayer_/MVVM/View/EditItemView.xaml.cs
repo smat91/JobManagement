@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für OrderView.xaml
+    /// Interaktionslogik für EditItemView.xaml
     /// </summary>
-    public partial class OrderView : UserControl
+    public partial class EditItemView : UserControl
     {
-        public OrderView()
+        public EditItemView()
         {
             InitializeComponent();
         }

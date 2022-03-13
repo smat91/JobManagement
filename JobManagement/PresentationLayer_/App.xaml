@@ -29,31 +29,27 @@
                 <view:EditCustomerView/>
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type viewModel:ItemGroupViewModel}">
-                <view:OrderView/>
-            </DataTemplate>-->
-            <!--<DataTemplate DataType="{x:Type viewModel:NewItemGroupViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:ItemViewModel}">
+                <view:ItemView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:NewItemViewModel}">
+                <view:ItemView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SearchItemViewModel}">
+                <view:SearchItemView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditItemViewModel}">
+                <view:EditItemView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ItemGroupViewModel}">
+                <view:ItemGroupView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:NewItemGroupViewModel}">
                 <view:NewItemGroupView/>
-            </DataTemplate>-->
-            <!--<DataTemplate DataType="{x:Type viewModel:SearchItemGroupViewModel}">
-                <view:SearchItemGroupView/>
-            </DataTemplate>-->
-            <!--<DataTemplate DataType="{x:Type viewModel:EditItemGroupViewModel}">
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EditItemGroupViewModel}">
                 <view:EditItemGroupView/>
-            </DataTemplate>-->
-
-
-            <DataTemplate DataType="{x:Type viewModel:ArticleViewModel}">
-                <view:ArticleView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:NewArticleViewModel}">
-                <view:NewArticleView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:SearchArticleViewModel}">
-                <view:SearchArticleView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:EditArticleViewModel}">
-                <view:EditArticleView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:OrderViewModel}">

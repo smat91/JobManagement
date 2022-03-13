@@ -8,7 +8,7 @@ using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
-    class EditArticleViewModel : NewArticleViewModel
+    class EditItemViewModel : NewItemViewModel
     {
         public int ItemNumber
         {
@@ -18,7 +18,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        public EditArticleViewModel() : base()
+        public EditItemViewModel() : base()
         {
             Item item = new Item();
 

@@ -38,12 +38,15 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
-        
+
+        public List<ItemGroupDto> ItemGroupList { get; set; }
 
         public ItemGroupDto itemGroup_;
         
         public NewItemGroupViewModel()
         {
+            ItemGroup itemGroup = new ItemGroup();
+            ItemGroupList = itemGroup.GetAllItemGroups();
             itemGroup_ = new ItemGroupDto();
             SaveCommand = new RelayCommand(o => Save());
             CancelCommand = new RelayCommand(o => Cancel());
@@ -71,8 +74,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public bool DataCheck()
         {
-            return !itemGroup_.Name.IsNullOrEmpty()
-                   && (itemGroup_.ParentItemGroup != null);
+            return !itemGroup_.Name.IsNullOrEmpty();
         }
     }
 }

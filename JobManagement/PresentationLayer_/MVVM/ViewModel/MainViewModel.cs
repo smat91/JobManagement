@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using PresentationLayer.Core;
@@ -17,39 +16,35 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand CustomerViewCommand { get; set; }
-        public RelayCommand ArticleViewCommand { get; set; }
+        public RelayCommand ItemViewCommand { get; set; }
+        public RelayCommand ItemGroupViewCommand { get; set; }
         public RelayCommand OrderViewCommand { get; set; }
-        //public RelayCommand ItemGroupViewCommand { get; set; }
 
         public HomeViewModel HomeVM{get; set;}
         public CustomerViewModel CustomerVM { get; set; }
         public NewCustomerViewModel NewCustomerVM { get; set; }
         public EditCustomerViewModel EditCustomerVM { get; set; }
         public SearchCustomerViewModel SearchCustomerVM { get; set; }
-        public ArticleViewModel ArticleVM { get; set; }
-        public NewArticleViewModel NewArticleVM { get; set; }
-        public EditArticleViewModel EditArticleVM { get; set; }
-        public SearchArticleViewModel SearchArticleVM { get; set; }
+        public ItemViewModel ItemVM { get; set; }
+        public NewItemViewModel NewItemVM { get; set; }
+        public EditItemViewModel EditItemVM { get; set; }
+        public SearchItemViewModel SearchItemVM { get; set; }
         public OrderViewModel OrderVM { get; set; }
         public NewOrderViewModel NewOrderVM { get; set; }
         public EditOrderViewModel EditOrderVM { get; set; }
         public SearchOrderViewModel SearchOrderVM { get; set; }
-        public ItemGroupViewModel ItemGroupVM { get; set; }
+
+        //public ItemGroupViewModel ItemGroupVM { get; set; }
         public NewItemGroupViewModel NewItemGroupVM { get; set; }
         public EditItemGroupViewModel EditItemGroupVM { get; set; }
-        public SearchItemGroupViewModel SearchItemGroupVM { get; set; }
-        
-
 
         public static Action ReloadCustomerView { get ; set; }
         public static Action ReloadSearchCustomerView { get ; set; }
-        public static Action ReloadArticleView { get ; set; }
-        public static Action ReloadSearchArticleView { get ; set; }
+        public static Action ReloadItemView { get ; set; }
+        public static Action ReloadItemGroupView { get ; set; }
+        public static Action ReloadSearchItemView { get ; set; }
         public static Action ReloadOrderView { get ; set; }
-        
         public static Action ReloadSearchOrderView { get ; set; }
-        //public static Action ReloadItemGroupView { get; set; }
-        //public static Action ReloadSearchItemGroupView { get ; set; }
 
         public static string SearchTermStatic
         {
@@ -96,7 +91,7 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             Home,
             Customer,
-            Article,
+            Item,
             Order,
             ItemGroup,
         }
@@ -116,17 +111,16 @@ namespace PresentationLayer.MVVM.ViewModel
             CustomerVM = new CustomerViewModel();
             SearchCustomerVM = new SearchCustomerViewModel();
             NewCustomerVM = new NewCustomerViewModel();
-            ArticleVM = new ArticleViewModel();
-            NewArticleVM = new NewArticleViewModel();
-            EditArticleVM = new EditArticleViewModel();
-            SearchArticleVM = new SearchArticleViewModel();
+            ItemVM = new ItemViewModel();
+            NewItemVM = new NewItemViewModel();
+            EditItemVM = new EditItemViewModel();
+            SearchItemVM = new SearchItemViewModel();
             OrderVM = new OrderViewModel();
             NewOrderVM = new NewOrderViewModel();
             EditOrderVM = new EditOrderViewModel();
             SearchOrderVM = new SearchOrderViewModel();
             NewItemGroupVM = new NewItemGroupViewModel();
             EditItemGroupVM = new EditItemGroupViewModel();
-            SearchItemGroupVM = new SearchItemGroupViewModel();
 
             CurrentView = HomeVM;
             radioButtonsState_ = RadioButtonState.Home;
@@ -148,10 +142,16 @@ namespace PresentationLayer.MVVM.ViewModel
                 radioButtonsState_ = RadioButtonState.Customer;
             });
 
-            ArticleViewCommand = new RelayCommand(o =>
+            ItemViewCommand = new RelayCommand(o =>
             {
-                CurrentView = ArticleVM;
-                radioButtonsState_ = RadioButtonState.Article;
+                CurrentView = ItemVM;
+                radioButtonsState_ = RadioButtonState.Item;
+            });
+
+            ItemGroupViewCommand = new RelayCommand(o =>
+            {
+                //CurrentView = ItemGroupVM;
+                radioButtonsState_ = RadioButtonState.ItemGroup;
             });
 
             OrderViewCommand = new RelayCommand(o =>
@@ -159,12 +159,6 @@ namespace PresentationLayer.MVVM.ViewModel
                 CurrentView = OrderVM;
                 radioButtonsState_ = RadioButtonState.Order;
             });
-
-            //ItemGroupViewCommand = new RelayCommand(o =>
-            //{
-            //    CurrentView = ItemGroupVM;
-            //    radioButtonsState_ = RadioButtonState.ItemGroup;
-            //});
         }
 
         private void OnNewCommand()
@@ -178,8 +172,8 @@ namespace PresentationLayer.MVVM.ViewModel
                     CurrentView = NewCustomerVM;
                     break;
 
-                case RadioButtonState.Article:
-                    CurrentView = NewArticleVM;
+                case RadioButtonState.Item:
+                    CurrentView = NewItemVM;
                     break;
 
                 case RadioButtonState.Order:
@@ -202,7 +196,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 case RadioButtonState.Customer:
                     break;
 
-                case RadioButtonState.Article:
+                case RadioButtonState.Item:
                     break;
 
                 case RadioButtonState.Order:
@@ -225,20 +219,15 @@ namespace PresentationLayer.MVVM.ViewModel
                     ReloadSearchCustomerView();
                     break;
 
-                case RadioButtonState.Article:
-                    CurrentView = SearchArticleVM;
-                    ReloadSearchArticleView();
+                case RadioButtonState.Item:
+                    CurrentView = SearchItemVM;
+                    ReloadSearchItemView();
                     break;
 
                 case RadioButtonState.Order:
                     CurrentView = SearchOrderVM;
                     ReloadSearchOrderView();
-                    break; 
-                
-                //case RadioButtonState.ItemGroup:
-                //    CurrentView = SearchItemGroupVM;
-                //    ReloadSearchItemGroupView();
-                //    break;
+                    break;
             }
         }
 
@@ -273,20 +262,20 @@ namespace PresentationLayer.MVVM.ViewModel
                     }
                     break;
 
-                case RadioButtonState.Article:
+                case RadioButtonState.Item:
                     var item = new Item();
                     if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = item.DeleteItemByDto(
                             item.GetItemById(selectedId_));
 
-                        if (currentView_.GetType() == ArticleVM.GetType())
+                        if (currentView_.GetType() == ItemVM.GetType())
                         {
-                            ReloadArticleView();
+                            ReloadItemView();
                         }
                         else
                         {
-                            ReloadSearchArticleView();
+                            ReloadSearchItemView();
                         }
 
                         MessageBox.Show(
@@ -325,23 +314,16 @@ namespace PresentationLayer.MVVM.ViewModel
                     var itemGroup = new ItemGroup();
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = itemGroup.DeleteItemGroupByDto(
-                            itemGroup.GetItemGroupById(selectedId_));
+                        //var res = itemGroup.DeleteItemGroupByDto(
+                        //    itemGroup.GetItemGroupById(selectedId_));
 
-                        //if (currentView_.GetType() == ItemGroupVM.GetType())
-                        //{
-                        //    ReloadOrderView();
-                        //}
-                        //else
-                        //{
-                        //    ReloadSearchItemGroupView();
-                        //}
-
+                        //ReloadItemGroupView();
+                        
                         //MessageBox.Show(
                         //    res,
                         //    "Info",
                         //    MessageBoxButton.OK,
-                        //    MessageBoxImage.Information);
+                            //MessageBoxImage.Information);
                     }
                     break;
             }

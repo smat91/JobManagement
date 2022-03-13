@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataAccessConnection;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
-using PresentationLayer.Annotations;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
 
-    internal class SearchArticleViewModel : ArticleViewModel
+    internal class SearchItemViewModel : ItemViewModel
     {
-        public SearchArticleViewModel()
+        public SearchItemViewModel()
         {
-            MainViewModel.ReloadSearchArticleView = ReloadSearchData;
+            MainViewModel.ReloadSearchItemView = ReloadSearchData;
             ItemDtoTable = new DataTable();
             Item items = new Item();
             AddHeaderData(ItemDtoTable);

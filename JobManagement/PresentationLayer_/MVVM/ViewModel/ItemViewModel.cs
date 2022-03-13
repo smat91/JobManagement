@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataAccessConnection;
-using PresentationLayer.Annotations;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
 
-    internal class ArticleViewModel : ObservableObject
+    internal class ItemViewModel : ObservableObject
     {
         public DataTable ItemDtoTable
         {
@@ -48,9 +46,9 @@ namespace PresentationLayer.MVVM.ViewModel
         private DataTable itemDtoTable_;
         private DataRowView selectedRow_;
 
-        public ArticleViewModel()
+        public ItemViewModel()
         {
-            MainViewModel.ReloadArticleView = ReloadData;
+            MainViewModel.ReloadItemView = ReloadData;
             Item items = new Item();
             ItemDtoTable = new DataTable();
             AddHeaderData(ItemDtoTable);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,7 +15,7 @@ using System.Windows.Shapes;
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für ArticleView.xaml
+    /// Interaktionslogik für ItemView.xaml
     /// </summary>
     public partial class SearchOrderView : UserControl
     {

@@ -11,15 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PresentationLayer.MVVM.ViewModel;
 
 namespace PresentationLayer.MVVM.View
 {
     /// <summary>
-    /// Interaktionslogik für OrderView.xaml
+    /// Interaktionslogik für NewItemView.xaml
     /// </summary>
-    public partial class OrderView : UserControl
+    public partial class NewItemView : UserControl
     {
-        public OrderView()
+        public NewItemView()
         {
             InitializeComponent();
         }
