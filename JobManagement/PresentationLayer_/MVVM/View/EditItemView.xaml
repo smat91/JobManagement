@@ -76,17 +76,18 @@
 
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button Foreground="Black"
-                Margin="10,55,10,20"
-                Content="Cancel"
-                Height="40"
-                Width="70"
-                />
+           
             <Button Foreground="Black"
                 Margin="10,55,10,20"
                 Content="Änderungen Bestätigen"
                 Height="40"
                 Width="150"
+                />
+            <Button Foreground="Black"
+                Margin="10,55,10,20"
+                Content="Abbrechen"
+                Height="40"
+                Width="70"
                 />
         </StackPanel>
     </StackPanel>
