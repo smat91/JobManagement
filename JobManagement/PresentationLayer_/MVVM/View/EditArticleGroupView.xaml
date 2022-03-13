@@ -21,15 +21,36 @@
                    Margin="10,0,0,20"/>
 
         <Label Foreground="White"
+               HorizontalAlignment="Center">Id</Label>
+
+        <TextBox Width="232"
+                 Height="28"
+                 FontFamily="/Fonts/#Poppins"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+        />
+
+        <Label Foreground="White"
                HorizontalAlignment="Center">Artikelgruppe</Label>
 
         <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
                      VerticalContentAlignment="Center"
-                    
-                />
- 
+        />
+
+        <Label Foreground="White"
+               HorizontalAlignment="Center">Übergeordnete Artikelgruppe</Label>
+
+        <ComboBox x:Name="TxtParentItemGroup" Width="232"
+                  Height="28"
+                  FontFamily="/Fonts/#Poppins"
+                  VerticalContentAlignment="Center"
+                  ItemsSource="{Binding Path=ItemGroupList}"
+                  DisplayMemberPath="Name"
+                  SelectedValue="{Binding Path=Group}">
+        </ComboBox>
+
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
