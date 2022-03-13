@@ -12,6 +12,14 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     class EditOrderViewModel : NewOrderViewModel
     {
+        public int OrderNumber
+        {
+            get
+            {
+                return order_.Id;
+            }
+        }
+
         public EditOrderViewModel() : base()
         {
             Order order= new Order();
@@ -22,7 +30,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        private void Save()
+        public override void Save()
         {
             Order order = new Order();
             if (DataCheck())

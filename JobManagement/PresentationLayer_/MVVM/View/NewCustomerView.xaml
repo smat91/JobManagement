@@ -30,34 +30,6 @@
             <StackPanel Orientation="Horizontal"
                     Height="40">
 
-                <Label Foreground="White"
-               HorizontalAlignment="Center"
-                       Content="Kundennummer"
-                       HorizontalContentAlignment="Center"
-                       Width="160"/>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
-                    Width="160"
-                    Content="Passwort"
-               HorizontalAlignment="Center"/>
-
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     
-                    
-                />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"
-                    Height="40">
-
 
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
@@ -68,7 +40,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Firstname}"
                     
                 />
                 <Label Foreground="White"
@@ -80,7 +52,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Lastname}"
                     
                 />
             </StackPanel>
@@ -97,7 +69,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Street}"
                     
                 />
                 <Label Foreground="White"
@@ -109,7 +81,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=StreetNumber}"
                     
                 />
             </StackPanel>
@@ -126,7 +98,7 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     
+                     Text="{Binding Path=Zip}"
                     
                 />
                 <Label Foreground="White"
@@ -138,11 +110,22 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"  
+                     Text="{Binding Path=City}"
                 />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                     Height="40">
+                <Label Foreground="White"
+                       HorizontalContentAlignment="Center"
+                       Width="160"
+                       Content="Land"
+                       HorizontalAlignment="Center"/>
 
+                <TextBox Width="232"
+                         Height="28"
+                         FontFamily="/Fonts/#Poppins"
+                         Text="{Binding Path=Country}"
+                />
 
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
@@ -153,29 +136,48 @@
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-
+                     Text="{Binding Path=EMail}"
                 />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40">
+                <Label Foreground="White"
+                       HorizontalContentAlignment="Center"
+                       Width="160"
+                       Content="Website"
+                       HorizontalAlignment="Center"/>
+
+                <TextBox Width="232"
+                         Height="28"
+                         FontFamily="/Fonts/#Poppins"  
+                         Text="{Binding Path=Website}"
+                />
+
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
                     Width="160"
-                    Content="Website"
-               HorizontalAlignment="Center"/>
+                    Content="Passwort"
+               />
 
                 <TextBox Width="232"
                      Height="28"
-                     FontFamily="/Fonts/#Poppins"  
+                     FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Password}"
+                    
                 />
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Foreground="Black"
+                    Command="{Binding Path=CancleCommand}"
                 Margin="10,10,10,20"
                 Content="Abbrechen"
                 Height="37"
                 Width="70"
                 />
             <Button Foreground="Black"
+                    Command="{Binding Path=SaveCommand}"
                 Margin="10,10,10,20"
                 Content="OK"
                 Height="40"

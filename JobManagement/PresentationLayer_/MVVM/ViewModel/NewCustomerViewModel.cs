@@ -159,17 +159,19 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewCustomerViewModel()
         {
             customer_ = new CustomerDto();
+            customer_.Address = new AddressDto();
             SaveCommand = new RelayCommand(o =>Save());
-            CancleCommand = new RelayCommand(o =>Cancle());
+            CancleCommand = new RelayCommand(o => Cancel());
 
         }
 
-        public void Save()
+        public virtual void Save()
         {
             Customer customer = new Customer();
             if (DataCheck())
             {
                 customer.AddNewCustomer(customer_);
+                Cancel();
             }
             else
             {
@@ -177,32 +179,32 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
-        public void Cancle()
+        public void Cancel()
         {
-            customer_.Firstname = "";
-            customer_.Lastname = "";
-            customer_.EMail = "";
-            customer_.Password = "";
-            customer_.Website = "";
-            customer_.Address.Street = "";
-            customer_.Address.StreetNumber = "";
-            customer_.Address.Zip = "";
-            customer_.Address.City = "";
-            customer_.Address.Country = "";
+            Firstname = "";
+            Lastname = "";
+            EMail = "";
+            Password = "";
+            Website = "";
+            Street = "";
+            StreetNumber = "";
+            Zip = "";
+            City = "";
+            Country = "";
         }
 
         public bool DataCheck()
         {
-            // da kommt noch mehr.
             return !customer_.Firstname.IsNullOrEmpty()
-                   && customer_.Lastname.IsNullOrEmpty()
-                   && customer_.EMail.IsNullOrEmpty()
-                   && customer_.Website.IsNullOrEmpty()
-                   && customer_.Password.IsNullOrEmpty()
-                   && customer_.Address.Street.IsNullOrEmpty()
-                   && customer_.Address.StreetNumber.IsNullOrEmpty()
-                   && customer_.Address.Zip.IsNullOrEmpty()
-                   && customer_.Address.City.IsNullOrEmpty();
+                   && !customer_.Lastname.IsNullOrEmpty()
+                   && !customer_.EMail.IsNullOrEmpty()
+                   && !customer_.Website.IsNullOrEmpty()
+                   && !customer_.Password.IsNullOrEmpty()
+                   && !customer_.Address.Street.IsNullOrEmpty()
+                   && !customer_.Address.StreetNumber.IsNullOrEmpty()
+                   && !customer_.Address.Zip.IsNullOrEmpty()
+                   && !customer_.Address.City.IsNullOrEmpty()
+                   && !customer_.Address.Country.IsNullOrEmpty();
         }
     }
 }

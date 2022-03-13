@@ -49,7 +49,7 @@ namespace PresentationLayer.MVVM.ViewModel
             CancelCommand = new RelayCommand(o => Cancel());
         }
 
-        public void Save()
+        public virtual void Save()
         {
             ItemGroup itemGroup = new ItemGroup();
             if (DataCheck())
