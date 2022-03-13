@@ -122,7 +122,7 @@ namespace PresentationLayer.MVVM.ViewModel
             ArticleVM = new ArticleViewModel();
             ArticleGroupVM = new ArticleGroupViewModel();
             NewArticleVM = new NewArticleViewModel();
-            NewArticleGroupVM = new NewArticleGroupViewmodel();
+            NewArticleGroupVM = new NewArticleGroupViewModel();
             EditArticleVM = new EditArticleViewModel();
             SearchArticleVM = new SearchArticleViewModel();
             OrderVM = new OrderViewModel();
