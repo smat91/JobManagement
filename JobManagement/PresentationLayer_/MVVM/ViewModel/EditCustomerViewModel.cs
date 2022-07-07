@@ -52,15 +52,18 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public override void Save()
         {
+            try
+            {
+                CheckDataSet();
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show($"{e.Message}");
+                return;
+            }
+
             Customer customer = new Customer();
-            if (DataCheck())
-            {
-                customer.UpdateCustomerByDto(customer_);
-            }
-            else
-            {
-                MessageBox.Show("Es wurden nicht alle notwendigen Felder ausgefüllt!");
-            }
+            customer.UpdateCustomerByDto(customer_);
         }
     }
 }

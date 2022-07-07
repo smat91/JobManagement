@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using BusinessLayer.DataAccessConnection;
@@ -163,16 +164,20 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public virtual void Save()
         {
+            try
+            {
+                CheckDataSet();
+            } 
+            catch (ArgumentException e)
+            {
+                MessageBox.Show($"{e.Message}");
+                return;
+            }
+
             Customer customer = new Customer();
-            if (DataCheck())
-            {
-                customer.AddNewCustomer(customer_);
-                Cancel();
-            }
-            else
-            {
-                MessageBox.Show("Es wurden nicht alle notwendigen Felder ausgefüllt!");
-            }
+
+            customer.AddNewCustomer(customer_);
+            Cancel();
         }
 
         public void Cancel()
@@ -189,9 +194,17 @@ namespace PresentationLayer.MVVM.ViewModel
             Country = "";
         }
 
-        public bool DataCheck()
+        public void CheckDataSet()
         {
-            return !customer_.Firstname.IsNullOrEmpty()
+            CheckDataCompleteness();
+            CheckEmailFormat();
+            CheckWebSiteUrlFormat();
+            CheckPasswordFormat();
+        }
+
+        public void CheckDataCompleteness()
+        {
+            var allComplete = !customer_.Firstname.IsNullOrEmpty()
                    && !customer_.Lastname.IsNullOrEmpty()
                    && !customer_.EMail.IsNullOrEmpty()
                    && !customer_.Website.IsNullOrEmpty()
@@ -201,6 +214,39 @@ namespace PresentationLayer.MVVM.ViewModel
                    && !customer_.Address.Zip.IsNullOrEmpty()
                    && !customer_.Address.City.IsNullOrEmpty()
                    && !customer_.Address.Country.IsNullOrEmpty();
+
+            if (!allComplete)
+                throw new ArgumentException("Es wurden nicht alle notwendigen Felder ausgefüllt!");
+        }
+
+        public void CheckEmailFormat()
+        {
+            Regex regex = new Regex(@"^([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)$");
+
+            var email = customer_.EMail;
+
+            if (!regex.Match(email).Success)
+                throw new ArgumentException("Ungültige Emailadresse erkannt!");
+        }
+
+        public void CheckWebSiteUrlFormat()
+        {
+            Regex regex = new Regex(@"^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$");
+
+            var webSiteUrl = customer_.Website;
+
+            if (!regex.Match(webSiteUrl).Success)
+                throw new ArgumentException("Ungültige Webseiten Url erkannt!");
+        }
+
+        public void CheckPasswordFormat()
+        {
+            Regex regex = new Regex(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\W).{8,}$");
+
+            var password = customer_.Password;
+
+            if (!regex.Match(password).Success)
+                throw new ArgumentException("Ungültiges Passwort erkannt!");
         }
     }
 }
