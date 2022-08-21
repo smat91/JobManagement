@@ -26,11 +26,11 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditItemViewModel() : base()
         {
             Item item = new Item();
-            
+            var id = Int32.Parse(MainViewModel.SelectedId);
 
-            if (MainViewModel.SelectedId > 0)
+            if (id > 0)
             {
-                var itemTemp = item.GetItemById(MainViewModel.SelectedId);
+                var itemTemp = item.GetItemById(id);
                 ItemNumber = itemTemp.Id;
                 Name = itemTemp.Name;
                 Group = itemTemp.Group;

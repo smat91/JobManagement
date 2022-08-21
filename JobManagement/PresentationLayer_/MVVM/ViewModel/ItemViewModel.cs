@@ -37,8 +37,7 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 selectedRow_ = value;
                 if (value != null)
-                    MainViewModel.SelectedId = Int32.Parse(
-                        value.Row[ItemDtoTable.Columns.IndexOf("Artikelnummer")].ToString());
+                    MainViewModel.SelectedId = value.Row[ItemDtoTable.Columns.IndexOf("Artikelnummer")].ToString();
                 OnPropertyChanged();
             }
         }

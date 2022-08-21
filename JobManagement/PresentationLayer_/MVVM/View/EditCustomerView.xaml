@@ -31,36 +31,19 @@
                     Height="40">
 
                 <Label Foreground="White"
-               HorizontalAlignment="Center"
-                       Content="Kundennummer"
-                       HorizontalContentAlignment="Center"
-                       Width="160"></Label>
-
-                <TextBox Width="232"
-                         IsReadOnly="True"
-                         Height="28"
-                         FontFamily="/Fonts/#Poppins"
-                         Text="{Binding Path=CustomerNumber, Mode=OneWay}"
-                     
-                    
-                />
-                <Label Foreground="White"
-                   HorizontalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
                     Width="160"
-                    Content="Passwort"
-               HorizontalAlignment="Center"></Label>
+                    Content="Kundennummer"
+                    HorizontalAlignment="Center"/>
 
                 <TextBox Width="232"
                      Height="28"
                      FontFamily="/Fonts/#Poppins"
-                     Text="{Binding Path=Password}"
-                     
-                    
+                     Text="{Binding Path=CustomerNumber}"
                 />
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                     Height="40">
-
 
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"
@@ -179,7 +162,6 @@
             <StackPanel Orientation="Horizontal"
                         Height="40">
 
-
                 <Label Foreground="White"
                        HorizontalContentAlignment="Center"
                        Width="160"
@@ -191,6 +173,18 @@
                          FontFamily="/Fonts/#Poppins"
                          Text="{Binding Path=EMail}"
 
+                />
+
+                <Label Foreground="White"
+                       HorizontalContentAlignment="Center"
+                       Width="160"
+                       Content="Passwort"
+                       HorizontalAlignment="Center"></Label>
+
+                <TextBox Width="232"
+                     Height="28"
+                     FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=Password}"
                 />
             </StackPanel>
         </StackPanel>

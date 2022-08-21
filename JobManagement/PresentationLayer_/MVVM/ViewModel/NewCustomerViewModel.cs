@@ -17,6 +17,19 @@ namespace PresentationLayer.MVVM.ViewModel
 
     internal class NewCustomerViewModel : ObservableObject
     {
+        public string CustomerNumber
+        {
+            get
+            {
+                return customer_.CustomerNumber;
+            }
+            set
+            {
+                customer_.CustomerNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Firstname
         {
             get

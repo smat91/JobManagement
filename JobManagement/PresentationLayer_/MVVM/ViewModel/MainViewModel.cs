@@ -70,7 +70,7 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
         
-        public static int SelectedId
+        public static string SelectedId
         {
             get
             {
@@ -83,7 +83,7 @@ namespace PresentationLayer.MVVM.ViewModel
         }
 
         private static string searchTerm_ = "";
-        private static int selectedId_;
+        private static string selectedId_;
         private object currentView_;
         private RadioButtonState radioButtonsState_;
         private enum RadioButtonState
@@ -248,7 +248,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = customer.DeleteCustomerByDto(
-                            customer.GetCustomerById(selectedId_));
+                            customer.GetCustomerByCustomerNumber(selectedId_));
 
                         if (currentView_.GetType() == CustomerVM.GetType())
                         {
@@ -272,7 +272,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = item.DeleteItemByDto(
-                            item.GetItemById(selectedId_));
+                            item.GetItemById(Int32.Parse(selectedId_)));
 
                         if (currentView_.GetType() == ItemVM.GetType())
                         {
@@ -296,7 +296,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     if (MessageBox.Show("Auftrag endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = order.DeleteOrderByDto(
-                            order.GetOrderById(selectedId_));
+                            order.GetOrderById(Int32.Parse(selectedId_)));
 
                         if (currentView_.GetType() == OrderVM.GetType())
                         {
@@ -320,7 +320,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = itemGroup.DeleteItemGroupByDto(
-                            itemGroup.GetItemGroupById(selectedId_));
+                            itemGroup.GetItemGroupById(Int32.Parse(selectedId_)));
 
                         ReloadItemGroupView();
 

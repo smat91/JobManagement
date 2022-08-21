@@ -15,15 +15,15 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     internal class EditCustomerViewModel : NewCustomerViewModel
     {
-        public int CustomerNumber
+        public string CustomerNumber
         {
             get
             {
-                return customer_.Id;
+                return customer_.CustomerNumber;
             }
-            private set
+            set
             {
-                customer_.Id = value;
+                customer_.CustomerNumber = value;
                 OnPropertyChanged();
             }
         }
@@ -31,11 +31,12 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditCustomerViewModel() : base()
         {
             Customer customer = new Customer();
+            var id = Int32.Parse(MainViewModel.SelectedId);
 
-            if (MainViewModel.SelectedId > 0)
+            if (id > 0)
             {
-                var customerTemp = customer.GetCustomerById(MainViewModel.SelectedId);
-                CustomerNumber = customerTemp.Id;
+                var customerTemp = customer.GetCustomerByCustomerNumber(MainViewModel.SelectedId);
+                CustomerNumber = customerTemp.CustomerNumber;
                 Firstname = customerTemp.Firstname;
                 Lastname = customerTemp.Lastname;
                 EMail = customerTemp.EMail;

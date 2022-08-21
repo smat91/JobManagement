@@ -22,8 +22,7 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 selectedRow_ = value;
                 if (value != null)
-                    MainViewModel.SelectedId = Int32.Parse(
-                        value.Row[OrderDtoTable.Columns.IndexOf("Auftragsnummer")].ToString());
+                    MainViewModel.SelectedId = value.Row[OrderDtoTable.Columns.IndexOf("Auftragsnummer")].ToString();
                 OnPropertyChanged();
             }
         }

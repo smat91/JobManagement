@@ -22,8 +22,7 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 selectedRow_ = value;
                 if (value != null)
-                    MainViewModel.SelectedId = Int32.Parse(
-                        value.Row[CustomerDtoTable.Columns.IndexOf("Kundennummer")].ToString());
+                    MainViewModel.SelectedId = value.Row[CustomerDtoTable.Columns.IndexOf("Kundennummer")].ToString();
                 OnPropertyChanged();
             }
         }
@@ -63,7 +62,7 @@ namespace PresentationLayer.MVVM.ViewModel
             {
                 DataRow catRow = dataTable.NewRow();
 
-                catRow["Kundennummer"] = customer.Id;
+                catRow["Kundennummer"] = customer.CustomerNumber;
                 catRow["Vorname"] = customer.Firstname;
                 catRow["Nachname"] = customer.Lastname;
                 catRow["E-Mail"] = customer.EMail;

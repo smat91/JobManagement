@@ -25,10 +25,11 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditItemGroupViewModel() : base()
         {
             ItemGroup itemGroup = new ItemGroup();
+            var id = Int32.Parse(MainViewModel.SelectedId);
 
-            if (MainViewModel.SelectedId > 0)
+            if (id > 0)
             {
-                var itemGroupTemp = itemGroup.GetItemGroupById(MainViewModel.SelectedId);
+                var itemGroupTemp = itemGroup.GetItemGroupById(id);
                 ItemGroupNumber = itemGroupTemp.Id;
                 ParentItemGroup = itemGroupTemp.ParentItemGroup;
             }

@@ -30,6 +30,22 @@
             <StackPanel Orientation="Horizontal"
                     Height="40">
 
+                <Label Foreground="White"
+                    HorizontalContentAlignment="Center"
+                    Width="160"
+                    Content="Kundennummer"
+                    HorizontalAlignment="Center"/>
+
+                <TextBox Width="232"
+                     Height="28"
+                     FontFamily="/Fonts/#Poppins"
+                     Text="{Binding Path=CustomerNumber}"
+                />
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40">
+
 
                 <Label Foreground="White"
                    HorizontalContentAlignment="Center"

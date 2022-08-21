@@ -27,10 +27,11 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditOrderViewModel() : base()
         {
             Order order= new Order();
+            var id = Int32.Parse(MainViewModel.SelectedId);
 
-            if (MainViewModel.SelectedId > 0)
+            if (id > 0)
             {
-                var orderTemp = order.GetOrderById(MainViewModel.SelectedId);
+                var orderTemp = order.GetOrderById(id);
                 OrderNumber = orderTemp.Id;
                 Customer = orderTemp.Customer;
             }
