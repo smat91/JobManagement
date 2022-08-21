@@ -15,19 +15,6 @@ namespace PresentationLayer.MVVM.ViewModel
 {
     internal class EditCustomerViewModel : NewCustomerViewModel
     {
-        public string CustomerNumber
-        {
-            get
-            {
-                return customer_.CustomerNumber;
-            }
-            set
-            {
-                customer_.CustomerNumber = value;
-                OnPropertyChanged();
-            }
-        }
-
         public EditCustomerViewModel() : base()
         {
             Customer customer = new Customer();
