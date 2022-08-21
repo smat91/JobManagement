@@ -210,6 +210,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public void CheckDataSet()
         {
             CheckDataCompleteness();
+            CheckCustomerNumberFormat();
             CheckEmailFormat();
             CheckWebSiteUrlFormat();
             CheckPasswordFormat();
@@ -230,6 +231,16 @@ namespace PresentationLayer.MVVM.ViewModel
 
             if (!allComplete)
                 throw new ArgumentException("Es wurden nicht alle notwendigen Felder ausgefüllt!");
+        }
+
+        public void CheckCustomerNumberFormat()
+        {
+            Regex regex = new Regex(@"^CU[0-9]{5}$");
+
+            var customerNumber = customer_.CustomerNumber;
+
+            if (!regex.Match(customerNumber).Success)
+                throw new ArgumentException("Ungültige Kundennummer erkannt!");
         }
 
         public void CheckEmailFormat()
