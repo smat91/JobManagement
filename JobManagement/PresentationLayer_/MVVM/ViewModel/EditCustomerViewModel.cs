@@ -31,7 +31,9 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditCustomerViewModel() : base()
         {
             Customer customer = new Customer();
-            var id = Int32.Parse(MainViewModel.SelectedId);
+            var id = 0;
+            
+            Int32.TryParse(MainViewModel.SelectedId, out id);
 
             if (id > 0)
             {

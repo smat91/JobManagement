@@ -276,7 +276,7 @@ namespace DataAccessLayer.Repositories
 		                            FROM [JobManagement].[dbo].[Positions]
 			                            FULL JOIN Items ON [JobManagement].[dbo].[Positions].ItemId = [JobManagement].[dbo].[Items].[Id]
 		                                FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
-			                            FULL JOIN Customers ON [JobManagement].[dbo].[Orders].[CustomerNumber] = [JobManagement].[dbo].[Customers].[CustomerNumber]
+			                            FULL JOIN Customers ON [JobManagement].[dbo].[Orders].[CustomerId] = [JobManagement].[dbo].[Customers].[Id]
 		                            WHERE Orders.PeriodStart >= DATEADD(year, -3, GETDATE())
 		                            ) innerquery),
 

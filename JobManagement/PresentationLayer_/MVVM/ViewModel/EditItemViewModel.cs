@@ -26,7 +26,9 @@ namespace PresentationLayer.MVVM.ViewModel
         public EditItemViewModel() : base()
         {
             Item item = new Item();
-            var id = Int32.Parse(MainViewModel.SelectedId);
+            var id = 0;
+
+            Int32.TryParse(MainViewModel.SelectedId, out id);
 
             if (id > 0)
             {

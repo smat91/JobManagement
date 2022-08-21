@@ -83,7 +83,7 @@ namespace PresentationLayer.MVVM.ViewModel
         }
 
         private static string searchTerm_ = "";
-        private static string selectedId_;
+        private static string selectedId_ = "";
         private object currentView_;
         private RadioButtonState radioButtonsState_;
         private enum RadioButtonState
