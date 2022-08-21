@@ -8,7 +8,7 @@ namespace BusinessLayer.DataTransferObjects
 {
     public class InvoiceDto
     {
-        public int CustomerId { get; set; }
+        public string CustomerNumber { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Zip { get; set; }
@@ -25,7 +25,7 @@ namespace BusinessLayer.DataTransferObjects
 
         public InvoiceDto(DataAccessLayer.QueryTypes.InvoiceRequest invoice)
         {
-            CustomerId = invoice.CustomerId;
+            CustomerNumber = invoice.CustomerNumber;
             Name = invoice.Street;
             Street = invoice.Street;
             Zip = invoice.Zip;

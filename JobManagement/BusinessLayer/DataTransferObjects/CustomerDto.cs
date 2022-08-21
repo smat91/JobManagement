@@ -6,6 +6,7 @@ namespace BusinessLayer.DataTransferObjects
     public class CustomerDto
     {
         public int Id { get; set; }
+        public string CustomerNumber { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string EMail { get; set; }
@@ -15,7 +16,7 @@ namespace BusinessLayer.DataTransferObjects
         public string Identifier {
             get
             {
-                return $"{Id}: {Firstname} {Lastname}";
+                return $"{CustomerNumber}: {Firstname} {Lastname}";
             }
         }
 
@@ -26,6 +27,7 @@ namespace BusinessLayer.DataTransferObjects
         public CustomerDto(Customer customer)
         {
             Id = customer.Id;
+            CustomerNumber = customer.CustomerNumber;
             Firstname = customer.Firstname;
             Lastname = customer.Lastname;
             EMail = customer.EMail;
@@ -39,6 +41,7 @@ namespace BusinessLayer.DataTransferObjects
             return new DataAccessLayer.Models.Customer
             {
                 Id = customer.Id,
+                CustomerNumber = customer.CustomerNumber,
                 Firstname = customer.Firstname,
                 Lastname = customer.Lastname,
                 EMail = customer.EMail,

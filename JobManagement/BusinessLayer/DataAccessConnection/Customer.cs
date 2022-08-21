@@ -13,9 +13,9 @@ namespace BusinessLayer.DataAccessConnection
         {
             customerRepository_ = new CustomerRepository();
         }
-        public CustomerDto GetCustomerById(int id)
+        public CustomerDto GetCustomerByCustomerNumber(string customerNumber)
         {
-            var customer = customerRepository_.GetCustomerById(id);
+            var customer = customerRepository_.GetCustomerByCustomerNumber(customerNumber);
             return new CustomerDto(customer);
         }
 
