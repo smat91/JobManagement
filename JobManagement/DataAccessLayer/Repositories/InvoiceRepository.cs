@@ -43,7 +43,7 @@ namespace DataAccessLayer.Repositories
         {
             var customer = context.Customers
                 .TemporalAsOf(order.Date)
-                .Single(customer => customer.Id == order.Customer.Id);
+                .Single(customer => customer.CustomerNumber == order.Customer.CustomerNumber);
 
             var priceNet = context.Positions
                 .TemporalAsOf(order.Date)
@@ -57,7 +57,7 @@ namespace DataAccessLayer.Repositories
 
             return new InvoiceRequest()
             {
-                CustomerId = order.Customer.Id,
+                CustomerNumber = order.Customer.CustomerNumber,
                 Name = customer.Firstname + " " + customer.Lastname,
                 Street = customer.Address.Street + " " + customer.Address.StreetNumber,
                 Zip = customer.Address.Zip,

@@ -9,7 +9,7 @@ namespace DataAccessLayer.QueryTypes
 {
     public class InvoiceRequest
     {
-        public int CustomerId { get; set; }
+        public string CustomerNumber { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Zip { get; set; }

@@ -255,7 +255,7 @@ namespace DataAccessLayer.Repositories
 			using (var context = new JobManagementContext())
             {
                 return ConvertCustomerDataListToDictionary(context.TotalCustomersSalesRequest.FromSqlRaw(
-                        @"
+						@"
                             WITH CUSTOMER_SALES AS
                                 (SELECT
 		                            CUSTOMER_NAME,
@@ -276,7 +276,7 @@ namespace DataAccessLayer.Repositories
 		                            FROM [JobManagement].[dbo].[Positions]
 			                            FULL JOIN Items ON [JobManagement].[dbo].[Positions].ItemId = [JobManagement].[dbo].[Items].[Id]
 		                                FULL JOIN Orders ON [JobManagement].[dbo].[Positions].[OrderId] = [JobManagement].[dbo].[Orders].[Id]
-			                            FULL JOIN Customers ON [JobManagement].[dbo].[Orders].[CustomerId] = [JobManagement].[dbo].[Customers].[Id]
+			                            FULL JOIN Customers ON [JobManagement].[dbo].[Orders].[CustomerNumber] = [JobManagement].[dbo].[Customers].[CustomerNumber]
 		                            WHERE Orders.PeriodStart >= DATEADD(year, -3, GETDATE())
 		                            ) innerquery),
 
@@ -291,7 +291,7 @@ namespace DataAccessLayer.Repositories
                             FROM CUSTOMER_SALES_QUARTER
                                 ORDER BY CREATION_DATE     
                         "
-                    )
+					)
                     .ToList());
             }
 		}

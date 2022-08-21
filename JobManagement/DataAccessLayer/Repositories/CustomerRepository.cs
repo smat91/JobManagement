@@ -12,13 +12,13 @@ namespace DataAccessLayer.Repositories
 {
     public class CustomerRepository
     {
-        public Customer GetCustomerById(int id)
+        public Customer GetCustomerByCustomerNumber(string customerNumber)
         {
             using (var context = new JobManagementContext())
             {
                 var customer = context.Customers
                     .Include(customer => customer.Address)
-                    .Single(customer => customer.Id == id);
+                    .Single(customer => customer.CustomerNumber == customerNumber);
                 context.Entry(customer).Reference(c => c.Address).Load();
                 return customer;
             }

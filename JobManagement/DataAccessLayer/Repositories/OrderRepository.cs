@@ -156,7 +156,7 @@ namespace DataAccessLayer.Repositories
                 {
                     var customer = context.Customers
                         .Include(customer => customer.Address)
-                        .FirstOrDefault(customer => customer.Id == order.Customer.Id);
+                        .FirstOrDefault(customer => customer.CustomerNumber == order.Customer.CustomerNumber);
                     if (customer != default(Customer))
                         order.Customer = customer;
                 }
