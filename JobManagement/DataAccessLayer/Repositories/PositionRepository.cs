@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
+using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class PositionRepository
+    public class PositionRepository : BaseRepository<Position>
     {
-        public Position GetPositionById(int id)
+        public override string TableName => "Position";
+
+        public Position GetSingleById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -25,7 +28,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Position> GetPositionsBySearchTerm(string searchTerm)
+        public List<Position> GetBySearchTerm(string searchTerm)
         {
             List<Position> positionList = new List<Position>();
             Search search = new Search();
@@ -45,7 +48,7 @@ namespace DataAccessLayer.Repositories
             return positionList;
         }
 
-        public List<Position> GetAllPositions()
+        public List<Position> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -62,7 +65,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewPosition(Position position)
+        public void Add(Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -81,25 +84,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string DeletePositionByDto(Position position)
-        {
-            using (var context = new JobManagementContext())
-            {
-                context.Positions.Remove(position);
-
-                try
-                {
-                    context.SaveChanges();
-                    return "Datensatz erfolgreich gelöscht";
-                }
-                catch (DbUpdateException e)
-                {
-                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
-                }
-            }
-        }
-
-        public void UpdatePositionByDto(Position position)
+        public void Update(Position position)
         {
             using (var context = new JobManagementContext())
             {
