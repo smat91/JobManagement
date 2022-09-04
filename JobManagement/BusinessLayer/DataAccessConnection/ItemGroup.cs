@@ -17,19 +17,19 @@ namespace BusinessLayer.DataAccessConnection
         
         public ItemGroupDto GetItemGroupById(int id)
         {
-            var itemGroup = itemGroupRepository_.GetItemGroupById(id);
+            var itemGroup = itemGroupRepository_.GetSingleById(id);
             return new ItemGroupDto(itemGroup);
         }
 
         public List<ItemGroupDto> GetItemGroupsBySearchTerm(string searchTerm)
         {
-            var itemGroups = itemGroupRepository_.GetItemGroupBySearchTerm(searchTerm);
+            var itemGroups = itemGroupRepository_.GetBySearchTerm(searchTerm);
             return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroups);
         }
 
         public List<ItemGroupDto> GetAllItemGroups()
         {
-            var itemGroups = itemGroupRepository_.GetAllItemGroups();
+            var itemGroups = itemGroupRepository_.GetAll();
             return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroups);
         }
 
@@ -41,17 +41,17 @@ namespace BusinessLayer.DataAccessConnection
 
         public void AddNewItemGroup(ItemGroupDto ItemGroup)
         {
-            itemGroupRepository_.AddNewItemGroup(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
+            itemGroupRepository_.Add(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
         public string DeleteItemGroupByDto(ItemGroupDto ItemGroup)
         {
-            return itemGroupRepository_.DeleteItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
+            return itemGroupRepository_.Delete(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
         public void UpdateItemGroupByDto(ItemGroupDto ItemGroup)
         {
-            itemGroupRepository_.UpdateItemGroupByDto(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
+            itemGroupRepository_.Update(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
     }
 }

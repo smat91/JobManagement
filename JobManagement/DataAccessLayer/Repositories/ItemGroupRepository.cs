@@ -7,13 +7,16 @@ using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
+using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class ItemGroupRepository
+    public class ItemGroupRepository : BaseRepository<ItemGroup>
     {
-        public ItemGroup GetItemGroupById(int id)
+        public override string TableName => "ItemGroup";
+
+        public ItemGroup GetSingleById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -23,7 +26,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ItemGroup> GetItemGroupBySearchTerm(string searchTerm)
+        public List<ItemGroup> GetBySearchTerm(string searchTerm)
         {
             List<ItemGroup> itemGroupList = new List<ItemGroup>();
             Search search = new Search();
@@ -41,7 +44,7 @@ namespace DataAccessLayer.Repositories
             return itemGroupList;
         }
 
-        public List<ItemGroup> GetAllItemGroups()
+        public List<ItemGroup> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -90,7 +93,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItemGroup(ItemGroup itemGroupDto)
+        public void Add(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -108,24 +111,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string DeleteItemGroupByDto(ItemGroup itemGroupDto)
-        {
-            using (var context = new JobManagementContext())
-            {
-                context.ItemGroups.Remove((ItemGroup)itemGroupDto);
-                try
-                {
-                    context.SaveChanges();
-                    return "Datensatz erfolgreich gelöscht";
-                }
-                catch (DbUpdateException e)
-                {
-                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
-                }
-            }
-        }
-
-        public void UpdateItemGroupByDto(ItemGroup itemGroupDto)
+        public void Update(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
