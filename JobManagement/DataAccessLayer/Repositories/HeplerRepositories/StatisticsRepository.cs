@@ -9,7 +9,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Repositories
+namespace DataAccessLayer.Repositories.HeplerRepositories
 {
     public class StatisticsRepository
     {
@@ -26,15 +26,15 @@ namespace DataAccessLayer.Repositories
 
             return dataTable;
         }
-        
-		private int GetQuarterFromDate(DateTime date)
+
+        private int GetQuarterFromDate(DateTime date)
         {
             return (date.Month + 2) / 3;
         }
 
         private void AddHeaderData(DataTable dataTable)
         {
-			// add header data
+            // add header data
             dataTable.Columns.Add("Kategorie");
 
             for (int i = 0; i < 12; i++)
@@ -50,34 +50,34 @@ namespace DataAccessLayer.Repositories
             DataRow catRow = dataTable.NewRow();
             catRow["Kategorie"] = category;
 
-			foreach (var item in statisticData)
+            foreach (var item in statisticData)
             {
                 catRow[item.Key] = item.Value;
-			}
+            }
 
             dataTable.Rows.Add(catRow);
-		}
+        }
 
         private void AddRowData(DataTable dataTable, Dictionary<string, Dictionary<string, string>> statisticCustomerData)
         {
             foreach (var dataset in statisticCustomerData)
             {
                 DataRow catRow = dataTable.NewRow();
-				catRow["Kategorie"] = dataset.Key;
+                catRow["Kategorie"] = dataset.Key;
                 foreach (var item in dataset.Value)
                 {
                     catRow[item.Key] = item.Value;
                 }
                 dataTable.Rows.Add(catRow);
-			}
+            }
         }
 
-		private Dictionary<string, string> GetNumberOfOrdersByQuarter()
+        private Dictionary<string, string> GetNumberOfOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
                 return context.OrderNumbersRequest.FromSqlRaw(
-						@"
+                        @"
                         WITH ORDERS AS
                             (SELECT
 		                        Id,
@@ -110,17 +110,17 @@ namespace DataAccessLayer.Repositories
                         FROM ORDERS_QUARTER
                             ORDER BY ORDER_DATE
                         "
-					)
+                    )
                     .ToDictionary(res => res.ORDER_DATE, res => res.TOTAL_QUARTERLY);
             }
         }
 
         private Dictionary<string, string> GetNumberOfItemsByQuarter()
-		{
-			using (var context = new JobManagementContext())
-			{
-				return context.ItemNumbersRequest.FromSqlRaw(
-					    @"
+        {
+            using (var context = new JobManagementContext())
+            {
+                return context.ItemNumbersRequest.FromSqlRaw(
+                        @"
                         WITH ITEMS AS
                             (SELECT
 		                        Id,
@@ -156,17 +156,17 @@ namespace DataAccessLayer.Repositories
                         FROM ITEMS_QUARTER
                             ORDER BY CREATION_DATE         
                         "
-					)
-					.ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_QUARTERLY);
-			}
-		}
+                    )
+                    .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_QUARTERLY);
+            }
+        }
 
         private Dictionary<string, string> GetAverageNumberOfItemsInOrdersByQuarter()
         {
             using (var context = new JobManagementContext())
             {
                 return context.AverageItemNumbersPerOrderRequest.FromSqlRaw(
-						@"
+                        @"
                         WITH ORDER_ITEMS AS
                             (SELECT
 		                        ORDER_ID,
@@ -202,17 +202,17 @@ namespace DataAccessLayer.Repositories
                         FROM ITEMS_QUARTER
                             ORDER BY CREATION_DATE     
                         "
-					)
+                    )
                     .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_AVERAGE_QUARTERLY);
             }
         }
 
-		private Dictionary<string, string> GetTotalSalesByQuarter()
-		{
-			using (var context = new JobManagementContext())
+        private Dictionary<string, string> GetTotalSalesByQuarter()
+        {
+            using (var context = new JobManagementContext())
             {
                 return context.TotalSalesRequest.FromSqlRaw(
-						@"
+                        @"
                         WITH TOTAL_SALES AS
                             (SELECT
 		                        POSITION_TOTAL,
@@ -245,17 +245,17 @@ namespace DataAccessLayer.Repositories
                         FROM SALES_QUARTER
                             ORDER BY CREATION_DATE   
                         "
-					)
+                    )
                     .ToDictionary(res => res.CREATION_DATE, res => res.TOTAL_SALES_QUARTERLY);
             }
-		}
+        }
 
-		private Dictionary<string, Dictionary<string, string>> GetTotalCustomerSalesByQuarter()
-		{
-			using (var context = new JobManagementContext())
+        private Dictionary<string, Dictionary<string, string>> GetTotalCustomerSalesByQuarter()
+        {
+            using (var context = new JobManagementContext())
             {
                 return ConvertCustomerDataListToDictionary(context.TotalCustomersSalesRequest.FromSqlRaw(
-						@"
+                        @"
                             WITH CUSTOMER_SALES AS
                                 (SELECT
 		                            CUSTOMER_NAME,
@@ -291,16 +291,16 @@ namespace DataAccessLayer.Repositories
                             FROM CUSTOMER_SALES_QUARTER
                                 ORDER BY CREATION_DATE     
                         "
-					)
+                    )
                     .ToList());
             }
-		}
+        }
 
         private Dictionary<string, Dictionary<string, string>> ConvertCustomerDataListToDictionary(List<TotalCustomersSalesRequest> customerDataList)
         {
             Dictionary<string, Dictionary<string, string>> customerDataDict = new Dictionary<string, Dictionary<string, string>>();
 
-			foreach (var dataset in customerDataList)
+            foreach (var dataset in customerDataList)
             {
                 if (!customerDataDict.ContainsKey(dataset.CUSTOMER_NAME))
                     customerDataDict.Add(dataset.CUSTOMER_NAME, new Dictionary<string, string>());

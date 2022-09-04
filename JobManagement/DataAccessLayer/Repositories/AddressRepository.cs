@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
+using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories

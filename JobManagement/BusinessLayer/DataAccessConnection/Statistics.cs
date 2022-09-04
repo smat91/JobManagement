@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using DataAccessLayer.Repositories;
+using DataAccessLayer.Repositories.HeplerRepositories;
 
 namespace BusinessLayer.DataAccessConnection
 {

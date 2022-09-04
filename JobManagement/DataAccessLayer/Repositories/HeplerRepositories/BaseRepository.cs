@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repositories
+namespace DataAccessLayer.Repositories.HeplerRepositories
 {
     public abstract class BaseRepository<M> : IBaseRepository<M> where M : class
     {
@@ -44,7 +44,7 @@ namespace DataAccessLayer.Repositories
         public List<M> GetAll()
         {
             List<M> entityList = new List<M>();
-            
+
             using (var context = new JobManagementContext())
             {
                 context.Set<M>()
@@ -60,7 +60,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Add<M>(entity);
+                context.Add(entity);
                 context.SaveChanges();
             }
         }
@@ -69,7 +69,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Remove<M>(entity);
+                context.Remove(entity);
 
                 try
                 {
@@ -87,7 +87,7 @@ namespace DataAccessLayer.Repositories
         {
             using (var context = new JobManagementContext())
             {
-                context.Update<M>(entity);
+                context.Update(entity);
                 context.SaveChanges();
             }
         }

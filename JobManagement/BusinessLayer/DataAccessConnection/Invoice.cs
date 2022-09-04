@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
 using DataAccessLayer.QueryTypes;
-using DataAccessLayer.Repositories;
+using DataAccessLayer.Repositories.HeplerRepositories;
 
 namespace BusinessLayer.DataAccessConnection
 {

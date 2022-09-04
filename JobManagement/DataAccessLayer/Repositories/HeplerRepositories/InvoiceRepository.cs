@@ -9,7 +9,7 @@ using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Repositories
+namespace DataAccessLayer.Repositories.HeplerRepositories
 {
     public class InvoiceRepository
     {
@@ -36,7 +36,7 @@ namespace DataAccessLayer.Repositories
                     }
 
                 return invoices;
-            } 
+            }
         }
 
         public InvoiceRequest OrderToInvoice(JobManagementContext context, Order order)
