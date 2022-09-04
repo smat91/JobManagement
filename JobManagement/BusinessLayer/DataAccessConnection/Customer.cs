@@ -15,35 +15,35 @@ namespace BusinessLayer.DataAccessConnection
         }
         public CustomerDto GetCustomerByCustomerNumber(string customerNumber)
         {
-            var customer = customerRepository_.GetCustomerByCustomerNumber(customerNumber);
+            var customer = customerRepository_.GetSingleById(customerNumber);
             return new CustomerDto(customer);
         }
 
         public List<CustomerDto> GetCustomersBySearchTerm(string searchTerm)
         {
-            var customers = customerRepository_.GetCustomersBySearchTerm(searchTerm);
+            var customers = customerRepository_.GetBySearchTerm(searchTerm);
             return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
         public List<CustomerDto> GetAllCustomers()
         {
-            var customers = customerRepository_.GetAllCustomers();
+            var customers = customerRepository_.GetAll();
             return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
         public void AddNewCustomer(CustomerDto customer)
         {
-            customerRepository_.AddNewCustomer(CustomerDto.CustomerDtoToCustomer(customer));
+            customerRepository_.Add(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public string DeleteCustomerByDto(CustomerDto customer)
         {
-            return customerRepository_.DeleteCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
+            return customerRepository_.Delete(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public void UpdateCustomerByDto(CustomerDto customer)
         {
-            customerRepository_.UpdateCustomerByDto(CustomerDto.CustomerDtoToCustomer(customer));
+            customerRepository_.Update(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
         public void SetAddressByICustomerAndAddressDto (CustomerDto customer, AddressDto address)

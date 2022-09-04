@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class CustomerRepository
+    public class CustomerRepository : BaseRepository<Customer>
     {
-        public Customer GetCustomerByCustomerNumber(string customerNumber)
+        public override string TableName => "Customer";
+
+        public Customer GetSingleById(string customerNumber)
         {
             using (var context = new JobManagementContext())
             {
@@ -24,7 +26,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Customer> GetCustomersBySearchTerm(string searchTerm)
+        public List<Customer> GetBySearchTerm(string searchTerm)
         {
             using (var context = new JobManagementContext())
             {
@@ -42,7 +44,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Customer> GetAllCustomers()
+        public List<Customer> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -57,7 +59,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewCustomer(Customer customer)
+        public void Add(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -74,25 +76,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string DeleteCustomerByDto(Customer customer)
-        {
-            using (var context = new JobManagementContext())
-            {
-                context.Customers.Remove(customer);
-
-                try
-                {
-                    context.SaveChanges();
-                    return "Datensatz erfolgreich gelöscht";
-                }
-                catch (DbUpdateException e)
-                {
-                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
-                }
-            }
-        }
-
-        public void UpdateCustomerByDto(Customer customer)
+        public void Update(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
