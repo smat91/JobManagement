@@ -13,6 +13,8 @@ namespace DataAccessLayer.Repositories
 {
     public abstract class BaseRepository<M> : IBaseRepository<M> where M : class
     {
+        public abstract string TableName { get; }
+
         public M GetSingleById<P>(P pkValue)
         {
             using (var context = new JobManagementContext())

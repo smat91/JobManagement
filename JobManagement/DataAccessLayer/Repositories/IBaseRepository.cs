@@ -8,6 +8,9 @@ namespace DataAccessLayer.Repositories
 {
     public interface IBaseRepository<M> where M : class
     {
+        // Gibt den Tabellennamen zurück, auf die sich das Repository bezieht
+        string TableName { get; }
+
         // Liefert ein einzelnes Model-Objekt vom Typ M zurück, welches anhand dem übergebenen PrimaryKey geladen wird
         M GetSingleById<P>(P pkValue);
 
