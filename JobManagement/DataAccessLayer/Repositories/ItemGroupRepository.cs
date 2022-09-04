@@ -106,7 +106,7 @@ namespace DataAccessLayer.Repositories
                         itemGroupDto.ParentItemGroup = parentItemGroup;
                 }
 
-                context.ItemGroups.Add((ItemGroup)itemGroupDto);
+                context.ItemGroups.Add(itemGroupDto);
                 context.SaveChanges();
             }
         }
@@ -124,7 +124,7 @@ namespace DataAccessLayer.Repositories
                         itemGroupDto.ParentItemGroup = parentItemGroup;
                 }
 
-                context.ItemGroups.Update((ItemGroup)itemGroupDto);
+                context.ItemGroups.Update(itemGroupDto);
                 context.SaveChanges();
             }
         }
