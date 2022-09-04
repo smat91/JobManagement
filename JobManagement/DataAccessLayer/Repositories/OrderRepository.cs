@@ -7,13 +7,16 @@ using Castle.Core.Internal;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Models;
+using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class OrderRepository
+    public class OrderRepository : BaseRepository<Order>
     {
-        public Order GetOrderById(int id)
+        public override string TableName => "Order";
+
+        public Order GetSingleById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -30,7 +33,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Order> GetOrdersBySearchTerm(string searchTerm)
+        public List<Order> GetBySearchTerm(string searchTerm)
         {
             List<Order> orderList = new List<Order>();
             Search search = new Search();
@@ -53,7 +56,7 @@ namespace DataAccessLayer.Repositories
             return orderList;
         }
 
-        public List<Order> GetAllOrders()
+        public List<Order> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -73,7 +76,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewOrder(Order order)
+        public void Add(Order order)
         {
             using (var context = new JobManagementContext())
             {
@@ -126,15 +129,15 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string DeleteOrderByDto(Order order)
+        public string Delete(Order order)
         {
             order.Positions.Clear();
-            UpdateOrderByDto(order);
+            Update(order);
 
             using (var context = new JobManagementContext())
             {
 
-                context.Orders.Remove(GetOrderById(order.Id));
+                context.Orders.Remove(GetSingleById(order.Id));
 
                 try
                 {
@@ -148,7 +151,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void UpdateOrderByDto(Order order)
+        public void Update(Order order)
         {
             using (var context = new JobManagementContext())
             {

@@ -16,35 +16,35 @@ namespace BusinessLayer.DataAccessConnection
         
         public OrderDto GetOrderById(int id)
         {
-             var order = orderRepository_.GetOrderById(id);
+             var order = orderRepository_.GetSingleById(id);
              return new OrderDto(order);
         }
 
         public List<OrderDto> GetOrdersBySearchTerm(string searchTerm)
         {
-            var ordersList = orderRepository_.GetOrdersBySearchTerm(searchTerm);
+            var ordersList = orderRepository_.GetBySearchTerm(searchTerm);
             return OrderDto.OrderListToOrderDtoList(ordersList);
         }
 
         public List<OrderDto> GetAllOrders()
         {
-            var ordersList = orderRepository_.GetAllOrders();
+            var ordersList = orderRepository_.GetAll();
             return OrderDto.OrderListToOrderDtoList(ordersList);
         }
 
         public void AddNewOrder(OrderDto order)
         {
-            orderRepository_.AddNewOrder(OrderDto.OrderDtoToOrder(order));
+            orderRepository_.Add(OrderDto.OrderDtoToOrder(order));
         }
 
         public string DeleteOrderByDto(OrderDto order)
         {
-            return orderRepository_.DeleteOrderByDto(OrderDto.OrderDtoToOrder(order));
+            return orderRepository_.Delete(OrderDto.OrderDtoToOrder(order));
         }
 
         public void UpdateOrderByDto(OrderDto order)
         {
-            orderRepository_.UpdateOrderByDto(OrderDto.OrderDtoToOrder(order));
+            orderRepository_.Update(OrderDto.OrderDtoToOrder(order));
         }
 
         public void AddNewPositionByIOrderAndPositionDto(OrderDto order, PositionDto position)
