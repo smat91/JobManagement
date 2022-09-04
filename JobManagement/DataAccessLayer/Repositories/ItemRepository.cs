@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
 {
     public class ItemRepository : BaseRepository<Item>
     {
-        public override string TableName => "Customer";
+        public override string TableName => "Item";
 
         public Item GetSingleById(int id)
         {
