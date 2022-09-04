@@ -195,6 +195,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public void Cancel()
         {
+            CustomerNumber = "";
             Firstname = "";
             Lastname = "";
             EMail = "";
