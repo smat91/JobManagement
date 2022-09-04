@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : BaseRepository<Item>
     {
-        public Item GetItemById(int id)
+        public override string TableName => "Customer";
+
+        public Item GetSingleById(int id)
         {
             using (var context = new JobManagementContext())
             {
@@ -26,7 +28,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Item> GetItemBySearchTerm(string searchTerm)
+        public List<Item> GetBySearchTerm(string searchTerm)
         {
             List<Item> itemList = new List<Item>();
             Search search = new Search();
@@ -45,7 +47,7 @@ namespace DataAccessLayer.Repositories
             return itemList;
         }
 
-        public List<Item> GetAllItems()
+        public List<Item> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -61,7 +63,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void AddNewItem(Item item)
+        public void Add(Item item)
         {
             using (var context = new JobManagementContext())
             {
@@ -79,25 +81,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string DeleteItemByDto(Item item)
-        {
-            using (var context = new JobManagementContext())
-            {
-                context.Items.Remove(item);
-
-                try
-                {
-                    context.SaveChanges();
-                    return "Datensatz erfolgreich gelöscht";
-                }
-                catch (DbUpdateException e)
-                {
-                    return "Datensatz konnte nicht gelöscht werden.\nBitte zuerst Datensätze erntfernen in denen der Datensatz verwendet wird.";
-                }
-            }
-        }
-
-        public void UpdateItemByDto(Item item)
+        public void Update(Item item)
         {
             using (var context = new JobManagementContext())
             {

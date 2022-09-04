@@ -16,35 +16,35 @@ namespace BusinessLayer.DataAccessConnection
 
         public ItemDto GetItemById(int id)
         {
-            var item = itemRepository_.GetItemById(id);
+            var item = itemRepository_.GetSingleById(id);
             return new ItemDto(item);
         }
 
         public List<ItemDto> GetItemsBySearchTerm(string searchTerm)
         {
-            var items = itemRepository_.GetItemBySearchTerm(searchTerm);
+            var items = itemRepository_.GetBySearchTerm(searchTerm);
             return ItemDto.ItemListToItemDtoList(items);
         }
 
         public List<ItemDto> GetAllItems()
         {
-            var items = itemRepository_.GetAllItems();
+            var items = itemRepository_.GetAll();
             return ItemDto.ItemListToItemDtoList(items);
         }
 
         public void AddNewItem(ItemDto item)
         {
-            itemRepository_.AddNewItem(ItemDto.ItemDtoToItem(item));
+            itemRepository_.Add(ItemDto.ItemDtoToItem(item));
         }
 
         public string DeleteItemByDto(ItemDto item)
         {
-            return itemRepository_.DeleteItemByDto(ItemDto.ItemDtoToItem(item));
+            return itemRepository_.Delete(ItemDto.ItemDtoToItem(item));
         }
 
         public void UpdateItemByDto(ItemDto item)
         {
-            itemRepository_.UpdateItemByDto(ItemDto.ItemDtoToItem(item));
+            itemRepository_.Update(ItemDto.ItemDtoToItem(item));
         }
     }
 }
