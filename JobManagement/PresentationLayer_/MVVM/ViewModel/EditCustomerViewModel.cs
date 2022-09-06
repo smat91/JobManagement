@@ -18,7 +18,7 @@ namespace PresentationLayer.MVVM.ViewModel
     {
         public EditCustomerViewModel() : base()
         {
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
             var id = 0;
             
             Int32.TryParse(MainViewModel.SelectedId, out id);
@@ -53,7 +53,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 return;
             }
 
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
             customer.Update(customer_);
         }
     }

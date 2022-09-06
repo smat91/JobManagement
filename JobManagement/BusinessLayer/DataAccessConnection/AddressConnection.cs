@@ -6,11 +6,11 @@ using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Address : IAddressConnection
+    public class AddressConnection : IAddressConnection
     {
         private readonly IAddressRepository addressRepository_;
 
-        public Address(IAddressRepository addressRepository)
+        public AddressConnection(IAddressRepository addressRepository)
         {
             addressRepository_ = addressRepository;
         }

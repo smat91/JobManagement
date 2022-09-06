@@ -49,7 +49,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public ItemViewModel()
         {
             MainViewModel.ReloadItemView = ReloadData;
-            Item items = new Item(new ItemRepository());
+            ItemConnection items = new ItemConnection(new ItemRepository());
             ItemDtoTable = new DataTable();
             AddHeaderData(ItemDtoTable);
             AddRowData(ItemDtoTable, items.GetAll());
@@ -57,7 +57,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         private void ReloadData()
         {
-            Item items = new Item(new ItemRepository());
+            ItemConnection items = new ItemConnection(new ItemRepository());
             ItemDtoTable.Clear();
             AddRowData(ItemDtoTable, items.GetAll());
         }

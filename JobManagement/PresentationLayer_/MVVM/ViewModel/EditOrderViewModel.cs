@@ -27,7 +27,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public EditOrderViewModel() : base()
         {
-            Order order= new Order(new OrderRepository());
+            OrderConnection order= new OrderConnection(new OrderRepository());
             var id = 0;
 
             Int32.TryParse(MainViewModel.SelectedId, out id);
@@ -42,7 +42,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public override void Save()
         {
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             if (DataCheck())
             {
                 order.Update(order_);

@@ -5,11 +5,11 @@ using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Invoice : IInvoiceConnection
+    public class InvoiceConnection : IInvoiceConnection
     {
         private readonly IInvoiceRepository invoiceRepository_;
 
-        public Invoice(IInvoiceRepository invoiceRepository)
+        public InvoiceConnection(IInvoiceRepository invoiceRepository)
         {
             invoiceRepository_ = invoiceRepository;
         }

@@ -26,7 +26,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public EditItemViewModel() : base()
         {
-            Item item = new Item(new ItemRepository());
+            ItemConnection item = new ItemConnection(new ItemRepository());
             var id = 0;
 
             Int32.TryParse(MainViewModel.SelectedId, out id);
@@ -44,7 +44,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public override void Save()
         {
-            Item item = new Item(new ItemRepository());
+            ItemConnection item = new ItemConnection(new ItemRepository());
             if (DataCheck())
             {
                 item.Update(item_);

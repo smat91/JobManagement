@@ -188,7 +188,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 return;
             }
 
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
 
             customer.Add(customer_);
             Cancel();

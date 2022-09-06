@@ -30,7 +30,7 @@ namespace PresentationLayer.MVVM.ViewModel
         private ItemGroupTreeViewItem treeViewItem_;
 
         public ItemGroupViewModel () {
-            ItemGroup itemGroup_ = new ItemGroup(new ItemGroupRepository());
+            ItemGroupConnection itemGroup_ = new ItemGroupConnection(new ItemGroupRepository());
             ItemDtoTable = ConvertData(itemGroup_.GetItemsWithLevel());
         }
 

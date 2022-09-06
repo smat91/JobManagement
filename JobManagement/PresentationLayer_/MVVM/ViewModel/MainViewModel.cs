@@ -245,7 +245,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Customer:
-                    var customer = new Customer(new CustomerRepository());
+                    var customer = new CustomerConnection(new CustomerRepository());
                     if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = customer.Delete(
@@ -269,7 +269,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Item:
-                    var item = new Item(new ItemRepository());
+                    var item = new ItemConnection(new ItemRepository());
                     if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = item.Delete(
@@ -293,7 +293,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Order:
-                    var order = new Order(new OrderRepository());
+                    var order = new OrderConnection(new OrderRepository());
                     if (MessageBox.Show("Auftrag endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = order.Delete(
@@ -317,7 +317,7 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.ItemGroup:
-                    var itemGroup = new ItemGroup(new ItemGroupRepository());
+                    var itemGroup = new ItemGroupConnection(new ItemGroupRepository());
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var res = itemGroup.Delete(

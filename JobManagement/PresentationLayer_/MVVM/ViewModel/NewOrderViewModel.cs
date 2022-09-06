@@ -68,7 +68,7 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             get
             {
-                Item item = new Item(new ItemRepository());
+                ItemConnection item = new ItemConnection(new ItemRepository());
                 return item.GetAll();
             }
             set
@@ -136,10 +136,10 @@ namespace PresentationLayer.MVVM.ViewModel
             order_.Positions = new List<PositionDto>();
             Date = DateTime.Now;
 
-            Item item = new Item(new ItemRepository());
+            ItemConnection item = new ItemConnection(new ItemRepository());
             ItemList = item.GetAll();
 
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
             CustomerList = customer.GetAll();
 
             SaveCommand = new RelayCommand(o => Save());
@@ -154,7 +154,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public virtual void Save()
         {
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             if (DataCheck())
             {
                 order.Add(order_);

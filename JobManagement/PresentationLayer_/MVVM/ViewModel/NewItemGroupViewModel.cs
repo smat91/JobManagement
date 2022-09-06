@@ -46,7 +46,7 @@ namespace PresentationLayer.MVVM.ViewModel
         
         public NewItemGroupViewModel()
         {
-            ItemGroup itemGroup = new ItemGroup(new ItemGroupRepository());
+            ItemGroupConnection itemGroup = new ItemGroupConnection(new ItemGroupRepository());
             ItemGroupList = itemGroup.GetAll();
             itemGroup_ = new ItemGroupDto();
             SaveCommand = new RelayCommand(o => Save());
@@ -55,7 +55,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public virtual void Save()
         {
-            ItemGroup itemGroup = new ItemGroup(new ItemGroupRepository());
+            ItemGroupConnection itemGroup = new ItemGroupConnection(new ItemGroupRepository());
             if (DataCheck())
             {
                 itemGroup.Add(itemGroup_);

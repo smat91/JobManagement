@@ -6,11 +6,11 @@ using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Customer : ICustomerConnection
+    public class CustomerConnection : ICustomerConnection
     {
         private readonly ICustomerRepository customerRepository_;
 
-        public Customer(ICustomerRepository customerRepository)
+        public CustomerConnection(ICustomerRepository customerRepository)
         {
             customerRepository_ = customerRepository;
         }

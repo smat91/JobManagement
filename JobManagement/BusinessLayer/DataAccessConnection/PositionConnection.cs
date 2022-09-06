@@ -6,11 +6,11 @@ using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Position : IPositionConnection
+    public class PositionConnection : IPositionConnection
     {
         private readonly IPositionRepository positionRepository_;
 
-        public Position(IPositionRepository positionRepository)
+        public PositionConnection(IPositionRepository positionRepository)
         {
             positionRepository_ = positionRepository;
         }

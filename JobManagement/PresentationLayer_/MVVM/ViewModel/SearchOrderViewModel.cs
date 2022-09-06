@@ -20,14 +20,14 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             MainViewModel.ReloadSearchOrderView = ReloadSearchData;
             OrderDtoTable = new DataTable();
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             AddHeaderData(OrderDtoTable);
             AddRowData(OrderDtoTable, order.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }
 
         private void ReloadSearchData()
         {
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             OrderDtoTable.Clear();
             AddRowData(OrderDtoTable, order.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }

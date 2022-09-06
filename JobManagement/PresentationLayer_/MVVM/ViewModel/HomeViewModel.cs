@@ -18,7 +18,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public HomeViewModel()
         {
-            Statistics statistics = new Statistics(new StatisticsRepository());
+            StatisticsConnection statistics = new StatisticsConnection(new StatisticsRepository());
             StatisticDataTable = statistics.GetStatisticData();
         }
     }

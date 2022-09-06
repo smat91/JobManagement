@@ -25,7 +25,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public EditItemGroupViewModel() : base()
         {
-            ItemGroup itemGroup = new ItemGroup(new ItemGroupRepository());
+            ItemGroupConnection itemGroup = new ItemGroupConnection(new ItemGroupRepository());
             var id = 0;
 
             Int32.TryParse(MainViewModel.SelectedId, out id);
@@ -40,7 +40,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public override void Save()
         {
-            ItemGroup itemGroup = new ItemGroup(new ItemGroupRepository());
+            ItemGroupConnection itemGroup = new ItemGroupConnection(new ItemGroupRepository());
             if (DataCheck())
             {
                 itemGroup.Update(itemGroup_);

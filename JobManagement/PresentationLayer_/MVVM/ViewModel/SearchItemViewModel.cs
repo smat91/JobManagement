@@ -20,14 +20,14 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             MainViewModel.ReloadSearchItemView = ReloadSearchData;
             ItemDtoTable = new DataTable();
-            Item items = new Item(new ItemRepository());
+            ItemConnection items = new ItemConnection(new ItemRepository());
             AddHeaderData(ItemDtoTable);
             AddRowData(ItemDtoTable, items.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }
 
         private void ReloadSearchData()
         {
-            Item items = new Item(new ItemRepository());
+            ItemConnection items = new ItemConnection(new ItemRepository());
             ItemDtoTable.Clear();
             AddRowData(ItemDtoTable, items.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }

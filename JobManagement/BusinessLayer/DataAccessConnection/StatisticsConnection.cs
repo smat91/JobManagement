@@ -3,11 +3,11 @@ using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Statistics
+    public class StatisticsConnection
     {
         private readonly IStatisticsRepository statisticsRepository_;
 
-        public Statistics(IStatisticsRepository statisticsRepository)
+        public StatisticsConnection(IStatisticsRepository statisticsRepository)
         {
             statisticsRepository_ = statisticsRepository;
         }

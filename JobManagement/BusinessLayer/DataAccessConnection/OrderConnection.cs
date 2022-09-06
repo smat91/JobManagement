@@ -6,11 +6,11 @@ using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Order : IOrderConnection
+    public class OrderConnection : IOrderConnection
     {
         private readonly IOrderRepository orderRepository_;
 
-        public Order(IOrderRepository orderRepository)
+        public OrderConnection(IOrderRepository orderRepository)
         {
             orderRepository_ = orderRepository;
         }

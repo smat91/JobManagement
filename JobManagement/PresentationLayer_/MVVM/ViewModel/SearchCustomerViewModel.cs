@@ -20,14 +20,14 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             MainViewModel.ReloadSearchCustomerView = ReloadSearchData;
             CustomerDtoTable = new DataTable();
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
             AddHeaderData(CustomerDtoTable);
             AddRowData(CustomerDtoTable, customer.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }
 
         private void ReloadSearchData()
         {
-            Customer customer = new Customer(new CustomerRepository());
+            CustomerConnection customer = new CustomerConnection(new CustomerRepository());
             CustomerDtoTable.Clear();
             AddRowData(CustomerDtoTable, customer.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }

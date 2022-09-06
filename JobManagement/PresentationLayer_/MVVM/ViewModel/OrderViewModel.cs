@@ -33,7 +33,7 @@ namespace PresentationLayer.MVVM.ViewModel
         public OrderViewModel()
         {
             MainViewModel.ReloadOrderView = ReloadData;
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             OrderDtoTable = new DataTable();
             AddHeaderData(OrderDtoTable);
             AddRowData(OrderDtoTable, order.GetAll());
@@ -41,7 +41,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         private void ReloadData()
         {
-            Order order = new Order(new OrderRepository());
+            OrderConnection order = new OrderConnection(new OrderRepository());
             OrderDtoTable.Clear();
             AddRowData(OrderDtoTable, order.GetAll());
         }
