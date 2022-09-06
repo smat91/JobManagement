@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces.Helper
+namespace BusinessLayer.Interfaces.Helper
 {
-    internal interface IInvoiceConnection
+    public interface IInvoiceConnection
     {
         List<InvoiceDto> GetInvoicesByFilterTerm(string searchTerm);
     }

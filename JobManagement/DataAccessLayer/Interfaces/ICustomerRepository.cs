@@ -10,7 +10,7 @@ namespace DataAccessLayer.Interfaces
 {
     public interface ICustomerRepository : IBaseRepository<Customer>
     {
-        Customer GetSingleById(string customerNumber);
+        Customer GetSingleById(int id);
         void SetAddressByCustomerAndAddress(Customer customer, Address address);
     }
 }

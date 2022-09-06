@@ -3,10 +3,146 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PresentationLayer"
+        xmlns:core="clr-namespace:PresentationLayer.Core"
+        xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Height="600" Width="920"
+        ResizeMode="NoResize"
+        Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+        DataContext="{core:DISource Type=viewModel:MainViewModel}">
 
-    </Grid>
+    <Border Background="#272537" 
+            CornerRadius="20">
+        <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                    <GradientStop Color="#272537" Offset="0.0"></GradientStop>
+                    <GradientStop Color="#ff33ff" Offset="7"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200">
+                </ColumnDefinition>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75">
+                </RowDefinition>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <TextBlock Text="Jobmanagement"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="22"
+                       FontFamily="/Fonts/#Poppins"
+                   Foreground="White"
+                       Margin="0,0,0,0"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton Content="Home"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"
+                />
+                <RadioButton Content="Kunden"
+                             Height="50"
+                             FontFamily="/Fonts/#Poppins"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding CustomerViewCommand}"
+                />
+                <RadioButton Content="Artikel"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ItemViewCommand}"
+                />
+                <RadioButton Content="Artikelgruppen"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ItemGroupViewCommand}"
+                />
+                <RadioButton Content="Bestellungen"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding OrderViewCommand}"
+                />
+            </StackPanel>
+
+            <TextBox Width="231"
+                     Height="40"
+                     FontFamily="/Fonts/#Poppins"
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="284,18,0,17"
+                     Grid.Column="1"
+                     Text="{Binding SearchTerm}"
+                     Style="{StaticResource ModernTextbox}"
+                ></TextBox>
+            <Button Content="Neu"
+                             Command="{Binding Path=NewCommand}"
+                             Foreground="White"
+                             Background="Black"
+                             Opacity="0.4"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Grid.Column="1" 
+                             Margin="0,15,624,14"
+                             Style="{StaticResource RoundButton}"/>
+            <Button Content="Bearbeiten"
+                             Command="{Binding Path=EditCommand}"
+                             Foreground="White"
+                             Background="Black"
+                             Opacity="0.4"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Grid.Column="1" 
+                             Margin="101,15,524,14"
+                             Style="{StaticResource RoundButton}"/>
+            <Button Content="Löschen"
+                             Command="{Binding Path=DeleteCommand}"
+                             Foreground="White"
+                             Background="Black"
+                             Opacity="0.4"
+                             FontSize="14"
+                             FontFamily="/Fonts/#Poppins"
+                             Grid.Column="1" 
+                             Margin="201,15,424,14"
+                             Style="{StaticResource RoundButton}"/>
+            <Button Content="Suchen"
+                    Command="{Binding Path=SearchCommand}"
+                    Foreground="White"
+                    Background="Black"
+                    Opacity="0.4"
+                    FontSize="14"
+                    FontFamily="/Fonts/#Poppins"
+                    Grid.Column="1" 
+                    Margin="508,15,116,14"
+                    Style="{StaticResource RoundButton}"/>
+
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
+
+        </Grid>
+    </Border>
 </Window>
+        

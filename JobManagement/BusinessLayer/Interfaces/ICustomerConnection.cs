@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces.Helper;
+using BusinessLayer.Interfaces.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,6 @@ namespace BusinessLayer.Interfaces
 {
     public interface ICustomerConnection : IBaseConnection<CustomerDto>
     {
-        CustomerDto GetSingleById(string customerNumber);
         void SetAddressByCustomerDtoAndAddressDto(CustomerDto customer, AddressDto address);
     }
 }

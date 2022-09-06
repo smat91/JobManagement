@@ -10,7 +10,7 @@ using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Repositories.HeplerRepositories
+namespace DataAccessLayer.Repositories.Helper
 {
     public class InvoiceRepository : IInvoiceRepository
     {

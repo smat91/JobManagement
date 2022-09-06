@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces.Helper
+namespace BusinessLayer.Interfaces.Helper
 {
-    internal interface IStatisticsConnection
+    public interface IStatisticsConnection
     {
         DataTable GetStatisticData();
     }

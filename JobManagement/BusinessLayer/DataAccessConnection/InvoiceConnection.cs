@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
+using BusinessLayer.Interfaces.Helper;
 using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection

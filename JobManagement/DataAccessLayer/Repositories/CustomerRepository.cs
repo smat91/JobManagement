@@ -7,7 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
-using DataAccessLayer.Repositories.HeplerRepositories;
+using DataAccessLayer.Repositories.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
@@ -16,13 +16,13 @@ namespace DataAccessLayer.Repositories
     {
         public override string TableName => "Customer";
 
-        public Customer GetSingleById(string customerNumber)
+        public Customer GetSingleById(int id)
         {
             using (var context = new JobManagementContext())
             {
                 var customer = context.Customers
                     .Include(customer => customer.Address)
-                    .Single(customer => customer.CustomerNumber == customerNumber);
+                    .Single(customer => customer.Id == id);
                 context.Entry(customer).Reference(c => c.Address).Load();
                 return customer;
             }

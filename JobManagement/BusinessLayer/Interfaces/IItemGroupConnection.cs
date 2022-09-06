@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces.Helper;
+using BusinessLayer.Interfaces.Helper;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using System;

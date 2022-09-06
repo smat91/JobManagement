@@ -1,9 +1,10 @@
 ﻿using System.Data;
+using BusinessLayer.Interfaces.Helper;
 using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class StatisticsConnection
+    public class StatisticsConnection : IStatisticsConnection
     {
         private readonly IStatisticsRepository statisticsRepository_;
 

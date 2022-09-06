@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Interfaces.Helper;
+using BusinessLayer.Interfaces.Helper;
 using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Interfaces
 {
-    internal interface IItemConnection : IBaseConnection<ItemDto>
+    public interface IItemConnection : IBaseConnection<ItemDto>
     {
         ItemDto GetSingleById(int id);
     }

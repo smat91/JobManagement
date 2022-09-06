@@ -10,7 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repositories.HeplerRepositories
+namespace DataAccessLayer.Repositories.Helper
 {
     public abstract class BaseRepository<M> : IBaseRepository<M> where M : class
     {

@@ -15,9 +15,9 @@ namespace BusinessLayer.DataAccessConnection
             customerRepository_ = customerRepository;
         }
 
-        public CustomerDto GetSingleById(string customerNumber)
+        public CustomerDto GetSingleById(int id)
         {
-            var customer = customerRepository_.GetSingleById(customerNumber);
+            var customer = customerRepository_.GetSingleById(id);
             return new CustomerDto(customer);
         }
 

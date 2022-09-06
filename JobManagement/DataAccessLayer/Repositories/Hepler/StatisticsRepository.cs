@@ -10,7 +10,7 @@ using DataAccessLayer.Interfaces.Helper;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Repositories.HeplerRepositories
+namespace DataAccessLayer.Repositories.Helper
 {
     public class StatisticsRepository : IStatisticsRepository
     {

@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
-using DataAccessLayer.Repositories.HeplerRepositories;
+using DataAccessLayer.Repositories.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class PositionRepository : BaseRepository<Position>
+    public class PositionRepository : BaseRepository<Position>, IPositionRepository
     {
         public override string TableName => "Position";
 

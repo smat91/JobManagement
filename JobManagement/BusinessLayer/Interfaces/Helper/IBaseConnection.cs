@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Interfaces.Helper
+namespace BusinessLayer.Interfaces.Helper
 {
     public interface IBaseConnection<M> where M : class
     {

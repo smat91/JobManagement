@@ -7,7 +7,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
-using DataAccessLayer.Repositories.HeplerRepositories;
+using DataAccessLayer.Repositories.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
