@@ -4,6 +4,7 @@ using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -75,18 +76,18 @@ namespace PresentationLayer.MVVM.ViewModel
         public NewItemViewModel()
         {
             item_ = new ItemDto();
-            ItemGroup itemGroup = new ItemGroup();
-            ItemGroupList = itemGroup.GetAllItemGroups();
+            ItemGroup itemGroup = new ItemGroup(new ItemGroupRepository());
+            ItemGroupList = itemGroup.GetAll();
             SaveCommand = new RelayCommand(o => Save());
             CancelCommand = new RelayCommand(o => Cancel());
         }
 
         public virtual void Save()
         {
-            Item item = new Item();
+            Item item = new Item(new ItemRepository());
             if (DataCheck())
             {
-                item.AddNewItem(item_);
+                item.Add(item_);
                 Cancel();
             }
             else

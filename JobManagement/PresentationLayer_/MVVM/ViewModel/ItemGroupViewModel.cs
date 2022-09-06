@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
+using DataAccessLayer.Repositories;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -29,7 +30,7 @@ namespace PresentationLayer.MVVM.ViewModel
         private ItemGroupTreeViewItem treeViewItem_;
 
         public ItemGroupViewModel () {
-            ItemGroup itemGroup_ = new ItemGroup ();
+            ItemGroup itemGroup_ = new ItemGroup(new ItemGroupRepository());
             ItemDtoTable = ConvertData(itemGroup_.GetItemsWithLevel());
         }
 

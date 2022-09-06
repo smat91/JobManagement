@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class CustomerRepository : BaseRepository<Customer>
+    public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
         public override string TableName => "Customer";
 
@@ -27,7 +28,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Customer> GetBySearchTerm(string searchTerm)
+        public new List<Customer> GetBySearchTerm(string searchTerm)
         {
             using (var context = new JobManagementContext())
             {
@@ -45,7 +46,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Customer> GetAll()
+        public new List<Customer> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -60,7 +61,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Add(Customer customer)
+        public new void Add(Customer customer)
         {
             using (var context = new JobManagementContext())
             {
@@ -77,7 +78,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Update(Customer customer)
+        public new void Update(Customer customer)
         {
             using (var context = new JobManagementContext())
             {

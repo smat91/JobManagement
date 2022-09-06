@@ -9,6 +9,7 @@ using System.Windows;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataAccessConnection;
 using PresentationLayer.Core;
+using DataAccessLayer.Repositories;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -19,16 +20,16 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             MainViewModel.ReloadSearchCustomerView = ReloadSearchData;
             CustomerDtoTable = new DataTable();
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
             AddHeaderData(CustomerDtoTable);
-            AddRowData(CustomerDtoTable, customer.GetCustomersBySearchTerm(MainViewModel.SearchTermStatic));
+            AddRowData(CustomerDtoTable, customer.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }
 
         private void ReloadSearchData()
         {
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
             CustomerDtoTable.Clear();
-            AddRowData(CustomerDtoTable, customer.GetCustomersBySearchTerm(MainViewModel.SearchTermStatic));
+            AddRowData(CustomerDtoTable, customer.GetBySearchTerm(MainViewModel.SearchTermStatic));
         }
     }
 }

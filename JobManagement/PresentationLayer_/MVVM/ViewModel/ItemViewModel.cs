@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataAccessConnection;
 using PresentationLayer.Core;
+using DataAccessLayer.Repositories;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -48,17 +49,17 @@ namespace PresentationLayer.MVVM.ViewModel
         public ItemViewModel()
         {
             MainViewModel.ReloadItemView = ReloadData;
-            Item items = new Item();
+            Item items = new Item(new ItemRepository());
             ItemDtoTable = new DataTable();
             AddHeaderData(ItemDtoTable);
-            AddRowData(ItemDtoTable, items.GetAllItems());
+            AddRowData(ItemDtoTable, items.GetAll());
         }
 
         private void ReloadData()
         {
-            Item items = new Item();
+            Item items = new Item(new ItemRepository());
             ItemDtoTable.Clear();
-            AddRowData(ItemDtoTable, items.GetAllItems());
+            AddRowData(ItemDtoTable, items.GetAll());
         }
 
         internal void AddHeaderData(DataTable dataTable)

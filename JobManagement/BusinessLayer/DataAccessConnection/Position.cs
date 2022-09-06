@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Repositories;
+using BusinessLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Position
+    public class Position : IPositionConnection
     {
-        private readonly PositionRepository positionRepository_;
+        private readonly IPositionRepository positionRepository_;
 
-        public Position()
+        public Position(IPositionRepository positionRepository)
         {
-            positionRepository_ = new PositionRepository();
+            positionRepository_ = positionRepository;
         }
 
-        public PositionDto GetPositionById(int id)
+        public PositionDto GetSingleById(int id)
         {
            var position = positionRepository_.GetSingleById(id);
            return new PositionDto(position);
         }
 
-        public List<PositionDto> GetPositionsBySearchTerm(string searchTerm)
+        public List<PositionDto> GetBySearchTerm(string searchTerm)
         {
             var positionsList = positionRepository_.GetBySearchTerm(searchTerm);
             return PositionDto.PositionListToPositionDtoList(positionsList);
         }
 
-        public List<PositionDto> GetAllPositions()
+        public List<PositionDto> GetAll()
         {
             var positionsList = positionRepository_.GetAll();
             return PositionDto.PositionListToPositionDtoList(positionsList);
         }
 
-        public void AddNewPosition(PositionDto position)
+        public void Add(PositionDto position)
         {
             positionRepository_.Add(PositionDto.PositionDtoToPosition(position));
         }
 
-        public string DeletePositionByDto(PositionDto position)
+        public string Delete(PositionDto position)
         {
             return positionRepository_.Delete(PositionDto.PositionDtoToPosition(position));
         }
 
-        public void UpdatePositionByDto(PositionDto position)
+        public void Update(PositionDto position)
         {
             positionRepository_.Update(PositionDto.PositionDtoToPosition(position));
         }

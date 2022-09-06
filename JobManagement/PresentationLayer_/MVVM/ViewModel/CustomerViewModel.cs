@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using PresentationLayer.Core;
+using DataAccessLayer.Repositories;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -32,17 +33,17 @@ namespace PresentationLayer.MVVM.ViewModel
         public CustomerViewModel()
         {
             MainViewModel.ReloadCustomerView = ReloadData;
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
             CustomerDtoTable = new DataTable();
             AddHeaderData(CustomerDtoTable);
-            AddRowData(CustomerDtoTable, customer.GetAllCustomers());
+            AddRowData(CustomerDtoTable, customer.GetAll());
         }
 
         private void ReloadData()
         {
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
             CustomerDtoTable.Clear();
-            AddRowData(CustomerDtoTable, customer.GetAllCustomers());
+            AddRowData(CustomerDtoTable, customer.GetAll());
         }
 
         public void AddHeaderData(DataTable dataTable)

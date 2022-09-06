@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.QueryTypes;
-using DataAccessLayer.Repositories;
+using BusinessLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class ItemGroup
+    public class ItemGroup : IItemGroupConnection
     {
-        private readonly ItemGroupRepository itemGroupRepository_;
+        private readonly IItemGroupRepository itemGroupRepository_;
 
-        public ItemGroup()
+        public ItemGroup(IItemGroupRepository itemGroupRepository)
         {
-            itemGroupRepository_ = new ItemGroupRepository();
+            itemGroupRepository_ = itemGroupRepository;
         }
         
-        public ItemGroupDto GetItemGroupById(int id)
+        public ItemGroupDto GetSingleById(int id)
         {
             var itemGroup = itemGroupRepository_.GetSingleById(id);
             return new ItemGroupDto(itemGroup);
         }
 
-        public List<ItemGroupDto> GetItemGroupsBySearchTerm(string searchTerm)
+        public List<ItemGroupDto> GetBySearchTerm(string searchTerm)
         {
             var itemGroups = itemGroupRepository_.GetBySearchTerm(searchTerm);
             return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroups);
         }
 
-        public List<ItemGroupDto> GetAllItemGroups()
+        public List<ItemGroupDto> GetAll()
         {
             var itemGroups = itemGroupRepository_.GetAll();
             return ItemGroupDto.ItemGroupListToItemGroupDtoList(itemGroups);
@@ -39,17 +39,17 @@ namespace BusinessLayer.DataAccessConnection
             return ItemGroupHierarchyDto.ItemGroupListToItemGroupDtoList(itemGroupHierarchy);
         }
 
-        public void AddNewItemGroup(ItemGroupDto ItemGroup)
+        public void Add(ItemGroupDto ItemGroup)
         {
             itemGroupRepository_.Add(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
-        public string DeleteItemGroupByDto(ItemGroupDto ItemGroup)
+        public string Delete(ItemGroupDto ItemGroup)
         {
             return itemGroupRepository_.Delete(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }
 
-        public void UpdateItemGroupByDto(ItemGroupDto ItemGroup)
+        public void Update(ItemGroupDto ItemGroup)
         {
             itemGroupRepository_.Update(ItemGroupDto.ItemGroupDtoToItemGroup(ItemGroup));
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using DataAccessLayer.Repositories.HeplerRepositories;
@@ -12,11 +13,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class ItemGroupRepository : BaseRepository<ItemGroup>
+    public class ItemGroupRepository : BaseRepository<ItemGroup>, IItemGroupRepository
     {
         public override string TableName => "ItemGroup";
 
-        public ItemGroup GetSingleById(int id)
+        public new ItemGroup GetSingleById<P>(P id)
         {
             using (var context = new JobManagementContext())
             {
@@ -26,7 +27,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<ItemGroup> GetBySearchTerm(string searchTerm)
+        public new List<ItemGroup> GetBySearchTerm(string searchTerm)
         {
             List<ItemGroup> itemGroupList = new List<ItemGroup>();
             Search search = new Search();
@@ -44,7 +45,7 @@ namespace DataAccessLayer.Repositories
             return itemGroupList;
         }
 
-        public List<ItemGroup> GetAll()
+        public new List<ItemGroup> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -93,7 +94,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Add(ItemGroup itemGroupDto)
+        public new void Add(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {
@@ -111,7 +112,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Update(ItemGroup itemGroupDto)
+        public new void Update(ItemGroup itemGroupDto)
         {
             using (var context = new JobManagementContext())
             {

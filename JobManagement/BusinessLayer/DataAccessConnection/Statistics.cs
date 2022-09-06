@@ -1,15 +1,15 @@
 ﻿using System.Data;
-using DataAccessLayer.Repositories.HeplerRepositories;
+using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection
 {
     public class Statistics
     {
-        private readonly StatisticsRepository statisticsRepository_;
+        private readonly IStatisticsRepository statisticsRepository_;
 
-        public Statistics()
+        public Statistics(IStatisticsRepository statisticsRepository)
         {
-            statisticsRepository_ = new StatisticsRepository();
+            statisticsRepository_ = statisticsRepository;
         }
 
         public DataTable GetStatisticData()

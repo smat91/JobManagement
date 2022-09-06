@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -32,17 +33,17 @@ namespace PresentationLayer.MVVM.ViewModel
         public OrderViewModel()
         {
             MainViewModel.ReloadOrderView = ReloadData;
-            Order order = new Order();
+            Order order = new Order(new OrderRepository());
             OrderDtoTable = new DataTable();
             AddHeaderData(OrderDtoTable);
-            AddRowData(OrderDtoTable, order.GetAllOrders());
+            AddRowData(OrderDtoTable, order.GetAll());
         }
 
         private void ReloadData()
         {
-            Order order = new Order();
+            Order order = new Order(new OrderRepository());
             OrderDtoTable.Clear();
-            AddRowData(OrderDtoTable, order.GetAllOrders());
+            AddRowData(OrderDtoTable, order.GetAll());
         }
 
         public void AddHeaderData(DataTable dataTable)

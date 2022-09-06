@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
+using DataAccessLayer.Repositories.HeplerRepositories;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -17,7 +18,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public HomeViewModel()
         {
-            Statistics statistics = new Statistics();
+            Statistics statistics = new Statistics(new StatisticsRepository());
             StatisticDataTable = statistics.GetStatisticData();
         }
     }

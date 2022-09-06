@@ -4,6 +4,7 @@ using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -25,14 +26,14 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public EditItemViewModel() : base()
         {
-            Item item = new Item();
+            Item item = new Item(new ItemRepository());
             var id = 0;
 
             Int32.TryParse(MainViewModel.SelectedId, out id);
 
             if (id > 0)
             {
-                var itemTemp = item.GetItemById(id);
+                var itemTemp = item.GetSingleById(id);
                 ItemNumber = itemTemp.Id;
                 Name = itemTemp.Name;
                 Group = itemTemp.Group;
@@ -43,10 +44,10 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public override void Save()
         {
-            Item item = new Item();
+            Item item = new Item(new ItemRepository());
             if (DataCheck())
             {
-                item.UpdateItemByDto(item_);
+                item.Update(item_);
             }
             else
             {

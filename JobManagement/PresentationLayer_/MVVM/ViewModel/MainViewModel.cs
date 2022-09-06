@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using BusinessLayer.DataAccessConnection;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -244,11 +245,11 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Customer:
-                    var customer = new Customer();
+                    var customer = new Customer(new CustomerRepository());
                     if (MessageBox.Show("Kunde endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = customer.DeleteCustomerByDto(
-                            customer.GetCustomerByCustomerNumber(selectedId_));
+                        var res = customer.Delete(
+                            customer.GetSingleById(selectedId_));
 
                         if (currentView_.GetType() == CustomerVM.GetType())
                         {
@@ -268,11 +269,11 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Item:
-                    var item = new Item();
+                    var item = new Item(new ItemRepository());
                     if (MessageBox.Show("Artikel endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = item.DeleteItemByDto(
-                            item.GetItemById(Int32.Parse(selectedId_)));
+                        var res = item.Delete(
+                            item.GetSingleById(Int32.Parse(selectedId_)));
 
                         if (currentView_.GetType() == ItemVM.GetType())
                         {
@@ -292,11 +293,11 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.Order:
-                    var order = new Order();
+                    var order = new Order(new OrderRepository());
                     if (MessageBox.Show("Auftrag endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = order.DeleteOrderByDto(
-                            order.GetOrderById(Int32.Parse(selectedId_)));
+                        var res = order.Delete(
+                            order.GetSingleById(Int32.Parse(selectedId_)));
 
                         if (currentView_.GetType() == OrderVM.GetType())
                         {
@@ -316,11 +317,11 @@ namespace PresentationLayer.MVVM.ViewModel
                     break;
 
                 case RadioButtonState.ItemGroup:
-                    var itemGroup = new ItemGroup();
+                    var itemGroup = new ItemGroup(new ItemGroupRepository());
                     if (MessageBox.Show("Artikelgruppe endgültig löschen?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var res = itemGroup.DeleteItemGroupByDto(
-                            itemGroup.GetItemGroupById(Int32.Parse(selectedId_)));
+                        var res = itemGroup.Delete(
+                            itemGroup.GetSingleById(Int32.Parse(selectedId_)));
 
                         ReloadItemGroupView();
 

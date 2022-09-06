@@ -9,6 +9,7 @@ using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 using PresentationLayer.MVVM.ViewModel;
 
@@ -187,9 +188,9 @@ namespace PresentationLayer.MVVM.ViewModel
                 return;
             }
 
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
 
-            customer.AddNewCustomer(customer_);
+            customer.Add(customer_);
             Cancel();
         }
 

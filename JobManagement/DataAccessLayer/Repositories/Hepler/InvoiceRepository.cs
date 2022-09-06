@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
+using DataAccessLayer.Interfaces.Helper;
 using DataAccessLayer.Models;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories.HeplerRepositories
 {
-    public class InvoiceRepository
+    public class InvoiceRepository : IInvoiceRepository
     {
         public List<InvoiceRequest> GetInvoicesByFilterTerm(string searchTerm)
         {

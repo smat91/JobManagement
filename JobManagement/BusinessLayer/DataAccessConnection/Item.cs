@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Repositories;
+using BusinessLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Item
+    public class Item : IItemConnection
     {
-        private readonly ItemRepository itemRepository_;
+        private readonly IItemRepository itemRepository_;
 
-        public Item()
+        public Item(IItemRepository itemRepository)
         {
-            itemRepository_ = new ItemRepository();
+            itemRepository_ = itemRepository;
         }
 
-        public ItemDto GetItemById(int id)
+        public ItemDto GetSingleById(int id)
         {
             var item = itemRepository_.GetSingleById(id);
             return new ItemDto(item);
         }
 
-        public List<ItemDto> GetItemsBySearchTerm(string searchTerm)
+        public List<ItemDto> GetBySearchTerm(string searchTerm)
         {
             var items = itemRepository_.GetBySearchTerm(searchTerm);
             return ItemDto.ItemListToItemDtoList(items);
         }
 
-        public List<ItemDto> GetAllItems()
+        public List<ItemDto> GetAll()
         {
             var items = itemRepository_.GetAll();
             return ItemDto.ItemListToItemDtoList(items);
         }
 
-        public void AddNewItem(ItemDto item)
+        public void Add(ItemDto item)
         {
             itemRepository_.Add(ItemDto.ItemDtoToItem(item));
         }
 
-        public string DeleteItemByDto(ItemDto item)
+        public string Delete(ItemDto item)
         {
             return itemRepository_.Delete(ItemDto.ItemDtoToItem(item));
         }
 
-        public void UpdateItemByDto(ItemDto item)
+        public void Update(ItemDto item)
         {
             itemRepository_.Update(ItemDto.ItemDtoToItem(item));
         }

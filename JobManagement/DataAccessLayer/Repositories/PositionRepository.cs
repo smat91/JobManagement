@@ -28,7 +28,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Position> GetBySearchTerm(string searchTerm)
+        public new List<Position> GetBySearchTerm(string searchTerm)
         {
             List<Position> positionList = new List<Position>();
             Search search = new Search();
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
             return positionList;
         }
 
-        public List<Position> GetAll()
+        public new List<Position> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -65,7 +65,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Add(Position position)
+        public new void Add(Position position)
         {
             using (var context = new JobManagementContext())
             {
@@ -84,7 +84,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Update(Position position)
+        public new void Update(Position position)
         {
             using (var context = new JobManagementContext())
             {

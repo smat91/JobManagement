@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.Context;
+using DataAccessLayer.Interfaces.Helper;
 using DataAccessLayer.QueryTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories.HeplerRepositories
 {
-    public class StatisticsRepository
+    public class StatisticsRepository : IStatisticsRepository
     {
         public DataTable GetStatisticData()
         {

@@ -8,6 +8,7 @@ using System.Windows;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 using PresentationLayer.MVVM.ViewModel;
 
@@ -17,14 +18,14 @@ namespace PresentationLayer.MVVM.ViewModel
     {
         public EditCustomerViewModel() : base()
         {
-            Customer customer = new Customer();
+            Customer customer = new Customer(new CustomerRepository());
             var id = 0;
             
             Int32.TryParse(MainViewModel.SelectedId, out id);
 
             if (id > 0)
             {
-                var customerTemp = customer.GetCustomerByCustomerNumber(MainViewModel.SelectedId);
+                var customerTemp = customer.GetSingleById(MainViewModel.SelectedId);
                 CustomerNumber = customerTemp.CustomerNumber;
                 Firstname = customerTemp.Firstname;
                 Lastname = customerTemp.Lastname;
@@ -52,8 +53,8 @@ namespace PresentationLayer.MVVM.ViewModel
                 return;
             }
 
-            Customer customer = new Customer();
-            customer.UpdateCustomerByDto(customer_);
+            Customer customer = new Customer(new CustomerRepository());
+            customer.Update(customer_);
         }
     }
 }

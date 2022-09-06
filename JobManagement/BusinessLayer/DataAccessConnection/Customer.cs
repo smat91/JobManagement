@@ -1,57 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Repositories;
+using BusinessLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Customer
+    public class Customer : ICustomerConnection
     {
-        private readonly CustomerRepository customerRepository_;
+        private readonly ICustomerRepository customerRepository_;
 
-        public Customer()
+        public Customer(ICustomerRepository customerRepository)
         {
-            customerRepository_ = new CustomerRepository();
+            customerRepository_ = customerRepository;
         }
-        public CustomerDto GetCustomerByCustomerNumber(string customerNumber)
+
+        public CustomerDto GetSingleById(string customerNumber)
         {
             var customer = customerRepository_.GetSingleById(customerNumber);
             return new CustomerDto(customer);
         }
 
-        public List<CustomerDto> GetCustomersBySearchTerm(string searchTerm)
+        public List<CustomerDto> GetBySearchTerm(string searchTerm)
         {
             var customers = customerRepository_.GetBySearchTerm(searchTerm);
             return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
-        public List<CustomerDto> GetAllCustomers()
+        public List<CustomerDto> GetAll()
         {
             var customers = customerRepository_.GetAll();
             return CustomerDto.CustomerListToCustomerDtoList(customers);
         }
 
-        public void AddNewCustomer(CustomerDto customer)
+        public void Add(CustomerDto customer)
         {
             customerRepository_.Add(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
-        public string DeleteCustomerByDto(CustomerDto customer)
+        public string Delete(CustomerDto customer)
         {
             return customerRepository_.Delete(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
-        public void UpdateCustomerByDto(CustomerDto customer)
+        public void Update(CustomerDto customer)
         {
             customerRepository_.Update(CustomerDto.CustomerDtoToCustomer(customer));
         }
 
-        public void SetAddressByICustomerAndAddressDto (CustomerDto customer, AddressDto address)
+        public void SetAddressByCustomerDtoAndAddressDto (CustomerDto customer, AddressDto address)
         {
             customerRepository_.SetAddressByCustomerAndAddress(
                 CustomerDto.CustomerDtoToCustomer(customer),
                 AddressDto.AddressDtoToAddress(address));
         }
     }
-    
 }

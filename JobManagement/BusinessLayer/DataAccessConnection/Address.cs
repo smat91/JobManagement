@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.Repositories;
+using BusinessLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Address
+    public class Address : IAddressConnection
     {
-        private readonly AddressRepository addressRepository_;
+        private readonly IAddressRepository addressRepository_;
 
-        public Address()
+        public Address(IAddressRepository addressRepository)
         {
-            addressRepository_ = new AddressRepository();
+            addressRepository_ = addressRepository;
         }
 
-        public AddressDto GetAddressById(int id)
+        public AddressDto GetSingleById(int id)
         {
             var address = addressRepository_.GetSingleById(id);
             return new AddressDto(address);
         }
 
-        public List<AddressDto> GetAddressesBySearchTerm(string searchTerm)
+        public List<AddressDto> GetBySearchTerm(string searchTerm)
         {
             var addresses = addressRepository_.GetBySearchTerm(searchTerm);
             return AddressDto.AddressListToAddressDtoList(addresses);
         }
 
-        public List<AddressDto> GetAllAddresses()
+        public List<AddressDto> GetAll()
         {
             var addresses = addressRepository_.GetAll();
             return AddressDto.AddressListToAddressDtoList(addresses);
         }
 
-        public void AddNewAddress(AddressDto address)
+        public void Add(AddressDto address)
         {
             addressRepository_.Add(AddressDto.AddressDtoToAddress(address));
         }
 
-        public string DeleteAddressByDto(AddressDto address)
+        public string Delete(AddressDto address)
         {
             return addressRepository_.Delete(AddressDto.AddressDtoToAddress(address));
         }
 
-        public void UpdateAddressByDto(AddressDto address)
+        public void Update(AddressDto address)
         {
             addressRepository_.Update(AddressDto.AddressDtoToAddress(address));
         }

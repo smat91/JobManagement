@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.QueryTypes;
-using DataAccessLayer.Repositories.HeplerRepositories;
+using DataAccessLayer.Interfaces.Helper;
 
 namespace BusinessLayer.DataAccessConnection
 {
-    public class Invoice
+    public class Invoice : IInvoiceConnection
     {
-        private readonly InvoiceRepository invoiceRepository_;
+        private readonly IInvoiceRepository invoiceRepository_;
 
-        public Invoice()
+        public Invoice(IInvoiceRepository invoiceRepository)
         {
-            invoiceRepository_ = new InvoiceRepository();
+            invoiceRepository_ = invoiceRepository;
         }
 
         public List<InvoiceDto> GetInvoicesByFilterTerm(string filterTerm)

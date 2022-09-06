@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repositories.HeplerRepositories
+namespace DataAccessLayer.Interfaces.Helper
 {
     public interface IBaseRepository<M> where M : class
     {

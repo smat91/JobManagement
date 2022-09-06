@@ -6,6 +6,7 @@ using System.Windows.Automation;
 using BusinessLayer.DataAccessConnection;
 using BusinessLayer.DataTransferObjects;
 using Castle.Core.Internal;
+using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
 
 namespace PresentationLayer.MVVM.ViewModel
@@ -67,8 +68,8 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             get
             {
-                Item item = new Item();
-                return item.GetAllItems();
+                Item item = new Item(new ItemRepository());
+                return item.GetAll();
             }
             set
             {
@@ -135,11 +136,11 @@ namespace PresentationLayer.MVVM.ViewModel
             order_.Positions = new List<PositionDto>();
             Date = DateTime.Now;
 
-            Item item = new Item();
-            ItemList = item.GetAllItems();
+            Item item = new Item(new ItemRepository());
+            ItemList = item.GetAll();
 
-            Customer customer = new Customer();
-            CustomerList = customer.GetAllCustomers();
+            Customer customer = new Customer(new CustomerRepository());
+            CustomerList = customer.GetAll();
 
             SaveCommand = new RelayCommand(o => Save());
             CancelCommand = new RelayCommand(o => Cancel());
@@ -153,10 +154,10 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public virtual void Save()
         {
-            Order order = new Order();
+            Order order = new Order(new OrderRepository());
             if (DataCheck())
             {
-                order.AddNewOrder(order_);
+                order.Add(order_);
                 Cancel();
             }
             else

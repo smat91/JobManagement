@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Castle.Core.Internal;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
+using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories.HeplerRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class OrderRepository : BaseRepository<Order>
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
         public override string TableName => "Order";
 
@@ -33,7 +34,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public List<Order> GetBySearchTerm(string searchTerm)
+        public new List<Order> GetBySearchTerm(string searchTerm)
         {
             List<Order> orderList = new List<Order>();
             Search search = new Search();
@@ -56,7 +57,7 @@ namespace DataAccessLayer.Repositories
             return orderList;
         }
 
-        public List<Order> GetAll()
+        public new List<Order> GetAll()
         {
             using (var context = new JobManagementContext())
             {
@@ -76,7 +77,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Add(Order order)
+        public new void Add(Order order)
         {
             using (var context = new JobManagementContext())
             {
@@ -129,7 +130,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public string Delete(Order order)
+        public new string Delete(Order order)
         {
             order.Positions.Clear();
             Update(order);
@@ -151,7 +152,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public void Update(Order order)
+        public new void Update(Order order)
         {
             using (var context = new JobManagementContext())
             {
