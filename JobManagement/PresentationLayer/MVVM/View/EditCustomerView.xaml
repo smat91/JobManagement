@@ -171,18 +171,43 @@
                          Text="{Binding Path=EMail}"
 
                 />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40">
+                <Label Foreground="White"
+                   HorizontalContentAlignment="Center"
+                    Width="160"
+                    Content="Passwort"
+               />
+
+                <PasswordBox core:PasswordHelper.Attach="True" 
+                             core:PasswordHelper.Password="{Binding Path=Password, Mode=OneWayToSource}" 
+                             Width="232"
+                             Height="28"/>
 
                 <Label Foreground="White"
-                       HorizontalContentAlignment="Center"
-                       Width="160"
-                       Content="Passwort"
-                       HorizontalAlignment="Center"></Label>
+                   HorizontalContentAlignment="Center"
+                    Width="160"
+                    Content="Passwort widerholen"
+               />
 
-                <TextBox Width="232"
-                     Height="28"
-                     FontFamily="/Fonts/#Poppins"
-                     Text="{Binding Path=Password}"
-                />
+                <PasswordBox core:PasswordHelper.Attach="True" 
+                             core:PasswordHelper.Password="{Binding Path=PasswordRepeat, Mode=OneWayToSource}" 
+                             Width="232"
+                             Height="28"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                    Height="40">
+                <Label Foreground="White"
+                   HorizontalContentAlignment="Center"
+                    Width="160"
+                    Content="Altes Passwort"
+               />
+
+                <PasswordBox core:PasswordHelper.Attach="True" 
+                             core:PasswordHelper.Password="{Binding Path=PasswordOld, Mode=OneWayToSource}" 
+                             Width="232"
+                             Height="28"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
@@ -201,7 +226,7 @@
                 Height="37"
                 Width="70"
                 />
-           
+
         </StackPanel>
     </StackPanel>
 </UserControl>

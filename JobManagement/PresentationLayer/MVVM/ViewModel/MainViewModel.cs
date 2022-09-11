@@ -5,6 +5,7 @@ using BusinessLayer.DataAccessConnection;
 using BusinessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using PresentationLayer.Core;
+using PresentationLayer.MVVM.View;
 
 namespace PresentationLayer.MVVM.ViewModel
 {
@@ -72,7 +73,19 @@ namespace PresentationLayer.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+        public System.Windows.Visibility TopBarVisibility
+        {
+            get
+            {
+                return topBarVisibility_;
+            }
+            set
+            {
+                topBarVisibility_ = value;
+                OnPropertyChanged();
+            }
+        }
+
         public static int SelectedId
         {
             get
@@ -85,7 +98,9 @@ namespace PresentationLayer.MVVM.ViewModel
             }
         }
 
+
         private static string searchTerm_ = "";
+        private static System.Windows.Visibility topBarVisibility_ = Visibility.Hidden;
         private static int selectedId_;
         private object currentView_;
         private RadioButtonState radioButtonsState_;
@@ -167,30 +182,35 @@ namespace PresentationLayer.MVVM.ViewModel
             HomeViewCommand = new RelayCommand(o => 
             { 
                 CurrentView = HomeViewModel;
+                TopBarVisibility = Visibility.Hidden;
                 radioButtonsState_ = RadioButtonState.Home;
             });
 
             CustomerViewCommand = new RelayCommand(o =>
             {
                 CurrentView = CustomerViewModel;
+                TopBarVisibility = Visibility.Visible;
                 radioButtonsState_ = RadioButtonState.Customer;
             });
 
             ItemViewCommand = new RelayCommand(o =>
             {
                 CurrentView = ItemViewModel;
+                TopBarVisibility = Visibility.Visible;
                 radioButtonsState_ = RadioButtonState.Item;
             });
 
             ItemGroupViewCommand = new RelayCommand(o =>
             {
                 CurrentView = ItemGroupViewModel;
+                TopBarVisibility = Visibility.Visible;
                 radioButtonsState_ = RadioButtonState.ItemGroup;
             });
 
             OrderViewCommand = new RelayCommand(o =>
             {
                 CurrentView = OrderViewModel;
+                TopBarVisibility = Visibility.Visible;
                 radioButtonsState_ = RadioButtonState.Order;
             });
         }

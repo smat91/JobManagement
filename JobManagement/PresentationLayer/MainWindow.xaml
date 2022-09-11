@@ -6,7 +6,7 @@
         xmlns:core="clr-namespace:PresentationLayer.Core"
         xmlns:viewModel="clr-namespace:PresentationLayer.MVVM.ViewModel"
         mc:Ignorable="d"
-        Height="600" Width="920"
+        Height="600" Width="1020"
         ResizeMode="NoResize"
         Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled"
         DataContext="{core:DISource Type=viewModel:MainViewModel}">
@@ -34,14 +34,14 @@
 
 
             <TextBlock Text="Jobmanagement"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="22"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="22"
                        FontFamily="/Fonts/#Poppins"
-                   Foreground="White"
+                       Foreground="White"
                        Margin="0,0,0,0"/>
 
-            <StackPanel Grid.Row="1">
+            <StackPanel x:Name="SideBar" Grid.Row="1" Grid.Column="0">
                 <RadioButton Content="Home"
                              Height="50"
                              Foreground="White"
@@ -85,57 +85,51 @@
                 />
             </StackPanel>
 
-            <TextBox Width="231"
-                     Height="40"
-                     FontFamily="/Fonts/#Poppins"
-                     VerticalContentAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="284,18,0,17"
-                     Grid.Column="1"
-                     Text="{Binding SearchTerm}"
-                     Style="{StaticResource ModernTextbox}"
-                ></TextBox>
-            <Button Content="Neu"
-                             Command="{Binding Path=NewCommand}"
-                             Foreground="White"
-                             Background="Black"
-                             Opacity="0.4"
-                             FontSize="14"
-                             FontFamily="/Fonts/#Poppins"
-                             Grid.Column="1" 
-                             Margin="0,15,624,14"
-                             Style="{StaticResource RoundButton}"/>
-            <Button Content="Bearbeiten"
-                             Command="{Binding Path=EditCommand}"
-                             Foreground="White"
-                             Background="Black"
-                             Opacity="0.4"
-                             FontSize="14"
-                             FontFamily="/Fonts/#Poppins"
-                             Grid.Column="1" 
-                             Margin="101,15,524,14"
-                             Style="{StaticResource RoundButton}"/>
-            <Button Content="Löschen"
-                             Command="{Binding Path=DeleteCommand}"
-                             Foreground="White"
-                             Background="Black"
-                             Opacity="0.4"
-                             FontSize="14"
-                             FontFamily="/Fonts/#Poppins"
-                             Grid.Column="1" 
-                             Margin="201,15,424,14"
-                             Style="{StaticResource RoundButton}"/>
-            <Button Content="Suchen"
-                    Command="{Binding Path=SearchCommand}"
-                    Foreground="White"
-                    Background="Black"
-                    Opacity="0.4"
-                    FontSize="14"
-                    FontFamily="/Fonts/#Poppins"
-                    Grid.Column="1" 
-                    Margin="508,15,116,14"
-                    Style="{StaticResource RoundButton}"/>
+            <StackPanel x:Name="TopBar" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Visibility="{Binding Path=TopBarVisibility}">
+                <Button Content="Neu"
+                        Command="{Binding NewCommand}"
+                        Foreground="White"
+                        Background="Black"
+                        Opacity="0.4"
+                        FontSize="14"
+                        FontFamily="/Fonts/#Poppins"
+                        Style="{StaticResource RoundButton}" Margin="10,5,10,5" VerticalAlignment="Center" Height="40" Width="125"
+                />
+                <Button Content="Bearbeiten"
+                        Command="{Binding EditCommand}"
+                        Foreground="White"
+                        Background="Black"
+                        Opacity="0.4"
+                        FontSize="14"
+                        FontFamily="/Fonts/#Poppins"
+                        Style="{StaticResource RoundButton}" Margin="10,5,10,5" VerticalAlignment="Center" Height="40" Width="125"
+                />
+                <Button Content="Löschen"
+                        Command="{Binding DeleteCommand}"
+                        Foreground="White"
+                        Background="Black"
+                        Opacity="0.4"
+                        FontSize="14"
+                        FontFamily="/Fonts/#Poppins"
+                        Style="{StaticResource RoundButton}" Margin="10,5,10,5" VerticalAlignment="Center" Height="40" Width="125"
+                />
+                <TextBox FontFamily="/Fonts/#Poppins"
+                         VerticalContentAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Text="{Binding SearchTerm}"
+                         Style="{StaticResource ModernTextbox}" Margin="10,5,10,5" VerticalAlignment="Center" Height="40" Width="200"
+                />
+                <Button Content="Suchen"
+                        Command="{Binding SearchCommand}"
+                        Foreground="White"
+                        Background="Black"
+                        Opacity="0.4"
+                        FontSize="14"
+                        FontFamily="/Fonts/#Poppins"
+                        Style="{StaticResource RoundButton}" Margin="10,5,10,5" VerticalAlignment="Center" Height="40" Width="125"
+                />
 
+            </StackPanel>
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"

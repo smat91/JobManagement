@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -74,10 +75,23 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             get
             {
-                return customer_.Password;
+                return password_;
             } set
             {
-                customer_.Password = value;
+                password_ = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PasswordRepeat
+        {
+            get
+            {
+                return passwordRepeat_;
+            }
+            set
+            {
+                passwordRepeat_ = value;
                 OnPropertyChanged();
             }
         }
@@ -164,7 +178,9 @@ namespace PresentationLayer.MVVM.ViewModel
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancleCommand { get; set; }
         
-
+        private string password_ = "";
+        private string passwordRepeat_ = "";
+            
         public CustomerDto customer_;
 
         protected CustomerConnection customerConnection_;
@@ -182,14 +198,14 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             try
             {
-                CheckDataSet();
+                ProcessDataSet();
             } 
             catch (ArgumentException e)
             {
                 MessageBox.Show($"{e.Message}");
                 return;
             }
-
+            customer_.Password = password_;
             customerConnection_.Add(customer_);
             Cancel();
         }
@@ -201,6 +217,7 @@ namespace PresentationLayer.MVVM.ViewModel
             Lastname = "";
             EMail = "";
             Password = "";
+            PasswordRepeat = "";
             Website = "";
             Street = "";
             StreetNumber = "";
@@ -209,24 +226,27 @@ namespace PresentationLayer.MVVM.ViewModel
             Country = "";
         }
 
-        public void CheckDataSet()
+        protected void ProcessDataSet()
         {
             CheckDataCompleteness();
             CheckCustomerNumberFormat();
             CheckEmailFormat();
             CheckWebSiteUrlFormat();
             CheckPasswordFormat();
+            GeneratePasswordHash();
+            CheckPasswordEquality();
         }
 
-        public void CheckDataCompleteness()
+        protected void CheckDataCompleteness()
         {
             var allComplete = !customer_.Firstname.IsNullOrEmpty()
                    && !customer_.Lastname.IsNullOrEmpty()
                    && !customer_.EMail.IsNullOrEmpty()
                    && !customer_.Website.IsNullOrEmpty()
-                   && !customer_.Password.IsNullOrEmpty()
                    && !customer_.Address.Street.IsNullOrEmpty()
                    && !customer_.Address.StreetNumber.IsNullOrEmpty()
+                   && !Password.IsNullOrEmpty()
+                   && !PasswordRepeat.IsNullOrEmpty()
                    && !customer_.Address.Zip.IsNullOrEmpty()
                    && !customer_.Address.City.IsNullOrEmpty()
                    && !customer_.Address.Country.IsNullOrEmpty();
@@ -235,7 +255,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 throw new ArgumentException("Es wurden nicht alle notwendigen Felder ausgefüllt!");
         }
 
-        public void CheckCustomerNumberFormat()
+        protected void CheckCustomerNumberFormat()
         {
             Regex regex = new Regex(@"^CU[0-9]{5}$");
 
@@ -245,7 +265,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 throw new ArgumentException("Ungültige Kundennummer erkannt!");
         }
 
-        public void CheckEmailFormat()
+        protected void CheckEmailFormat()
         {
             Regex regex = new Regex(@"^([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)$");
 
@@ -255,7 +275,7 @@ namespace PresentationLayer.MVVM.ViewModel
                 throw new ArgumentException("Ungültige Emailadresse erkannt!");
         }
 
-        public void CheckWebSiteUrlFormat()
+        protected void CheckWebSiteUrlFormat()
         {
             Regex regex = new Regex(@"^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$");
 
@@ -265,14 +285,40 @@ namespace PresentationLayer.MVVM.ViewModel
                 throw new ArgumentException("Ungültige Webseiten Url erkannt!");
         }
 
-        public void CheckPasswordFormat()
+        protected void CheckPasswordFormat()
         {
             Regex regex = new Regex(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\W).{8,}$");
 
-            var password = customer_.Password;
+            var password = Password;
 
             if (!regex.Match(password).Success)
                 throw new ArgumentException("Ungültiges Passwort erkannt!");
+        }
+
+        protected void GeneratePasswordHash() {
+            password_ = GetHashString(password_);
+            passwordRepeat_ = GetHashString(passwordRepeat_);
+        }
+
+        protected void CheckPasswordEquality()
+        {
+            if (password_ != passwordRepeat_)
+                throw new ArgumentException("Passwörter stimmen nicht überein!");
+        }
+
+        protected static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        protected static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
     }
 }
