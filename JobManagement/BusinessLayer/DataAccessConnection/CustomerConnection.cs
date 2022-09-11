@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Interfaces;
 using DataAccessLayer.Interfaces;
+using Microsoft.VisualBasic.FileIO;
 
 namespace BusinessLayer.DataAccessConnection
 {
@@ -53,6 +54,16 @@ namespace BusinessLayer.DataAccessConnection
             customerRepository_.SetAddressByCustomerAndAddress(
                 CustomerDto.CustomerDtoToCustomer(customer),
                 AddressDto.AddressDtoToAddress(address));
+        }
+
+        public void ImportCustomers(string filePath, string fileType)
+        {
+            customerRepository_.ImportCustomers(filePath, fileType);
+        }
+
+        public void ExportCustomers(string filePath, string fileType, DateTime date)
+        {
+            customerRepository_.ExportCustomers(filePath, fileType, date);
         }
     }
 }

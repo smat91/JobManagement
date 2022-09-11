@@ -12,5 +12,8 @@ namespace BusinessLayer.Interfaces
     public interface ICustomerConnection : IBaseConnection<CustomerDto>
     {
         void SetAddressByCustomerDtoAndAddressDto(CustomerDto customer, AddressDto address);
+        void ImportCustomers(string filePath, string fileType);
+        void ExportCustomers(string filePath, string fileType, DateTime date);
+
     }
 }
