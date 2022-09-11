@@ -20,10 +20,8 @@ namespace DataAccessLayer.Models
         [Required]
         public string Zip { get; set; }
 
-        [Required]
         public string Country { get; set; }
 
-        [Required]
         public string City { get; set; }
     }
 }

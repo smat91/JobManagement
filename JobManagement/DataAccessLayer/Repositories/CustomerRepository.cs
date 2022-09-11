@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
 using DataAccessLayer.Interfaces;
@@ -53,6 +56,22 @@ namespace DataAccessLayer.Repositories
                 List<Customer> customerList = new List<Customer>();
                     
                 context.Customers
+                    .Include(customer => customer.Address)
+                    .ToList()
+                    .ForEach(customer => customerList.Add(customer));
+
+                return customerList;
+            }
+        }
+
+        public new List<Customer> GetAll(DateTime date)
+        {
+            using (var context = new JobManagementContext())
+            {
+                List<Customer> customerList = new List<Customer>();
+
+                context.Customers
+                    .TemporalAsOf(date)
                     .Include(customer => customer.Address)
                     .ToList()
                     .ForEach(customer => customerList.Add(customer));
@@ -117,6 +136,64 @@ namespace DataAccessLayer.Repositories
                 context.Customers.Update(customerTemp);
                 context.SaveChanges();
             }
+        }
+
+        public void ImportCustomers(string filePath, string fileType)
+        {
+            List<Customer> customers = new List<Customer>();
+
+            if (fileType == "json")
+            {
+                customers = JsonToCutomerList(File.ReadAllText(filePath));
+            }
+
+            foreach (var customer in customers) {
+                var customerSearch = GetBySearchTerm(customer.CustomerNumber).FirstOrDefault();
+
+                if (customerSearch == null)
+                {
+                    Add(customer);
+                }
+                else {
+                    customer.Id = customerSearch.Id;
+                    customer.Address.Country = customerSearch.Address.Country;
+                    customer.Address.City = customerSearch.Address.City;
+                    Update(customer);
+                }
+            }
+        }
+
+        public void ExportCustomers(string filePath, string fileType, DateTime date)
+        {
+            var customerList = GetAll(date);
+
+
+            if (fileType == "json")
+            {
+                File.WriteAllText(filePath,CutomerListToJson(customerList));
+            }
+
+        }
+
+        private List<Customer> JsonToCutomerList(string reader)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters = { new CustomerToJsonConverter() }
+            };
+
+            return JsonSerializer.Deserialize<List<Customer>>(reader, options);
+        }
+
+        private string CutomerListToJson(List<Customer> customerList) 
+        {
+            var options = new JsonSerializerOptions { 
+                WriteIndented = true,
+                Converters = {new CustomerToJsonConverter() }
+            };
+
+            return JsonSerializer.Serialize(customerList, options);
         }
     }
 }

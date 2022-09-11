@@ -58,7 +58,7 @@ namespace PresentationLayer.MVVM.ViewModel
 
         public CustomerViewModel(CustomerConnection customerConnection)
         {
-            date_ = DateTime.Today;
+            date_ = DateTime.Now;
 
             MainViewModel.ReloadCustomerView = ReloadData;
             CustomerDtoTable = new DataTable();
@@ -149,6 +149,8 @@ namespace PresentationLayer.MVVM.ViewModel
                         MessageBox.Show($"Import fehlgeschlagen!\n{ex.Message}");
                         throw;
                     }
+                    ReloadData();
+                    MessageBox.Show($"Import abgeschlossen!");
                 }    
             }
         }
@@ -157,18 +159,23 @@ namespace PresentationLayer.MVVM.ViewModel
         {
             var fileType = type;
             var filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            filePath += $"customers_export_{date_.ToString("ddMMyyyy")}.{fileType}";
-            customerConnection_.ExportCustomers(filePath, fileType, date_);
+            var date = date_.AddHours(23);
+            date = date.AddMinutes(59);
+            date = date.AddSeconds(59);
+
+            filePath += $"//customers_export_{date.ToString("ddMMyyyy_HHmmss")}.{fileType}";
 
             try
             {
-                customerConnection_.ExportCustomers(filePath, fileType, date_);
+
+                customerConnection_.ExportCustomers(filePath, fileType, date);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Export fehlgeschlagen!\n{ex.Message}");
                 throw;
             }
+            MessageBox.Show($"Export abgeschlossen!");
         }
     }
 }

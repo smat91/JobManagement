@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Helper
@@ -37,7 +38,10 @@ namespace DataAccessLayer.Helper
                     var test = property.GetValue(obj).GetType().GetProperties();
                     foreach (var subProperty in test)
                     {
-                        result |= subProperty.GetValue(property.GetValue(obj)).ToString().Contains(term, StringComparison.OrdinalIgnoreCase);
+                        var value = subProperty.GetValue(property.GetValue(obj));
+                        if (value != null) {
+                            result |= value.ToString().Contains(term, StringComparison.OrdinalIgnoreCase);
+                        }
                     }
                 }
                 else

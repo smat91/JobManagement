@@ -11,6 +11,9 @@ namespace DataAccessLayer.Interfaces
     public interface ICustomerRepository : IBaseRepository<Customer>
     {
         Customer GetSingleById(int id);
+        List<Customer> GetAll(DateTime date);
         void SetAddressByCustomerAndAddress(Customer customer, Address address);
+        void ImportCustomers(string filePath, string fileType);
+        void ExportCustomers(string filePath, string fileType, DateTime date);
     }
 }

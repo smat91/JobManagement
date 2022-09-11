@@ -104,9 +104,7 @@ namespace PresentationLayer.MVVM.ViewModel
                    && !customer_.Website.IsNullOrEmpty()
                    && !customer_.Address.Street.IsNullOrEmpty()
                    && !customer_.Address.StreetNumber.IsNullOrEmpty()
-                   && !customer_.Address.Zip.IsNullOrEmpty()
-                   && !customer_.Address.City.IsNullOrEmpty()
-                   && !customer_.Address.Country.IsNullOrEmpty();
+                   && !customer_.Address.Zip.IsNullOrEmpty();
 
             if (!allComplete)
                 throw new ArgumentException("Es wurden nicht alle notwendigen Felder ausgefüllt!");
