@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Helper
 {
-    public class CustomerToJsonConverter : JsonConverter<Customer>
+    public class CustomerJsonConverter : JsonConverter<Customer>
     {
         public override Customer? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

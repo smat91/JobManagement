@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using Castle.Core.Internal;
 using DataAccessLayer.Context;
 using DataAccessLayer.Helper;
@@ -147,6 +149,10 @@ namespace DataAccessLayer.Repositories
                 customers = JsonToCutomerList(File.ReadAllText(filePath));
             }
 
+            if (fileType == "xml") {
+                customers = XmlToCutomerList(filePath);
+            }
+
             foreach (var customer in customers) {
                 var customerSearch = GetBySearchTerm(customer.CustomerNumber).FirstOrDefault();
 
@@ -170,9 +176,13 @@ namespace DataAccessLayer.Repositories
 
             if (fileType == "json")
             {
-                File.WriteAllText(filePath,CutomerListToJson(customerList));
+                File.WriteAllText(filePath, CutomerListToJson(customerList));
             }
 
+            if (fileType == "xml")
+            {
+                CutomerListToXmL(customerList).Save(filePath);
+            }
         }
 
         private List<Customer> JsonToCutomerList(string reader)
@@ -180,7 +190,7 @@ namespace DataAccessLayer.Repositories
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                Converters = { new CustomerToJsonConverter() }
+                Converters = { new CustomerJsonConverter() }
             };
 
             return JsonSerializer.Deserialize<List<Customer>>(reader, options);
@@ -190,10 +200,27 @@ namespace DataAccessLayer.Repositories
         {
             var options = new JsonSerializerOptions { 
                 WriteIndented = true,
-                Converters = {new CustomerToJsonConverter() }
+                Converters = {new CustomerJsonConverter() }
             };
 
             return JsonSerializer.Serialize(customerList, options);
+        }
+
+        private List<Customer> XmlToCutomerList(string filePath)
+        {
+            var xDocument = XDocument.Load(filePath);
+            var converter = new CustomerXmlConverter();
+            var customers = converter.XDocumentToCustomerList(xDocument);
+
+            return customers;
+        }
+
+        private XDocument CutomerListToXmL(List<Customer> customerList)
+        {
+            var converter = new CustomerXmlConverter();
+            var customerXml = converter.CustomerListToXDocument(customerList);
+
+            return customerXml;
         }
     }
 }
