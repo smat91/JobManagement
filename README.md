@@ -1,6 +1,7 @@
 # Semesterprojekt: JobManager
 ### Autor des Projekts: Thomas Kehl
 <b>Abgabedatum Teil 1: bis zum 2. März 2021, 23:55</b>
+
 <b>Abgabedatum Teil 2: bis zum 23. September 2022, 23:55</b>
 
 ____________________________________________________________________________________________________________
@@ -10,6 +11,7 @@ ________________________________________________________________________________
 <b>Von der Klasse IT-A 20H-23H</b>
 
 Teil 1: Bill Eberhard | Matthias Stieger | Milad Fakiry
+
 Teil 2: Matthias Stieger | Milad Fakiry
 
 ### Aufgabenstellung Ausgangslage:
