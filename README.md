@@ -36,3 +36,17 @@ Dokumentation sowie die konkrete Umsetzung bilden die Basis für das Bestehen de
 Zusätzlich wird die Projektarbeit als Teil der Modul-/Diplomprüfung bewertet.
 
 Quelle: Projektarbeit "Auftragsverwaltung", Aufgabenstellung (2021, Version 1.0). 
+
+____________________________________________________________________________________________________________
+
+### Stand Teilaufgaben Teil 2:
+|Teilaufgabe|Umsetzung|
+|-|-|
+|Validierung der Kundendaten (RegEx)|umgesetzt :tada: |
+|Export von Kundendaten (Serialization)|umgesetzt :tada: |
+|Repository Pattern (Generics)|umgesetzt :tada: |
+|Dependency Injection (IoC)|umgesetzt :tada: |
+|Git-Tag|umgesetzt :tada: |
+|Abgabetermin|umgesetzt :tada: |
+|Code-Coverage|nicht umgesetzt :bug: |
+|Dokumentation|nicht umgesetzt :bug: |
